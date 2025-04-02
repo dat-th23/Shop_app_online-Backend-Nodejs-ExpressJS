@@ -1,0 +1,12 @@
+services:
+  mysql:
+    #image: mysql:latest # for mac intel, windows
+    image: arm64v8/mysql:9.0.1
+    container_name: mysql_container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "" #blank password
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: "shop_app_online"
+    ports:
+      - "3309:3306"

@@ -1,0 +1,160 @@
+{
+	"info": {
+		"_postman_id": "7a0a422a-80ec-4cf2-9e9d-3e1e0c718b5c",
+		"name": "Shop app online",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30477065"
+	},
+	"item": [
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "api/products",
+					"request": { "method": "GET", "url": "{{API_01}}/api/products" },
+					"response": []
+				},
+				{
+					"name": "api/products/:id",
+					"request": { "method": "GET", "url": "{{API_01}}/api/products/:id" },
+					"response": []
+				},
+				{
+					"name": "api/products",
+					"request": { "method": "POST", "url": "{{API_01}}/api/products" },
+					"response": []
+				},
+				{
+					"name": "api/products/:id",
+					"request": { "method": "PUT", "url": "{{API_01}}/api/products/:id" },
+					"response": []
+				},
+				{
+					"name": "api/products/:id",
+					"request": { "method": "DELETE", "url": "{{API_01}}/api/products/:id" },
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "categories",
+			"item": [
+				{
+					"name": "api/categories",
+					"request": { "method": "GET", "url": "{{API_01}}/api/categories" },
+					"response": []
+				},
+				{
+					"name": "api/categories/:id",
+					"request": { "method": "GET", "url": "{{API_01}}/api/categories/:id" },
+					"response": []
+				},
+				{
+					"name": "api/categories",
+					"request": { "method": "POST", "url": "{{API_01}}/api/categories" },
+					"response": []
+				},
+				{
+					"name": "api/categories/:id",
+					"request": { "method": "PUT", "url": "{{API_01}}/api/categories/:id" },
+					"response": []
+				},
+				{
+					"name": "api/categories/:id",
+					"request": { "method": "DELETE", "url": "{{API_01}}/api/categories/:id" },
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "orders",
+			"item": [
+				{
+					"name": "api/orders",
+					"request": { "method": "GET", "url": "{{API_01}}/api/orders" },
+					"response": []
+				},
+				{
+					"name": "api/orders/:id",
+					"request": { "method": "GET", "url": "{{API_01}}/api/orders/:id" },
+					"response": []
+				},
+				{
+					"name": "api/orders",
+					"request": { "method": "POST", "url": "{{API_01}}/api/orders" },
+					"response": []
+				},
+				{
+					"name": "api/orders/:id",
+					"request": { "method": "PUT", "url": "{{API_01}}/api/orders/:id" },
+					"response": []
+				},
+				{
+					"name": "api/orders/:id",
+					"request": { "method": "DELETE", "url": "{{API_01}}/api/orders/:id" },
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "orderDetails",
+			"item": [
+				{
+					"name": "api/order-details",
+					"request": { "method": "GET", "url": "{{API_01}}/api/order-details" },
+					"response": []
+				},
+				{
+					"name": "api/order-details/:id",
+					"request": { "method": "GET", "url": "{{API_01}}/api/order-details/:id" },
+					"response": []
+				},
+				{
+					"name": "api/order-details",
+					"request": { "method": "POST", "url": "{{API_01}}/api/order-details" },
+					"response": []
+				},
+				{
+					"name": "api/order-details/:id",
+					"request": { "method": "PUT", "url": "{{API_01}}/api/order-details/:id" },
+					"response": []
+				},
+				{
+					"name": "api/order-details/:id",
+					"request": { "method": "DELETE", "url": "{{API_01}}/api/order-details/:id" },
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "brands",
+			"item": [
+				{
+					"name": "api/brands",
+					"request": { "method": "GET", "url": "{{API_01}}/api/brands" },
+					"response": []
+				},
+				{
+					"name": "api/brands/:id",
+					"request": { "method": "GET", "url": "{{API_01}}/api/brands/:id" },
+					"response": []
+				},
+				{
+					"name": "api/brands",
+					"request": { "method": "POST", "url": "{{API_01}}/api/brands" },
+					"response": []
+				},
+				{
+					"name": "api/brands/:id",
+					"request": { "method": "PUT", "url": "{{API_01}}/api/brands/:id" },
+					"response": []
+				},
+				{
+					"name": "api/brands/:id",
+					"request": { "method": "DELETE", "url": "{{API_01}}/api/brands/:id" },
+					"response": []
+				}
+			]
+		}
+	]
+}
