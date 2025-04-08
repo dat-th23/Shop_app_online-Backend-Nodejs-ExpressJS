@@ -1,12 +1,40 @@
-import { Sequelize } from "sequelize"
+import { Op, Sequelize, where } from "sequelize"
 import db from "../models"
-import InsertProductRequest from "../dtos/requests/InsertProductRequest"
 
 export async function getAllProducts(req, res) {
-    const products = await db.Product.findAll()
+    const { page = 1, limit = 10, search = '' } = req.query
+    const offset = (page - 1) * limit
+
+    const whereCondition = {
+        [Op.or]: [
+            { name: { [Op.like]: `%${search}%` } },
+            { description: { [Op.like]: `%${search}%` } },
+            { specification: { [Op.like]: `%${search}%` } },
+        ]
+    }
+
+    const [total, products] = await Promise.all([
+        db.Product.count({ where: whereCondition }),
+        db.Product.findAll({
+            where: whereCondition,
+            include: ['Brand', 'Category'],
+            offset: parseInt(offset),
+            limit: parseInt(limit),
+            order: [['id', 'ASC']],
+
+        })
+    ])
+
     res.status(200).json({
+        success: true,
         message: 'Get product list successfully',
-        data: products
+        data: products,
+        count: products.length,
+        pagination: {
+            total: total,
+            page: parseInt(page),
+            limit: parseInt(limit),
+        }
     })
 }
 
@@ -22,6 +50,7 @@ export async function getProductById(req, res) {
         })
     }
     res.status(200).json({
+        success: true,
         message: 'Get product by id successfully',
         data: product,
     })
@@ -37,12 +66,14 @@ export async function createProduct(req, res) {
 
 export async function deleteProduct(req, res) {
     res.status(200).json({
+        success: true,
         message: 'Deleted product list successfully'
     })
 }
 
 export async function updateProduct(req, res) {
     res.status(200).json({
+        success: true,
         message: 'Updated product list successfully'
     })
 }

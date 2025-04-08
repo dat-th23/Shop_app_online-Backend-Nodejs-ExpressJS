@@ -1,0 +1,188 @@
+SIMPLE DATA PRODUCT TABLE 
+
+[
+  {
+    "name": "iPhone 14 Pro Max",
+    "image": "https://example.com/images/iphone14pro.jpg",
+    "price": 1199,
+    "oldprice": 1299,
+    "description": "Apple flagship smartphone with A16 Bionic chip.",
+    "specification": "6.7-inch OLED, 128GB, 6GB RAM, iOS",
+    "buyturn": 350,
+    "quantity": 50,
+    "brand_id": 1, // apple
+    "category_id": 2 // Điện thoại
+  },
+  {
+    "name": "Samsung Galaxy S23 Ultra",
+    "image": "https://example.com/images/s23ultra.jpg",
+    "price": 1099,
+    "oldprice": 1199,
+    "description": "Samsung's latest Android phone with 200MP camera.",
+    "specification": "6.8-inch AMOLED, 256GB, 12GB RAM, Android 13",
+    "buyturn": 280,
+    "quantity": 60,
+    "brand_id": 2, // Samsung
+    "category_id": 2 // Điện thoại
+  },
+  {
+    "name": "Xiaomi Mi 13",
+    "image": "https://example.com/images/mi13.jpg",
+    "price": 699,
+    "oldprice": 799,
+    "description": "Affordable flagship with Snapdragon 8 Gen 2.",
+    "specification": "6.36-inch AMOLED, 256GB, 8GB RAM",
+    "buyturn": 150,
+    "quantity": 70,
+    "brand_id": 6, // Xiaomi
+    "category_id": 2 // Điện thoại
+  },
+  {
+    "name": "MacBook Air M2",
+    "image": "https://example.com/images/macbookair.jpg",
+    "price": 999,
+    "oldprice": 1099,
+    "description": "Apple laptop powered by M2 chip.",
+    "specification": "13.6-inch Retina, 256GB SSD, 8GB RAM, macOS",
+    "buyturn": 200,
+    "quantity": 40,
+    "brand_id": 1, // Apple
+    "category_id": 6 // Laptop
+  },
+  {
+    "name": "Dell XPS 13",
+    "image": "https://example.com/images/dellxps.jpg",
+    "price": 1199,
+    "oldprice": 1299,
+    "description": "Premium ultrabook with InfinityEdge display.",
+    "specification": "13.4-inch FHD+, 512GB SSD, 16GB RAM, Windows 11",
+    "buyturn": 180,
+    "quantity": 30,
+    "brand_id": 5, // Dell
+    "category_id": 6 // Laptop
+  },
+  {
+    "name": "HP Spectre x360",
+    "image": "https://example.com/images/hpspectre.jpg",
+    "price": 1099,
+    "oldprice": 1199,
+    "description": "Convertible laptop with touchscreen.",
+    "specification": "13.5-inch OLED, 512GB SSD, 16GB RAM",
+    "buyturn": 140,
+    "quantity": 25,
+    "brand_id": 7, // HP
+    "category_id": 6 // Laptop
+  },
+  {
+    "name": "Sony WH-1000XM5",
+    "image": "https://example.com/images/sonyheadphones.jpg",
+    "price": 399,
+    "oldprice": 449,
+    "description": "Industry-leading noise canceling headphones.",
+    "specification": "Bluetooth, 30-hour battery, Noise Canceling",
+    "buyturn": 320,
+    "quantity": 80,
+    "brand_id": 3, // Sony
+    "category_id": 7 // Tai nghe
+  },
+  {
+    "name": "Bose QuietComfort 45",
+    "image": "https://example.com/images/boseqc45.jpg",
+    "price": 329,
+    "oldprice": 379,
+    "description": "Comfortable and balanced audio with ANC.",
+    "specification": "Wireless, 24-hour battery, ANC",
+    "buyturn": 290,
+    "quantity": 70,
+    "brand_id": 8, // Bose
+    "category_id": 7 // Tai nghe
+  },
+  {
+    "name": "Apple Watch Series 8",
+    "image": "https://example.com/images/applewatch8.jpg",
+    "price": 499,
+    "oldprice": 549,
+    "description": "Advanced health tracking smartwatch.",
+    "specification": "GPS, ECG, Heart rate, 41mm, watchOS",
+    "buyturn": 310,
+    "quantity": 90,
+    "brand_id": 1, // Apple
+    "category_id": 8 // Đông hồ 
+  },
+  {
+    "name": "Samsung Galaxy Watch 5",
+    "image": "https://example.com/images/galaxywatch5.jpg",
+    "price": 299,
+    "oldprice": 349,
+    "description": "Smartwatch with bioactive sensors.",
+    "specification": "Bluetooth, AMOLED, 44mm, Wear OS",
+    "buyturn": 170,
+    "quantity": 85,
+    "brand_id": 2, // Samsung
+    "category_id": 8 // Đông hồ 
+  },
+  {
+    "name": "Logitech MX Master 3",
+    "image": "https://example.com/images/mxmaster3.jpg",
+    "price": 99,
+    "oldprice": 120,
+    "description": "Ergonomic wireless mouse for professionals.",
+    "specification": "USB-C, Bluetooth, Multi-device",
+    "buyturn": 230,
+    "quantity": 100,
+    "brand_id": 9, // Logitech
+    "category_id": 9 // Chuột
+  },
+  {
+    "name": "Razer DeathAdder V2",
+    "image": "https://example.com/images/deathadderv2.jpg",
+    "price": 69,
+    "oldprice": 89,
+    "description": "High-performance gaming mouse.",
+    "specification": "Wired, Optical Sensor, 20K DPI",
+    "buyturn": 260,
+    "quantity": 95,
+    "brand_id": 10, // Razer
+    "category_id": 9 // Chuột
+  },
+  {
+    "name": "Canon EOS R10",
+    "image": "https://example.com/images/canonr10.jpg",
+    "price": 979,
+    "oldprice": 1049,
+    "description": "Compact mirrorless camera for creators.",
+    "specification": "24MP APS-C, 4K60 Video, Dual Pixel AF",
+    "buyturn": 60,
+    "quantity": 15,
+    "brand_id": 4, // Canon
+    "category_id": 5 // Máy ảnh
+  },
+  {
+    "name": "Nikon Z50",
+    "image": "https://example.com/images/nikonz50.jpg",
+    "price": 999,
+    "oldprice": 1099,
+    "description": "Entry-level mirrorless camera.",
+    "specification": "20.9MP, 4K UHD, Flip-down touchscreen",
+    "buyturn": 55,
+    "quantity": 10,
+    "brand_id": 11, // Nikon
+    "category_id": 5 // Máy ảnh
+  },
+  {
+    "name": "DJI Mini 3 Pro",
+    "image": "https://example.com/images/djimini3.jpg",
+    "price": 759,
+    "oldprice": 849,
+    "description": "Lightweight drone with 4K camera.",
+    "specification": "4K HDR, 34min Flight, Obstacle Avoidance",
+    "buyturn": 120,
+    "quantity": 20,
+    "brand_id": 12, // DJI
+    "category_id": 5 // Máy ảnh
+  }
+]
+
+SIMPLE DATA CATEGORY TABLE 
+
+SIMPLE DATA BRAND TABLE 
