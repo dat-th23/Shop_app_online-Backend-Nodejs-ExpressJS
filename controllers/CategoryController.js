@@ -1,12 +1,36 @@
-import { Sequelize } from "sequelize"
+import { Op, Sequelize } from "sequelize"
 import db from "../models"
 
 export async function getAllCategories(req, res) {
-    const categories = await db.Category.findAll()
+    const { page = 1, limit = 10, search = '' } = req.query
+    const offset = (page - 1) * limit
+
+    const whereCondition = {
+        [Op.or]: [
+            { name: { [Op.like]: `%${search}%` } },
+        ]
+    }
+
+    const [total, categories] = await Promise.all([
+        db.Category.count({ where: whereCondition }),
+        db.Category.findAll({
+            where: whereCondition,
+            offset: parseInt(offset),
+            limit: parseInt(limit),
+            order: [['id', 'ASC']],
+        })
+    ])
+
     res.status(200).json({
         success: true,
         message: 'Get category list successfully',
-        data: categories
+        data: categories,
+        count: categories.length,
+        pagination: {
+            total: total,
+            page: parseInt(page),
+            limit: parseInt(limit),
+        }
     })
 }
 

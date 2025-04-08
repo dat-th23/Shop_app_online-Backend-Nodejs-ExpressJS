@@ -21,7 +21,6 @@ export async function getAllProducts(req, res) {
             offset: parseInt(offset),
             limit: parseInt(limit),
             order: [['id', 'ASC']],
-
         })
     ])
 

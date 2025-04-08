@@ -1,12 +1,36 @@
-import { Sequelize } from "sequelize"
+import { Op, Sequelize } from "sequelize"
 import db from "../models"
 
 export async function getAllBrands(req, res) {
-    const brands = await db.Brand.findAll()
+    const { page = 1, limit = 10, search = '' } = req.query
+    const offset = (page - 1) * limit
+
+    const whereCondition = {
+        [Op.or]: [
+            { name: { [Op.like]: `%${search}%` } },
+        ]
+    }
+
+    const [total, brands] = await Promise.all([
+        db.Brand.count({ where: whereCondition }),
+        db.Brand.findAll({
+            where: whereCondition,
+            offset: parseInt(offset),
+            limit: parseInt(limit),
+            order: [['id', 'ASC']],
+        })
+    ])
+
     res.status(200).json({
         success: true,
         message: 'Get brand list successfully',
-        data: brands
+        data: brands,
+        count: brands.length,
+        pagination: {
+            total: total,
+            page: parseInt(page),
+            limit: parseInt(limit),
+        }
     })
 }
 
