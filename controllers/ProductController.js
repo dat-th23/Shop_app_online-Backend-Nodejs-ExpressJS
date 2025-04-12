@@ -64,15 +64,29 @@ export async function createProduct(req, res) {
 }
 
 export async function deleteProduct(req, res) {
+    const { id } = req.params
+    const deleted = await db.Product.destroy({ where: { id } })
+    if (!deleted) {
+        return res.status(404).json({
+            message: 'Not Found!',
+        })
+    }
     res.status(200).json({
         success: true,
-        message: 'Deleted product list successfully'
+        message: 'Deleted product successfully',
     })
 }
 
 export async function updateProduct(req, res) {
+    const { id } = req.params
+    const updateProduct = await db.Product.update(req.body, { where: { id } })
+    if (updateProduct[0] === 0) {
+        return res.status(404).json({
+            message: 'Not Found!',
+        })
+    }
     res.status(200).json({
         success: true,
-        message: 'Updated product list successfully'
+        message: 'Updated product successfully',
     })
 }
