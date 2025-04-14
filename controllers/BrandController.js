@@ -59,17 +59,37 @@ export async function createBrand(req, res) {
         data: brand,
     })
 }
-
 export async function deleteBrand(req, res) {
+    const { id } = req.params;
+    const deleted = await db.Brand.destroy({ where: { id } });
+
+    if (!deleted) {
+        return res.status(404).json({
+            message: 'Not Found!',
+        });
+    }
+
     res.status(200).json({
         success: true,
-        message: 'Deleted brand successfully'
-    })
+        message: 'Deleted brand successfully',
+    });
 }
 
 export async function updateBrand(req, res) {
+    const { id } = req.params;
+
+    const [affectedRows] = await db.Brand.update(req.body, { where: { id } });
+
+    if (affectedRows === 0) {
+        return res.status(404).json({ message: 'Not Found!' });
+    }
+
+    const updatedBrand = await db.Brand.findByPk(id);
+
     res.status(200).json({
         success: true,
-        message: 'Updated brand successfully'
-    })
+        message: 'Updated brand successfully',
+        data: updatedBrand,
+    });
 }
+

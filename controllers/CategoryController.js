@@ -59,17 +59,37 @@ export async function createCategory(req, res) {
         data: category,
     })
 }
-
 export async function deleteCategory(req, res) {
+    const { id } = req.params;
+    const deleted = await db.Category.destroy({ where: { id } });
+
+    if (!deleted) {
+        return res.status(404).json({
+            message: 'Not Found!',
+        });
+    }
+
     res.status(200).json({
         success: true,
-        message: 'Deleted category successfully'
-    })
+        message: 'Deleted category successfully',
+    });
 }
 
 export async function updateCategory(req, res) {
+    const { id } = req.params;
+
+    const [affectedRows] = await db.Category.update(req.body, { where: { id } });
+
+    if (affectedRows === 0) {
+        return res.status(404).json({ message: 'Not Found!' });
+    }
+
+    const updatedCategory = await db.Category.findByPk(id);
+
     res.status(200).json({
         success: true,
-        message: 'Updated category successfully'
-    })
+        message: 'Updated category successfully',
+        data: updatedCategory,
+    });
 }
+

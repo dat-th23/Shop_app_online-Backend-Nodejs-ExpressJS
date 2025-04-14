@@ -76,17 +76,20 @@ export async function deleteProduct(req, res) {
         message: 'Deleted product successfully',
     })
 }
-
 export async function updateProduct(req, res) {
-    const { id } = req.params
-    const updateProduct = await db.Product.update(req.body, { where: { id } })
-    if (updateProduct[0] === 0) {
-        return res.status(404).json({
-            message: 'Not Found!',
-        })
+    const { id } = req.params;
+
+    const [affectedRows] = await db.Product.update(req.body, { where: { id } });
+
+    if (affectedRows === 0) {
+        return res.status(404).json({ message: 'Not Found!' });
     }
+
+    const updatedProduct = await db.Product.findByPk(id);
+
     res.status(200).json({
         success: true,
         message: 'Updated product successfully',
-    })
+        data: updatedProduct,
+    });
 }
