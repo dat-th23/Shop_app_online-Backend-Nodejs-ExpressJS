@@ -1,4 +1,4 @@
-import { Op, Sequelize, where } from "sequelize"
+import { Op } from "sequelize"
 import db from "../models"
 
 export async function getAllProducts(req, res) {
@@ -58,6 +58,7 @@ export async function getProductById(req, res) {
 export async function createProduct(req, res) {
     const product = await db.Product.create(req.body)
     res.status(201).json({
+        success: true,
         message: 'Created product list successfully',
         data: product,
     })
@@ -76,6 +77,7 @@ export async function deleteProduct(req, res) {
         message: 'Deleted product successfully',
     })
 }
+
 export async function updateProduct(req, res) {
     const { id } = req.params;
 
