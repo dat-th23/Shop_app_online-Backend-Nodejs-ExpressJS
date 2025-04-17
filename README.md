@@ -7,3 +7,4 @@
 - Add `Sequelize-CLI`, Tool for automating migrations, model creation, and database management.`yarn add sequelize-cli`.
 - Add `express`, `dotenv`, `babel-node`.
 - Add `joi`, `morgan`, `nodemon`.
+- Add `Argon2` - hashed password 

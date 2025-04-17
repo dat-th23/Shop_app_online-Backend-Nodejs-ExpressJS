@@ -15,7 +15,18 @@ export async function getOrderById(req, res) {
 }
 
 export async function createOrder(req, res) {
-    const order = await ab.Order.create(req.body)
+    const { user_id } = req.body
+    const user = await db.User.findByPk(user_id)
+
+    if (!user) {
+        return res.status(404).json({
+            success: false,
+            message: 'User does not exist!',
+            data: user,
+        })
+    }
+
+    const order = await db.Order.create(req.body)
     res.status(201).json({
         success: true,
         message: 'Created order successfully',
@@ -28,6 +39,7 @@ export async function deleteOrder(req, res) {
     const deleted = await db.Order.destroy({ where: { id } })
     if (!deleted) {
         return res.status(404).json({
+            success: false,
             message: 'Not Found!',
         })
     }
@@ -43,6 +55,7 @@ export async function updateOrder(req, res) {
 
     if (affectedRows === 0) {
         return res.status(404).json({
+            success: false,
             message: 'Not Found!',
         });
     }

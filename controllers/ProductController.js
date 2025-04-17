@@ -44,6 +44,7 @@ export async function getProductById(req, res) {
     if (!product) {
         // If no product found, return a 404 Not Found Response
         return res.status(404).json({
+            success: false,
             message: 'Not Found!',
             data: product
         })
@@ -59,7 +60,7 @@ export async function createProduct(req, res) {
     const product = await db.Product.create(req.body)
     res.status(201).json({
         success: true,
-        message: 'Created product list successfully',
+        message: 'Created product successfully',
         data: product,
     })
 }
@@ -69,6 +70,7 @@ export async function deleteProduct(req, res) {
     const deleted = await db.Product.destroy({ where: { id } })
     if (!deleted) {
         return res.status(404).json({
+            success: false,
             message: 'Not Found!',
         })
     }
