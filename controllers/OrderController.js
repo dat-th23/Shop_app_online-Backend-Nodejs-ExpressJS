@@ -3,14 +3,14 @@ import db from "../models"
 export async function getAllOrders(req, res) {
     res.status(200).json({
         success: true,
-        message: 'Get order list successfully'
+        message: 'Get order list successfully!'
     })
 }
 
 export async function getOrderById(req, res) {
     res.status(200).json({
         success: true,
-        message: 'Get order by id successfully'
+        message: 'Get order by id successfully!'
     })
 }
 
@@ -29,7 +29,7 @@ export async function createOrder(req, res) {
     const order = await db.Order.create(req.body)
     res.status(201).json({
         success: true,
-        message: 'Created order successfully',
+        message: 'Created order successfully!',
         data: order,
     })
 }
@@ -40,12 +40,12 @@ export async function deleteOrder(req, res) {
     if (!deleted) {
         return res.status(404).json({
             success: false,
-            message: 'Not Found!',
+            message: 'Order not found!',
         })
     }
     res.status(200).json({
         success: true,
-        message: 'Deleted order successfully'
+        message: 'Deleted order successfully!'
     })
 }
 export async function updateOrder(req, res) {
@@ -56,7 +56,7 @@ export async function updateOrder(req, res) {
     if (affectedRows === 0) {
         return res.status(404).json({
             success: false,
-            message: 'Not Found!',
+            message: 'Order not found!',
         });
     }
 
@@ -64,7 +64,7 @@ export async function updateOrder(req, res) {
 
     res.status(200).json({
         success: true,
-        message: 'Updated order successfully',
+        message: 'Updated order successfully!',
         data: updatedOrder,
     });
 }

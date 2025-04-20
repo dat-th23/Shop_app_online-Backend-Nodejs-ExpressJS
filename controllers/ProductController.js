@@ -26,7 +26,7 @@ export async function getAllProducts(req, res) {
 
     res.status(200).json({
         success: true,
-        message: 'Get product list successfully',
+        message: 'Get product list successfully!',
         data: products,
         count: products.length,
         pagination: {
@@ -42,16 +42,16 @@ export async function getProductById(req, res) {
     const product = await db.Product.findByPk(id)
 
     if (!product) {
-        // If no product found, return a 404 Not Found Response
+        // If no product found, return a 404 Product not found Response
         return res.status(404).json({
             success: false,
-            message: 'Not Found!',
+            message: 'Product not found!',
             data: product
         })
     }
     res.status(200).json({
         success: true,
-        message: 'Get product by id successfully',
+        message: 'Get product by id successfully!!',
         data: product,
     })
 }
@@ -60,7 +60,7 @@ export async function createProduct(req, res) {
     const product = await db.Product.create(req.body)
     res.status(201).json({
         success: true,
-        message: 'Created product successfully',
+        message: 'Created product successfully!!',
         data: product,
     })
 }
@@ -71,12 +71,12 @@ export async function deleteProduct(req, res) {
     if (!deleted) {
         return res.status(404).json({
             success: false,
-            message: 'Not Found!',
+            message: 'Product not found!',
         })
     }
     res.status(200).json({
         success: true,
-        message: 'Deleted product successfully',
+        message: 'Deleted product successfully!',
     })
 }
 
@@ -86,14 +86,14 @@ export async function updateProduct(req, res) {
     const [affectedRows] = await db.Product.update(req.body, { where: { id } });
 
     if (affectedRows === 0) {
-        return res.status(404).json({ message: 'Not Found!' });
+        return res.status(404).json({ message: 'Product not found!' });
     }
 
     const updatedProduct = await db.Product.findByPk(id);
 
     res.status(200).json({
         success: true,
-        message: 'Updated product successfully',
+        message: 'Updated product successfully!',
         data: updatedProduct,
     });
 }

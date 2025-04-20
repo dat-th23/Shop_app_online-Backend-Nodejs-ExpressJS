@@ -23,7 +23,7 @@ export async function getAllCategories(req, res) {
 
     res.status(200).json({
         success: true,
-        message: 'Get category list successfully',
+        message: 'Get category list successfully!',
         data: categories,
         count: categories.length,
         pagination: {
@@ -40,13 +40,13 @@ export async function getCategoryById(req, res) {
     if (!category) {
         // If no category found, return a 404 Not Found Response
         return res.status(404).json({
-            message: 'Not Found!',
+            message: 'Category not found!',
             data: category
         })
     }
     res.status(200).json({
         success: true,
-        message: 'Get category by id successfully',
+        message: 'Get category by id successfully!',
         data: category
     })
 }
@@ -55,7 +55,7 @@ export async function createCategory(req, res) {
     const category = await db.Category.create(req.body)
     res.status(200).json({
         success: true,
-        message: 'Created category successfully',
+        message: 'Created category successfully!',
         data: category,
     })
 }
@@ -65,13 +65,13 @@ export async function deleteCategory(req, res) {
 
     if (!deleted) {
         return res.status(404).json({
-            message: 'Not Found!',
+            message: 'Category not found!',
         });
     }
 
     res.status(200).json({
         success: true,
-        message: 'Deleted category successfully',
+        message: 'Deleted category successfully!',
     });
 }
 
@@ -81,14 +81,14 @@ export async function updateCategory(req, res) {
     const [affectedRows] = await db.Category.update(req.body, { where: { id } });
 
     if (affectedRows === 0) {
-        return res.status(404).json({ message: 'Not Found!' });
+        return res.status(404).json({ message: 'Category not found!' });
     }
 
     const updatedCategory = await db.Category.findByPk(id);
 
     res.status(200).json({
         success: true,
-        message: 'Updated category successfully',
+        message: 'Updated category successfully!',
         data: updatedCategory,
     });
 }

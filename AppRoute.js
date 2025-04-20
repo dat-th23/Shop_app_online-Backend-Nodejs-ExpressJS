@@ -5,6 +5,7 @@ import * as BrandController from './controllers/BrandController.js'
 import * as OrderController from './controllers/OrderController.js'
 import * as OrderDetailController from './controllers/OrderDetailController.js'
 import * as UserController from './controllers/UserController.js'
+import * as NewsController from './controllers/NewsController.js'
 
 import asyncHandler from './middlewares/asyncHandler.js'
 import validate from './middlewares/validate.js'
@@ -12,6 +13,7 @@ import InsertProductRequest from './dtos/requests/product/InsertProductRequest.j
 import UpdateProductRequest from './dtos/requests/product/updateProductRequest.js'
 import InsertOrderRequest from './dtos/requests/order/InsertOrderRequest.js'
 import InsertUserRequest from './dtos/requests/user/InsertUserRequest.js'
+import InsertNewsRequest from './dtos/requests/news/InsertNewsRequest.js'
 
 const router = express.Router()
 
@@ -62,6 +64,15 @@ export function AppRoute(app) {
     router.post('/order-details', asyncHandler(OrderDetailController.createOrderDetail))
     router.put('/order-details/:id', asyncHandler(OrderDetailController.updateOrderDetail))
     router.delete('/order-details/:id', asyncHandler(OrderDetailController.deleteOrderDetail))
+
+    // News Routes
+    router.get('/news', asyncHandler(NewsController.getAllNewsArticles))
+    router.get('/news/:id', asyncHandler(NewsController.getNewsArticleById))
+    router.post('/news',
+        validate(InsertNewsRequest),
+        asyncHandler(NewsController.createNewsArticle))
+    router.put('/news/:id', asyncHandler(NewsController.updateNewsArticle))
+    router.delete('/news/:id', asyncHandler(NewsController.deleteNewsArticle))
 
     // Use the router with the base URL "/api"
     app.use('/api/', router)

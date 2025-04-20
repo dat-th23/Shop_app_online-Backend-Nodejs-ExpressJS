@@ -9,9 +9,9 @@ export async function createUser(req, res) {
     const existingUser = await db.User.findOne({ where: { email } })
 
     if (existingUser) {
-        return res.status(400).json({
+        return res.status(409).json({
             success: false,
-            message: 'Email already exists!'
+            message: 'Email already exists. Please use another email!'
         })
     }
 
@@ -41,7 +41,7 @@ export async function updateUser(req, res) {
 
     res.status(200).json({
         success: true,
-        message: 'Updated user successfully',
+        message: 'Updated user successfully!',
         data: updatedUser,
     })
 }

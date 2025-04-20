@@ -2,7 +2,7 @@ export async function getOrderDetails(req, res) {
     const orderDetails = await db.OrderDetail.findAll()
     res.status(200).json({
         success: true,
-        message: 'Get order details list successfully',
+        message: 'Get order details list successfully!',
         data: orderDetails,
     })
 }
@@ -12,12 +12,12 @@ export async function getOrderDetailById(req, res) {
     const orderDetail = await db.OrderDetail.findByPk(id)
 
     if (!orderDetail) {
-        return res.status(404).json({ message: 'Not Found!' })
+        return res.status(404).json({ message: 'Order detail not found!' })
     }
 
     res.status(200).json({
         success: true,
-        message: 'Get order detail by id successfully',
+        message: 'Get order detail by id successfully!',
         data: orderDetail,
     })
 }
@@ -27,7 +27,7 @@ export async function createOrderDetail(req, res) {
 
     res.status(201).json({
         success: true,
-        message: 'Created order detail successfully',
+        message: 'Created order detail successfully!',
         data: newOrderDetail,
     })
 }
@@ -37,12 +37,12 @@ export async function deleteOrderDetail(req, res) {
     const deleted = await db.OrderDetail.destroy({ where: { id } })
 
     if (!deleted) {
-        return res.status(404).json({ message: 'Not Found!' })
+        return res.status(404).json({ message: 'Order detail not found!' })
     }
 
     res.status(200).json({
         success: true,
-        message: 'Deleted order detail successfully',
+        message: 'Deleted order detail successfully!',
     })
 }
 
@@ -54,14 +54,14 @@ export async function updateOrderDetail(req, res) {
     })
 
     if (affectedRows === 0) {
-        return res.status(404).json({ message: 'Not Found!' })
+        return res.status(404).json({ message: 'Order detail not found!' })
     }
 
     const updatedOrderDetail = await db.OrderDetail.findByPk(id)
 
     res.status(200).json({
         success: true,
-        message: 'Updated order detail successfully',
+        message: 'Updated order detail successfully!',
         data: updatedOrderDetail,
     })
 }
