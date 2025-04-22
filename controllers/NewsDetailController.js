@@ -74,23 +74,53 @@ export async function getNewsDetailById(req, res) {
 // Create a NewsDetail
 export async function createNewsDetail(req, res) {
     const { product_id, news_id } = req.body
-    const newsDetail = await db.NewsDetail.create({ product_id, news_id })
+    // Check if product exists
+    const product = await db.Product.findByPk(product_id);
+    if (!product) {
+        return res.status(400).json({
+            success: false,
+            message: `Product does not exist!`
+        });
+    }
+
+    // Check if news article exists
+    const news = await db.News.findByPk(news_id);
+    if (!news) {
+        return res.status(400).json({
+            success: false,
+            message: `News article does not exist!`
+        });
+    }
+
+    // Check for duplicate entry
+    const existingDetail = await db.NewsDetail.findOne({
+        where: {
+            product_id,
+            news_id,
+        },
+    });
+
+    if (existingDetail) {
+        return res.status(409).json({
+            success: false,
+            message: `The relationship between product and news already exists!`
+        });
+    }
+
+    // Create NewsDetail entry
+    const newsDetail = await db.NewsDetail.create({ product_id, news_id });
+
     res.status(200).json({
         success: true,
         message: 'Created news detail successfully!',
         data: newsDetail,
-    })
+    });
 }
 
-// Delete a NewsDetail (based on both product_id and news_id)
+// Delete a NewsDetail (id)
 export async function deleteNewsDetail(req, res) {
-    const { news_id, product_id } = req.params
-    const deleted = await db.NewsDetail.destroy({
-        where: {
-            news_id,
-            product_id
-        }
-    })
+    const { id } = req.params
+    const deleted = await db.NewsDetail.destroy({ where: { id } })
 
     if (!deleted) {
         return res.status(404).json({
@@ -104,28 +134,54 @@ export async function deleteNewsDetail(req, res) {
     });
 }
 
-// Update a NewsDetail (not common for join tables, but if needed)
 export async function updateNewsDetail(req, res) {
-    const { news_id, product_id } = req.params
+    const { id } = req.params
+    const { product_id, news_id } = req.body
 
-    const [affectedRows] = await db.NewsDetail.update(req.body, {
+    // Check if product exists
+    const product = await db.Product.findByPk(product_id);
+    if (!product) {
+        return res.status(400).json({
+            success: false,
+            message: `Product does not exist!`
+        });
+    }
+
+    // Check if news article exists
+    const news = await db.News.findByPk(news_id);
+    if (!news) {
+        return res.status(400).json({
+            success: false,
+            message: `News article does not exist!`
+        });
+    }
+
+    // check for existing duplicate that is not the current record  
+    const existing = await db.NewsDetail.findOne({
         where: {
+            product_id,
             news_id,
-            product_id
+            id: { [Op.ne]: id },
         }
+    })
+
+    if (existing) {
+        return res.status(400).json({
+            success: false,
+            message: 'Duplicate product_id and news_id combination already exists.',
+        })
+    }
+
+    const [affectedRows] = await db.NewsDetail.update({ product_id, news_id }, {
+        where: { id }
     })
 
     if (affectedRows === 0) {
         return res.status(404).json({ message: 'News detail not found!' });
     }
 
-    const updatedNewsDetail = await db.NewsDetail.findOne({
-        where: { news_id, product_id }
-    })
-
     res.status(200).json({
         success: true,
         message: 'Updated news detail successfully!',
-        data: updatedNewsDetail,
     })
 }
