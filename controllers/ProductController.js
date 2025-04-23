@@ -89,11 +89,8 @@ export async function updateProduct(req, res) {
         return res.status(404).json({ message: 'Product not found!' });
     }
 
-    const updatedProduct = await db.Product.findByPk(id);
-
     res.status(200).json({
         success: true,
         message: 'Updated product successfully!',
-        data: updatedProduct,
     });
 }

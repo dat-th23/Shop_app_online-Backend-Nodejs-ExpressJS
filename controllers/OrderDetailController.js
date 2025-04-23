@@ -57,11 +57,8 @@ export async function updateOrderDetail(req, res) {
         return res.status(404).json({ message: 'Order detail not found!' })
     }
 
-    const updatedOrderDetail = await db.OrderDetail.findByPk(id)
-
     res.status(200).json({
         success: true,
         message: 'Updated order detail successfully!',
-        data: updatedOrderDetail,
     })
 }

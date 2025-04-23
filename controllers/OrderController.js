@@ -60,11 +60,8 @@ export async function updateOrder(req, res) {
         });
     }
 
-    const updatedOrder = await db.Order.findByPk(id);
-
     res.status(200).json({
         success: true,
         message: 'Updated order successfully!',
-        data: updatedOrder,
     });
 }

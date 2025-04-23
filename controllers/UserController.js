@@ -37,11 +37,8 @@ export async function updateUser(req, res) {
         })
     }
 
-    const updatedUser = await db.User.findByPk(id)
-
     res.status(200).json({
         success: true,
         message: 'Updated user successfully!',
-        data: updatedUser,
     })
 }

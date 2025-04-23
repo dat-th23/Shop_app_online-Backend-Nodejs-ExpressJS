@@ -84,12 +84,9 @@ export async function updateCategory(req, res) {
         return res.status(404).json({ message: 'Category not found!' });
     }
 
-    const updatedCategory = await db.Category.findByPk(id);
-
     res.status(200).json({
         success: true,
         message: 'Updated category successfully!',
-        data: updatedCategory,
     });
 }
 

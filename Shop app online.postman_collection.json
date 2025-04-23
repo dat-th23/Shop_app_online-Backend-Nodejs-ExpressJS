@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "products",
+			"name": "Products",
 			"item": [
 				{
 					"name": "api/products",
@@ -155,7 +155,7 @@
 			]
 		},
 		{
-			"name": "categories",
+			"name": "Categories",
 			"item": [
 				{
 					"name": "api/categories",
@@ -293,7 +293,7 @@
 			]
 		},
 		{
-			"name": "orders",
+			"name": "Orders",
 			"item": [
 				{
 					"name": "api/orders",
@@ -486,20 +486,24 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Startup Việt gọi vốn thành công 12 triệu USD\",\n    \"content\": \"Một startup trong lĩnh vực fintech tại Việt Nam đã gọi vốn thành công vòng Series A.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{API_01}}/api/news/:id",
+							"raw": "{{API_01}}/api/news/1",
 							"host": [
 								"{{API_01}}"
 							],
 							"path": [
 								"api",
 								"news",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
+								"1"
 							]
 						}
 					},
@@ -511,14 +515,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_01}}/api/news/2",
+							"raw": "{{API_01}}/api/news/6",
 							"host": [
 								"{{API_01}}"
 							],
 							"path": [
 								"api",
 								"news",
-								"2"
+								"6"
 							]
 						}
 					},
@@ -527,7 +531,123 @@
 			]
 		},
 		{
-			"name": "orderDetails",
+			"name": "News Details",
+			"item": [
+				{
+					"name": "api/news-details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_01}}/api/news-details",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"api",
+								"news-details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/news-details/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_01}}/api/news-details/1",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"api",
+								"news-details",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/news-details",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product_id\": 13,\n    \"news_id\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_01}}/api/news-details",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"api",
+								"news-details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/news-details/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product_id\": 19,\n    \"news_id\": 15\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_01}}/api/news-details/2",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"api",
+								"news-details",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/news-details/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_01}}/api/news-details/1",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"api",
+								"news-details",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order Details",
 			"item": [
 				{
 					"name": "api/order-details",
@@ -640,7 +760,7 @@
 			]
 		},
 		{
-			"name": "brands",
+			"name": "Brands",
 			"item": [
 				{
 					"name": "api/brands",
@@ -777,7 +897,7 @@
 			]
 		},
 		{
-			"name": "users",
+			"name": "Users",
 			"item": [
 				{
 					"name": "api/users",

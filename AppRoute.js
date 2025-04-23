@@ -15,7 +15,9 @@ import UpdateProductRequest from './dtos/requests/product/updateProductRequest.j
 import InsertOrderRequest from './dtos/requests/order/InsertOrderRequest.js'
 import InsertUserRequest from './dtos/requests/user/InsertUserRequest.js'
 import InsertNewsRequest from './dtos/requests/news/InsertNewsRequest.js'
+import UpdateNewsRequest from './dtos/requests/news/UpdateNewsRequest.js'
 import InsertNewsDetailRequest from './dtos/requests/news-detail/InsertNewsDetailRequest.js'
+
 
 const router = express.Router()
 
@@ -73,7 +75,9 @@ export function AppRoute(app) {
     router.post('/news',
         validate(InsertNewsRequest),
         asyncHandler(NewsController.createNewsArticle))
-    router.put('/news/:id', asyncHandler(NewsController.updateNewsArticle))
+    router.put('/news/:id',
+        validate(UpdateNewsRequest),
+        asyncHandler(NewsController.updateNewsArticle))
     router.delete('/news/:id', asyncHandler(NewsController.deleteNewsArticle))
 
 
@@ -81,9 +85,10 @@ export function AppRoute(app) {
     router.get('/news-details', asyncHandler(NewsDetailController.getAllNewsDetails))
     router.get('/news-details/:id', asyncHandler(NewsDetailController.getNewsDetailById))
     router.post('/news-details',
-        validate(InsertNewsDetailRequest)
-        , asyncHandler(NewsDetailController.createNewsDetail))
-    router.put('/news-details/:id', asyncHandler(NewsDetailController.updateNewsDetail))
+        validate(InsertNewsDetailRequest),
+        asyncHandler(NewsDetailController.createNewsDetail))
+    router.put('/news-details/:id',
+        asyncHandler(NewsDetailController.updateNewsDetail))
     router.delete('/news-details/:id', asyncHandler(NewsDetailController.deleteNewsDetail))
 
     // Use the router with the base URL "/api"

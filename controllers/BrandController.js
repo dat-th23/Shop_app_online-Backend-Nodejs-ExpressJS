@@ -84,12 +84,9 @@ export async function updateBrand(req, res) {
         return res.status(404).json({ message: 'Brand not found!' });
     }
 
-    const updatedBrand = await db.Brand.findByPk(id);
-
     res.status(200).json({
         success: true,
         message: 'Updated brand successfully!',
-        data: updatedBrand,
     });
 }
 
