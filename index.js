@@ -43,6 +43,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import morgan from 'morgan'
 import { AppRoute } from './AppRoute.js'
+import db from './models/index.js'
 
 dotenv.config()
 
@@ -52,7 +53,33 @@ const PORT = process.env.PORT || 3000
 // Middleware
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(cors())
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", '*')
+    res.header("Access-Control-Allow-Methods", 'GET, POST, PUT, DELETE')
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+
+    next()
+})
+
+app.get('/api/health', async (req, res) => {
+    try {
+        // ping DB
+        await db.sequelize.authenticate()
+
+        res.status(200).json({
+            status: 'ok',
+            db: 'connected',
+            uptime: process.uptime(),
+        })
+    } catch (err) {
+        res.status(500).json({
+            status: 'error',
+            db: 'disconnected',
+            error: err.message
+        })
+    }
+})
+
 app.use(morgan('dev'))
 
 // Default Route
