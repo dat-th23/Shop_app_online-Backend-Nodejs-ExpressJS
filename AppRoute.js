@@ -7,6 +7,8 @@ import * as OrderDetailController from './controllers/OrderDetailController.js'
 import * as UserController from './controllers/UserController.js'
 import * as NewsController from './controllers/NewsController.js'
 import * as NewsDetailController from './controllers/NewsDetailController.js'
+import * as BannerController from './controllers/BannerController.js'
+import * as BannerDetailController from './controllers/BannerDetailController'
 
 import asyncHandler from './middlewares/asyncHandler.js'
 import validate from './middlewares/validate.js'
@@ -17,7 +19,8 @@ import InsertUserRequest from './dtos/requests/user/InsertUserRequest.js'
 import InsertNewsRequest from './dtos/requests/news/InsertNewsRequest.js'
 import UpdateNewsRequest from './dtos/requests/news/UpdateNewsRequest.js'
 import InsertNewsDetailRequest from './dtos/requests/news-detail/InsertNewsDetailRequest.js'
-
+import InsertBannerRequest from './dtos/requests/banner/InsertBannerRequest.js'
+import InsertBannerDetailRequest from './dtos/requests/banner-detail/InsertBannerDetailRequest.js'
 
 const router = express.Router()
 
@@ -90,6 +93,26 @@ export function AppRoute(app) {
     router.put('/news-details/:id',
         asyncHandler(NewsDetailController.updateNewsDetail))
     router.delete('/news-details/:id', asyncHandler(NewsDetailController.deleteNewsDetail))
+
+    // Banner Routes
+    router.get('/banners', asyncHandler(BannerController.getAllBanners))
+    router.get('/banners/:id', asyncHandler(BannerController.getBannerById))
+    router.post('/banners',
+        validate(InsertBannerRequest),
+        asyncHandler(BannerController.createBanner))
+    router.put('/banners/:id', asyncHandler(BannerController.updateBanner))
+    router.delete('/banners/:id', asyncHandler(BannerController.deleteBanner))
+
+    // BannerDetail Routes
+    router.get('/banner-details', asyncHandler(BannerDetailController.getAllBannerDetails))
+    router.get('/banner-details/:id', asyncHandler(BannerDetailController.getBannerDetailById))
+    router.post('/banner-details',
+        validate(InsertBannerDetailRequest),
+        asyncHandler(BannerDetailController.createBannerDetail))
+    router.put('/banner-details/:id',
+        asyncHandler(BannerDetailController.updateBannerDetail))
+    router.delete('/banner-details/:id', asyncHandler(BannerDetailController.deleteBannerDetail))
+
 
     // Use the router with the base URL "/api"
     app.use('/api/', router)

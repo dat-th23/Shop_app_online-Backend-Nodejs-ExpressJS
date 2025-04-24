@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Generation Time: Apr 23, 2025 at 09:16 AM
+-- Generation Time: Apr 24, 2025 at 02:28 PM
 -- Server version: 9.0.1
 -- PHP Version: 8.2.27
 
@@ -36,6 +36,14 @@ CREATE TABLE `banners` (
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `banners`
+--
+
+INSERT INTO `banners` (`id`, `name`, `image`, `status`, `created_at`, `updated_at`) VALUES
+(4, 'Vourcher', 'https://example.com/images/vourcher.jpg', 1, '2025-04-24 11:11:18', '2025-04-24 11:11:18'),
+(5, 'Giao hàng', 'https://example.com/images/giao_hang.jpg', 1, '2025-04-24 11:11:43', '2025-04-24 11:11:43');
+
 -- --------------------------------------------------------
 
 --
@@ -49,6 +57,17 @@ CREATE TABLE `banner_details` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `banner_details`
+--
+
+INSERT INTO `banner_details` (`id`, `product_id`, `banner_id`, `created_at`, `updated_at`) VALUES
+(4, 19, 5, '2025-04-24 11:11:18', '2025-04-24 11:14:11'),
+(5, 17, 4, '2025-04-24 11:11:18', '2025-04-24 11:11:18'),
+(6, 18, 4, '2025-04-24 11:11:18', '2025-04-24 11:11:18'),
+(7, 10, 5, '2025-04-24 11:11:43', '2025-04-24 11:11:43'),
+(8, 12, 5, '2025-04-24 11:11:43', '2025-04-24 11:11:43');
 
 -- --------------------------------------------------------
 
@@ -406,13 +425,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `banners`
 --
 ALTER TABLE `banners`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `banner_details`
 --
 ALTER TABLE `banner_details`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `brands`

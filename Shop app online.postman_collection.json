@@ -7,126 +7,39 @@
 	},
 	"item": [
 		{
-			"name": "Products",
+			"name": "Banner",
 			"item": [
 				{
-					"name": "api/products",
+					"name": "api/banners",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_01}}/api/products",
+							"raw": "{{API_01}}/api/banners",
 							"host": [
 								"{{API_01}}"
 							],
 							"path": [
 								"api",
-								"products"
+								"banners"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "api/products search",
+					"name": "api/banners/:id",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_01}}/api/products?search=&page=4&limit=6",
+							"raw": "{{API_01}}/api/banners/3",
 							"host": [
 								"{{API_01}}"
 							],
 							"path": [
 								"api",
-								"products"
-							],
-							"query": [
-								{
-									"key": "search",
-									"value": ""
-								},
-								{
-									"key": "page",
-									"value": "4"
-								},
-								{
-									"key": "limit",
-									"value": "6"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/products/:id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/products/18",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"products",
-								"18"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/products",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": " {\n    \"name\": \"DJI Mini 3 Pro\",\n    \"image\": \"https://example.com/images/djimini3.jpg\",\n    \"price\": 759,\n    \"oldprice\": 849,\n    \"description\": \"Lightweight drone with 4K camera.\",\n    \"specification\": \"4K HDR, 34min Flight, Obstacle Avoidance\",\n    \"buyturn\": 120,\n    \"quantity\": 20,\n    \"brand_id\": 12, // DJI\n    \"category_id\": 5 // Máy ảnh\n  }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_01}}/api/products",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"products"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/products/:id",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n        \"name\": \"iPhone 14 Pro Max\",\n        \"image\": \"https://example.com/images/iphone14pro.jpg\",\n        \"price\": 1199,\n        \"oldprice\": 1299,\n        \"description\": \"Apple flagship smartphone with A16 Bionic chip.\",\n        \"specification\": \"6.7-inch OLED, 128GB, 6GB RAM, iOS\",\n        \"buyturn\": 400,\n        \"quantity\": 50\n    }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_01}}/api/products/3",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"products",
+								"banners",
 								"3"
 							]
 						}
@@ -134,19 +47,327 @@
 					"response": []
 				},
 				{
-					"name": "api/products/:id",
+					"name": "api/banners",
 					"request": {
-						"method": "DELETE",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Giao hàng\",\n    \"image\": \"https://example.com/images/giao_hang.jpg\",\n    \"status\": 1,\n    \"product_ids\": [10, 12]\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{API_01}}/api/products/20",
+							"raw": "{{API_01}}/api/banners",
 							"host": [
 								"{{API_01}}"
 							],
 							"path": [
 								"api",
-								"products",
-								"20"
+								"banners"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/banners/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Vourcher 123\",\n    \"status\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_01}}/api/banners/3",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"api",
+								"banners",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/banners/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_01}}/api/banners/3",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"api",
+								"banners",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Banner Details",
+			"item": [
+				{
+					"name": "api/banner-details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_01}}/api/banner-details",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"api",
+								"banner-details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/banner-details/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_01}}/api/banner-details/5",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"api",
+								"banner-details",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/banner-details",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product_id\": 13,\n    \"banner_id\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_01}}/api/banner-details",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"api",
+								"banner-details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/banner-details/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product_id\": 19,\n    \"banner_id\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_01}}/api/banner-details/4",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"api",
+								"banner-details",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/banner-details/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_01}}/api/banner-details/9",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"api",
+								"banner-details",
+								"9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Brands",
+			"item": [
+				{
+					"name": "api/brands",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_01}}/api/brands?page=2",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"api",
+								"brands"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "limit",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/brands/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_01}}/api/brands/2",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"api",
+								"brands",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/brands",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Thanh Dat\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_01}}/api/brands",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"api",
+								"brands"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/brands/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"MSI\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_01}}/api/brands/15",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"api",
+								"brands",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/brands/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_01}}/api/brands/:id",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"api",
+								"brands",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
 							]
 						}
 					},
@@ -760,36 +981,52 @@
 			]
 		},
 		{
-			"name": "Brands",
+			"name": "Products",
 			"item": [
 				{
-					"name": "api/brands",
+					"name": "api/products",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_01}}/api/brands?page=2",
+							"raw": "{{API_01}}/api/products",
 							"host": [
 								"{{API_01}}"
 							],
 							"path": [
 								"api",
-								"brands"
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/products search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_01}}/api/products?search=&page=4&limit=6",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"api",
+								"products"
 							],
 							"query": [
 								{
 									"key": "search",
-									"value": "",
-									"disabled": true
+									"value": ""
 								},
 								{
 									"key": "page",
-									"value": "2"
+									"value": "4"
 								},
 								{
 									"key": "limit",
-									"value": "",
-									"disabled": true
+									"value": "6"
 								}
 							]
 						}
@@ -797,32 +1034,32 @@
 					"response": []
 				},
 				{
-					"name": "api/brands/:id",
+					"name": "api/products/:id",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_01}}/api/brands/2",
+							"raw": "{{API_01}}/api/products/18",
 							"host": [
 								"{{API_01}}"
 							],
 							"path": [
 								"api",
-								"brands",
-								"2"
+								"products",
+								"18"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "api/brands",
+					"name": "api/products",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"Thanh Dat\"\n}",
+							"raw": " {\n    \"name\": \"DJI Mini 3 Pro\",\n    \"image\": \"https://example.com/images/djimini3.jpg\",\n    \"price\": 759,\n    \"oldprice\": 849,\n    \"description\": \"Lightweight drone with 4K camera.\",\n    \"specification\": \"4K HDR, 34min Flight, Obstacle Avoidance\",\n    \"buyturn\": 120,\n    \"quantity\": 20,\n    \"brand_id\": 12, // DJI\n    \"category_id\": 5 // Máy ảnh\n  }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -830,26 +1067,26 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_01}}/api/brands",
+							"raw": "{{API_01}}/api/products",
 							"host": [
 								"{{API_01}}"
 							],
 							"path": [
 								"api",
-								"brands"
+								"products"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "api/brands/:id",
+					"name": "api/products/:id",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"MSI\"\n}",
+							"raw": "{\n        \"name\": \"iPhone 14 Pro Max\",\n        \"image\": \"https://example.com/images/iphone14pro.jpg\",\n        \"price\": 1199,\n        \"oldprice\": 1299,\n        \"description\": \"Apple flagship smartphone with A16 Bionic chip.\",\n        \"specification\": \"6.7-inch OLED, 128GB, 6GB RAM, iOS\",\n        \"buyturn\": 400,\n        \"quantity\": 50\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -857,38 +1094,33 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_01}}/api/brands/15",
+							"raw": "{{API_01}}/api/products/3",
 							"host": [
 								"{{API_01}}"
 							],
 							"path": [
 								"api",
-								"brands",
-								"15"
+								"products",
+								"3"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "api/brands/:id",
+					"name": "api/products/:id",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_01}}/api/brands/:id",
+							"raw": "{{API_01}}/api/products/20",
 							"host": [
 								"{{API_01}}"
 							],
 							"path": [
 								"api",
-								"brands",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
+								"products",
+								"20"
 							]
 						}
 					},
@@ -929,7 +1161,7 @@
 			]
 		},
 		{
-			"name": "New Request",
+			"name": "health check",
 			"request": {
 				"method": "GET",
 				"header": [],
