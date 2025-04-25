@@ -37,6 +37,8 @@
     yarn add express
     yarn add dotenv nodemon
     yarn add --dev @babel/core @babel/node @babel/preset-env
+
+    yarn add multer
 */
 import express from 'express'
 import dotenv from 'dotenv'

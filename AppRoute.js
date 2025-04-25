@@ -8,10 +8,13 @@ import * as UserController from './controllers/UserController.js'
 import * as NewsController from './controllers/NewsController.js'
 import * as NewsDetailController from './controllers/NewsDetailController.js'
 import * as BannerController from './controllers/BannerController.js'
-import * as BannerDetailController from './controllers/BannerDetailController'
+import * as BannerDetailController from './controllers/BannerDetailController.js'
+import * as ImageController from './controllers/ImageController.js'
 
 import asyncHandler from './middlewares/asyncHandler.js'
 import validate from './middlewares/validate.js'
+import uploadImageMiddleware from './middlewares/uploadImage.js'
+
 import InsertProductRequest from './dtos/requests/product/InsertProductRequest.js'
 import UpdateProductRequest from './dtos/requests/product/updateProductRequest.js'
 import InsertOrderRequest from './dtos/requests/order/InsertOrderRequest.js'
@@ -113,6 +116,9 @@ export function AppRoute(app) {
         asyncHandler(BannerDetailController.updateBannerDetail))
     router.delete('/banner-details/:id', asyncHandler(BannerDetailController.deleteBannerDetail))
 
+    // Image Upload Routes
+    router.post('/upload-images', uploadImageMiddleware.array('images', 5),
+        asyncHandler(ImageController.uploadImages))
 
     // Use the router with the base URL "/api"
     app.use('/api/', router)
