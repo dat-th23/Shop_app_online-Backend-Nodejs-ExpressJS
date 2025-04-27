@@ -117,8 +117,10 @@ export function AppRoute(app) {
     router.delete('/banner-details/:id', asyncHandler(BannerDetailController.deleteBannerDetail))
 
     // Image Upload Routes
-    router.post('/upload-images', uploadImageMiddleware.array('images', 5),
+    router.post('/images/upload', uploadImageMiddleware.array('images', 5),
         asyncHandler(ImageController.uploadImages))
+    router.get('/images/:filename', asyncHandler(ImageController.viewImage))
+
 
     // Use the router with the base URL "/api"
     app.use('/api/', router)
