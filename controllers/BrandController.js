@@ -1,5 +1,28 @@
-import { Op } from "sequelize"
+import { Op, Sequelize } from "sequelize"
 import db from "../models"
+
+export async function createBrand(req, res) {
+    const { name } = req.body
+    const existingBrand = await db.Brand.findOne({
+        where: {
+            name: name.trim()
+        }
+    })
+
+    if (existingBrand) {
+        return res.status(409).json({
+            success: false,
+            message: 'Tên thương hiệu đã tồn tại, vui lòng lựa chọn tên khác!'
+        })
+    }
+
+    const brand = await db.Brand.create(req.body)
+    res.status(200).json({
+        success: true,
+        message: 'Tạo thương hiệu thành công!',
+        data: brand,
+    })
+}
 
 export async function getAllBrands(req, res) {
     const { page = 1, limit = 10, search = '' } = req.query
@@ -23,7 +46,7 @@ export async function getAllBrands(req, res) {
 
     res.status(200).json({
         success: true,
-        message: 'Get brand list successfully!',
+        message: 'Lấy danh sách thương hiệu thành công!',
         data: brands,
         count: brands.length,
         pagination: {
@@ -38,55 +61,59 @@ export async function getBrandById(req, res) {
     const { id } = req.params
     const brand = await db.Brand.findByPk(id)
     if (!brand) {
-        // If no brand found, return a 404 Not Found Response
         return res.status(404).json({
-            message: 'Brand not found!',
+            message: 'Thương hiệu không tồn tại!',
             data: brand
         })
     }
     res.status(200).json({
         success: true,
-        message: 'Get brand by id successfully!',
+        message: 'Lấy thương hiệu theo ID thành công!',
         data: brand
     })
 }
 
-export async function createBrand(req, res) {
-    const brand = await db.Brand.create(req.body)
+export async function updateBrand(req, res) {
+    const { id } = req.params;
+    const { name } = req.body
+    const existingBrand = await db.Brand.findOne({
+        where: {
+            name: name,
+            id: { [Sequelize.Op.ne]: id }
+        }
+    })
+
+    if (existingBrand) {
+        return res.status(409).json({
+            success: false,
+            message: 'Tên thương hiệu đã tồn tại, vui lòng lựa chọn tên khác!'
+        })
+    }
+
+    const [affectedRows] = await db.Brand.update(req.body, { where: { id } });
+
+    if (affectedRows === 0) {
+        return res.status(404).json({ message: 'Thương hiệu không tồn tại!' });
+    }
+
     res.status(200).json({
         success: true,
-        message: 'Created brand successfully!',
-        data: brand,
-    })
+        message: 'Cập nhật thương hiệu thành công!',
+    });
 }
+
 export async function deleteBrand(req, res) {
     const { id } = req.params;
     const deleted = await db.Brand.destroy({ where: { id } });
 
     if (!deleted) {
         return res.status(404).json({
-            message: 'Brand not found!',
+            message: 'Thương hiệu không tồn tại!',
         });
     }
 
     res.status(200).json({
         success: true,
-        message: 'Deleted brand successfully!',
+        message: 'Xóa thương hiệu thành công!',
     });
 }
-
-export async function updateBrand(req, res) {
-    const { id } = req.params;
-
-    const [affectedRows] = await db.Brand.update(req.body, { where: { id } });
-
-    if (affectedRows === 0) {
-        return res.status(404).json({ message: 'Brand not found!' });
-    }
-
-    res.status(200).json({
-        success: true,
-        message: 'Updated brand successfully!',
-    });
-}
-

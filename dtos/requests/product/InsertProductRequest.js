@@ -19,7 +19,7 @@ class InsertProductRequest {
             name: Joi.string().required(),
             price: Joi.number().positive().required(),
             oldprice: Joi.number().positive().optional(),
-            image: Joi.string().uri().allow(""),
+            image: Joi.string().allow('', null),
             description: Joi.string().optional(),
             specification: Joi.string().required(),
             buyturn: Joi.number().integer().min(0).optional(),

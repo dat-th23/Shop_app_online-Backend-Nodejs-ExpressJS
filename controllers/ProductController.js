@@ -1,5 +1,27 @@
-import { Op } from "sequelize"
+import { Op, Sequelize } from "sequelize"
 import db from "../models"
+
+export async function createProduct(req, res) {
+    const { name } = req.body
+    const existingProduct = await db.Product.findOne({
+        where: {
+            name: name.trim()
+        }
+    })
+    if (existingProduct) {
+        return res.status(409).json({
+            success: false,
+            message: 'Tên sản phẩm đã tồn tại, vui lòng lựa chọn tên khác!'
+        })
+    }
+
+    const product = await db.Product.create(req.body)
+    res.status(201).json({
+        success: true,
+        message: 'Tạo sản phẩm thành công!',
+        data: product,
+    })
+}
 
 export async function getAllProducts(req, res) {
     const { page = 1, limit = 10, search = '' } = req.query
@@ -26,7 +48,7 @@ export async function getAllProducts(req, res) {
 
     res.status(200).json({
         success: true,
-        message: 'Get product list successfully!',
+        message: 'Lấy danh sách sản phẩm thành công!',
         data: products,
         count: products.length,
         pagination: {
@@ -42,27 +64,45 @@ export async function getProductById(req, res) {
     const product = await db.Product.findByPk(id)
 
     if (!product) {
-        // If no product found, return a 404 Product not found Response
         return res.status(404).json({
             success: false,
-            message: 'Product not found!',
+            message: 'Sản phẩm không tồn tại!',
             data: product
         })
     }
     res.status(200).json({
         success: true,
-        message: 'Get product by id successfully!!',
+        message: 'Lấy sản phẩm theo ID thành công!',
         data: product,
     })
 }
 
-export async function createProduct(req, res) {
-    const product = await db.Product.create(req.body)
-    res.status(201).json({
-        success: true,
-        message: 'Created product successfully!!',
-        data: product,
+export async function updateProduct(req, res) {
+    const { id } = req.params;
+    const { name } = req.body
+    const existingProduct = await db.Product.findOne({
+        where: {
+            name: name,
+            id: { [Sequelize.Op.ne]: id }
+        }
     })
+    if (existingProduct) {
+        return res.status(409).json({
+            success: false,
+            message: 'Tên sản phẩm đã tồn tại, vui lòng lựa chọn tên khác!'
+        })
+    }
+
+    const [affectedRows] = await db.Product.update(req.body, { where: { id } });
+
+    if (affectedRows === 0) {
+        return res.status(404).json({ message: 'Sản phẩm không tồn tại!' });
+    }
+
+    res.status(200).json({
+        success: true,
+        message: 'Cập nhật sản phẩm thành công!',
+    });
 }
 
 export async function deleteProduct(req, res) {
@@ -71,26 +111,11 @@ export async function deleteProduct(req, res) {
     if (!deleted) {
         return res.status(404).json({
             success: false,
-            message: 'Product not found!',
+            message: 'Sản phẩm không tồn tại!',
         })
     }
     res.status(200).json({
         success: true,
-        message: 'Deleted product successfully!',
+        message: 'Xóa sản phẩm thành công!',
     })
-}
-
-export async function updateProduct(req, res) {
-    const { id } = req.params;
-
-    const [affectedRows] = await db.Product.update(req.body, { where: { id } });
-
-    if (affectedRows === 0) {
-        return res.status(404).json({ message: 'Product not found!' });
-    }
-
-    res.status(200).json({
-        success: true,
-        message: 'Updated product successfully!',
-    });
 }

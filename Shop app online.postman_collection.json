@@ -1,1182 +1,964 @@
 {
-	"info": {
-		"_postman_id": "835e4c1e-5f37-4bdb-a8fe-0b75d6e2c9e7",
-		"name": "Shop app online",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30477065"
-	},
-	"item": [
-		{
-			"name": "Banner",
-			"item": [
-				{
-					"name": "api/banners",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/banners",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"banners"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/banners/:id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/banners/3",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"banners",
-								"3"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/banners",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Giao hàng\",\n    \"image\": \"https://example.com/images/giao_hang.jpg\",\n    \"status\": 1,\n    \"product_ids\": [10, 12]\n  }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_01}}/api/banners",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"banners"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/banners/:id",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Vourcher 123\",\n    \"status\": 0\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_01}}/api/banners/3",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"banners",
-								"3"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/banners/:id",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/banners/3",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"banners",
-								"3"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Banner Details",
-			"item": [
-				{
-					"name": "api/banner-details",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/banner-details",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"banner-details"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/banner-details/:id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/banner-details/5",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"banner-details",
-								"5"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/banner-details",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"product_id\": 13,\n    \"banner_id\": 4\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_01}}/api/banner-details",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"banner-details"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/banner-details/:id",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"product_id\": 19,\n    \"banner_id\": 5\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_01}}/api/banner-details/4",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"banner-details",
-								"4"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/banner-details/:id",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/banner-details/9",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"banner-details",
-								"9"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Brands",
-			"item": [
-				{
-					"name": "api/brands",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/brands?page=2",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"brands"
-							],
-							"query": [
-								{
-									"key": "search",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "page",
-									"value": "2"
-								},
-								{
-									"key": "limit",
-									"value": "",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/brands/:id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/brands/2",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"brands",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/brands",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\":\"Thanh Dat\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_01}}/api/brands",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"brands"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/brands/:id",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\":\"MSI\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_01}}/api/brands/15",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"brands",
-								"15"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/brands/:id",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/brands/:id",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"brands",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Categories",
-			"item": [
-				{
-					"name": "api/categories",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/categories",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"categories"
-							],
-							"query": [
-								{
-									"key": "search",
-									"value": "máy",
-									"disabled": true
-								},
-								{
-									"key": "page",
-									"value": "1",
-									"disabled": true
-								},
-								{
-									"key": "limit ",
-									"value": "5",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/categories/:id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/categories/5",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"categories",
-								"5"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/categories",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Bàn phím\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_01}}/api/categories",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"categories"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/categories/:id",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Bàn phím\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_01}}/api/categories/10",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"categories",
-								"10"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/categories/:id",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/categories/:id",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"categories",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Orders",
-			"item": [
-				{
-					"name": "api/orders",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/orders",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"orders"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/orders/:id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/orders/:id",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"orders",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/orders",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"user_id\": 12,\n  \"status\": 1,\n  \"note\": \"Please deliver between 9 AM - 12 PM\",\n  \"total\": 1499000\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_01}}/api/orders",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"orders"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/orders/:id",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/orders/:id",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"orders",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/orders/:id",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/orders/1",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"orders",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "News",
-			"item": [
-				{
-					"name": "api/news",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/news",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"news"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/news/:id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/news/:id",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"news",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/news",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"title\": \"Startup Việt gọi vốn thành công 10 triệu USD\",\n    \"image\": \"https://example.com/images/startup.jpg\",\n    \"content\": \"Một startup trong lĩnh vực fintech tại Việt Nam đã gọi vốn thành công vòng Series A.\",\n    \"product_ids\": [16, 17, 18]\n  }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_01}}/api/news",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"news"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/news/:id",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"title\": \"Startup Việt gọi vốn thành công 12 triệu USD\",\n    \"content\": \"Một startup trong lĩnh vực fintech tại Việt Nam đã gọi vốn thành công vòng Series A.\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_01}}/api/news/1",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"news",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/news/:id",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/news/6",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"news",
-								"6"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "News Details",
-			"item": [
-				{
-					"name": "api/news-details",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/news-details",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"news-details"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/news-details/:id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/news-details/1",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"news-details",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/news-details",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"product_id\": 13,\n    \"news_id\": 3\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_01}}/api/news-details",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"news-details"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/news-details/:id",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"product_id\": 19,\n    \"news_id\": 15\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_01}}/api/news-details/2",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"news-details",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/news-details/:id",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/news-details/1",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"news-details",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Order Details",
-			"item": [
-				{
-					"name": "api/order-details",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/order-details",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"order-details"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/order-details/:id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/order-details/:id",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"order-details",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/order-details",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/order-details",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"order-details"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/order-details/:id",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/order-details/:id",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"order-details",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/order-details/:id",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/order-details/:id",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"order-details",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Products",
-			"item": [
-				{
-					"name": "api/products",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/products",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"products"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/products search",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/products?search=&page=4&limit=6",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"products"
-							],
-							"query": [
-								{
-									"key": "search",
-									"value": ""
-								},
-								{
-									"key": "page",
-									"value": "4"
-								},
-								{
-									"key": "limit",
-									"value": "6"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/products/:id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/products/18",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"products",
-								"18"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/products",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": " {\n    \"name\": \"DJI Mini 3 Pro\",\n    \"image\": \"https://example.com/images/djimini3.jpg\",\n    \"price\": 759,\n    \"oldprice\": 849,\n    \"description\": \"Lightweight drone with 4K camera.\",\n    \"specification\": \"4K HDR, 34min Flight, Obstacle Avoidance\",\n    \"buyturn\": 120,\n    \"quantity\": 20,\n    \"brand_id\": 12, // DJI\n    \"category_id\": 5 // Máy ảnh\n  }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_01}}/api/products",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"products"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/products/:id",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n        \"name\": \"iPhone 14 Pro Max\",\n        \"image\": \"https://example.com/images/iphone14pro.jpg\",\n        \"price\": 1199,\n        \"oldprice\": 1299,\n        \"description\": \"Apple flagship smartphone with A16 Bionic chip.\",\n        \"specification\": \"6.7-inch OLED, 128GB, 6GB RAM, iOS\",\n        \"buyturn\": 400,\n        \"quantity\": 50\n    }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_01}}/api/products/3",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"products",
-								"3"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/products/:id",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/api/products/20",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"products",
-								"20"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Users",
-			"item": [
-				{
-					"name": "api/users",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\": \"john.doe@example.com\",\n    \"password\": \"12345678\",\n    \"name\": \"John Doe\",\n    \"role\": 1,\n    \"avatar\": \"https://randomuser.me/api/portraits/men/1.jpg\",\n    \"phone\": \"0123456789\"\n  }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_01}}/api/users",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"api",
-								"users"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "health check",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{API_01}}/api/health",
-					"host": [
-						"{{API_01}}"
-					],
-					"path": [
-						"api",
-						"health"
-					]
-				}
-			},
-			"response": []
-		}
-	]
+  "info": {
+    "_postman_id": "835e4c1e-5f37-4bdb-a8fe-0b75d6e2c9e7",
+    "name": "Shop app online",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "30477065"
+  },
+  "item": [
+    {
+      "name": "Banner",
+      "item": [
+        {
+          "name": "api/banners",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/banners",
+              "host": ["{{API_01}}"],
+              "path": ["banners"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/banners/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/banners/3",
+              "host": ["{{API_01}}"],
+              "path": ["banners", "3"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/banners",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Giao hàng\",\n    \"image\": \"https://example.com/images/giao_hang.jpg\",\n    \"status\": 1,\n    \"product_ids\": [10, 12]\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_01}}/banners",
+              "host": ["{{API_01}}"],
+              "path": ["banners"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/banners/:id",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Vourcher 123\",\n    \"status\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_01}}/banners/3",
+              "host": ["{{API_01}}"],
+              "path": ["banners", "3"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/banners/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/banners/3",
+              "host": ["{{API_01}}"],
+              "path": ["banners", "3"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Banner Details",
+      "item": [
+        {
+          "name": "api/banner-details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/banner-details",
+              "host": ["{{API_01}}"],
+              "path": ["banner-details"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/banner-details/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/banner-details/5",
+              "host": ["{{API_01}}"],
+              "path": ["banner-details", "5"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/banner-details",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"product_id\": 13,\n    \"banner_id\": 4\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_01}}/banner-details",
+              "host": ["{{API_01}}"],
+              "path": ["banner-details"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/banner-details/:id",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"product_id\": 19,\n    \"banner_id\": 5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_01}}/banner-details/4",
+              "host": ["{{API_01}}"],
+              "path": ["banner-details", "4"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/banner-details/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/banner-details/9",
+              "host": ["{{API_01}}"],
+              "path": ["banner-details", "9"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Brands",
+      "item": [
+        {
+          "name": "api/brands",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/brands?page=2",
+              "host": ["{{API_01}}"],
+              "path": ["brands"],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "2"
+                },
+                {
+                  "key": "limit",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/brands/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/brands/2",
+              "host": ["{{API_01}}"],
+              "path": ["brands", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/brands",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\":\"Thanh Dat\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_01}}/brands",
+              "host": ["{{API_01}}"],
+              "path": ["brands"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/brands/:id",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\":\"MSI\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_01}}/brands/15",
+              "host": ["{{API_01}}"],
+              "path": ["brands", "15"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/brands/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/brands/:id",
+              "host": ["{{API_01}}"],
+              "path": ["brands", ":id"],
+              "variable": [
+                {
+                  "key": "id"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "api/categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/categories",
+              "host": ["{{API_01}}"],
+              "path": ["categories"],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "máy",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "limit ",
+                  "value": "5",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/categories/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/categories/5",
+              "host": ["{{API_01}}"],
+              "path": ["categories", "5"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/categories",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Bàn phím\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_01}}/categories",
+              "host": ["{{API_01}}"],
+              "path": ["categories"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/categories/:id",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Bàn phím\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_01}}/categories/10",
+              "host": ["{{API_01}}"],
+              "path": ["categories", "10"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/categories/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/categories/:id",
+              "host": ["{{API_01}}"],
+              "path": ["categories", ":id"],
+              "variable": [
+                {
+                  "key": "id"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "api/orders",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/orders",
+              "host": ["{{API_01}}"],
+              "path": ["orders"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/orders/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/orders/:id",
+              "host": ["{{API_01}}"],
+              "path": ["orders", ":id"],
+              "variable": [
+                {
+                  "key": "id"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/orders",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": 12,\n  \"status\": 1,\n  \"note\": \"Please deliver between 9 AM - 12 PM\",\n  \"total\": 1499000\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_01}}/orders",
+              "host": ["{{API_01}}"],
+              "path": ["orders"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/orders/:id",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/orders/:id",
+              "host": ["{{API_01}}"],
+              "path": ["orders", ":id"],
+              "variable": [
+                {
+                  "key": "id"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/orders/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/orders/1",
+              "host": ["{{API_01}}"],
+              "path": ["orders", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "News",
+      "item": [
+        {
+          "name": "api/news",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/news",
+              "host": ["{{API_01}}"],
+              "path": [ "news"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/news/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/news/:id",
+              "host": ["{{API_01}}"],
+              "path": [ "news", ":id"],
+              "variable": [
+                {
+                  "key": "id"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/news",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Startup Việt gọi vốn thành công 10 triệu USD\",\n    \"image\": \"https://example.com/images/startup.jpg\",\n    \"content\": \"Một startup trong lĩnh vực fintech tại Việt Nam đã gọi vốn thành công vòng Series A.\",\n    \"product_ids\": [16, 17, 18]\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_01}}/news",
+              "host": ["{{API_01}}"],
+              "path": [ "news"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/news/:id",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Startup Việt gọi vốn thành công 12 triệu USD\",\n    \"content\": \"Một startup trong lĩnh vực fintech tại Việt Nam đã gọi vốn thành công vòng Series A.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_01}}/news/1",
+              "host": ["{{API_01}}"],
+              "path": [ "news", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/news/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/news/6",
+              "host": ["{{API_01}}"],
+              "path": [ "news", "6"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "News Details",
+      "item": [
+        {
+          "name": "api/news-details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/news-details",
+              "host": ["{{API_01}}"],
+              "path": [ "news-details"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/news-details/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/news-details/1",
+              "host": ["{{API_01}}"],
+              "path": [ "news-details", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/news-details",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"product_id\": 13,\n    \"news_id\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_01}}/news-details",
+              "host": ["{{API_01}}"],
+              "path": [ "news-details"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/news-details/:id",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"product_id\": 19,\n    \"news_id\": 15\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_01}}/news-details/2",
+              "host": ["{{API_01}}"],
+              "path": [ "news-details", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/news-details/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/news-details/1",
+              "host": ["{{API_01}}"],
+              "path": [ "news-details", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Order Details",
+      "item": [
+        {
+          "name": "api/order-details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/order-details",
+              "host": ["{{API_01}}"],
+              "path": [ "order-details"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/order-details/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/order-details/:id",
+              "host": ["{{API_01}}"],
+              "path": [ "order-details", ":id"],
+              "variable": [
+                {
+                  "key": "id"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/order-details",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/order-details",
+              "host": ["{{API_01}}"],
+              "path": [ "order-details"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/order-details/:id",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/order-details/:id",
+              "host": ["{{API_01}}"],
+              "path": [ "order-details", ":id"],
+              "variable": [
+                {
+                  "key": "id"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/order-details/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/order-details/:id",
+              "host": ["{{API_01}}"],
+              "path": [ "order-details", ":id"],
+              "variable": [
+                {
+                  "key": "id"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "api/products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/products",
+              "host": ["{{API_01}}"],
+              "path": [ "products"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/products search",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/products?search=&page=4&limit=6",
+              "host": ["{{API_01}}"],
+              "path": [ "products"],
+              "query": [
+                {
+                  "key": "search",
+                  "value": ""
+                },
+                {
+                  "key": "page",
+                  "value": "4"
+                },
+                {
+                  "key": "limit",
+                  "value": "6"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/products/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/products/18",
+              "host": ["{{API_01}}"],
+              "path": [ "products", "18"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/products",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": " {\n    \"name\": \"DJI Mini 3 Pro\",\n    \"image\": \"https://example.com/images/djimini3.jpg\",\n    \"price\": 759,\n    \"oldprice\": 849,\n    \"description\": \"Lightweight drone with 4K camera.\",\n    \"specification\": \"4K HDR, 34min Flight, Obstacle Avoidance\",\n    \"buyturn\": 120,\n    \"quantity\": 20,\n    \"brand_id\": 12, // DJI\n    \"category_id\": 5 // Máy ảnh\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_01}}/products",
+              "host": ["{{API_01}}"],
+              "path": [ "products"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/products/:id",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n        \"name\": \"iPhone 14 Pro Max\",\n        \"image\": \"https://example.com/images/iphone14pro.jpg\",\n        \"price\": 1199,\n        \"oldprice\": 1299,\n        \"description\": \"Apple flagship smartphone with A16 Bionic chip.\",\n        \"specification\": \"6.7-inch OLED, 128GB, 6GB RAM, iOS\",\n        \"buyturn\": 400,\n        \"quantity\": 50\n    }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_01}}/products/3",
+              "host": ["{{API_01}}"],
+              "path": [ "products", "3"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/products/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{API_01}}/products/20",
+              "host": ["{{API_01}}"],
+              "path": [ "products", "20"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "api/users",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"john.doe@example.com\",\n    \"password\": \"12345678\",\n    \"name\": \"John Doe\",\n    \"role\": 1,\n    \"avatar\": \"https://randomuser.me/api/portraits/men/1.jpg\",\n    \"phone\": \"0123456789\"\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_01}}/users",
+              "host": ["{{API_01}}"],
+              "path": [ "users"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "/api/health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{API_01}}/health",
+          "host": ["{{API_01}}"],
+          "path": ["health"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/api/images",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "images",
+              "type": "file",
+              "src": "/Users/ntda/Documents/Workspace/ShopApp/backend/assets/vourcher.png"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{API_01}}/images/upload",
+          "host": ["{{API_01}}"],
+          "path": ["images", "upload"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/api/images/:filename",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "images",
+              "type": "file",
+              "src": []
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{API_01}}/images/1745578842847-giao_hang_hoa_toc.jpeg",
+          "host": ["{{API_01}}"],
+          "path": ["images", "1745578842847-giao_hang_hoa_toc.jpeg"]
+        }
+      },
+      "response": []
+    }
+  ]
 }

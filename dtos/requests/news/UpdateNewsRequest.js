@@ -12,7 +12,7 @@ class UpdateNewsRequest {
     static validate(data) {
         const schema = Joi.object({
             title: Joi.string().optional().allow(null, ''),
-            image: Joi.string().uri().optional().allow(null, ''),
+            image: Joi.string().optional().allow(null, ''),
             content: Joi.string().optional().allow(null, ''),
             product_ids: Joi.array().items(Joi.number().integer()).optional()
         })

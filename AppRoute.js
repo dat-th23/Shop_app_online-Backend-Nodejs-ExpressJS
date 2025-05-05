@@ -24,6 +24,7 @@ import UpdateNewsRequest from './dtos/requests/news/UpdateNewsRequest.js'
 import InsertNewsDetailRequest from './dtos/requests/news-detail/InsertNewsDetailRequest.js'
 import InsertBannerRequest from './dtos/requests/banner/InsertBannerRequest.js'
 import InsertBannerDetailRequest from './dtos/requests/banner-detail/InsertBannerDetailRequest.js'
+import validateImage from './middlewares/validateImage.js'
 
 const router = express.Router()
 
@@ -38,9 +39,11 @@ export function AppRoute(app) {
     router.get('/products', asyncHandler(ProductController.getAllProducts))
     router.get('/products/:id', asyncHandler(ProductController.getProductById))
     router.post('/products',
+        validateImage,
         validate(InsertProductRequest),
         asyncHandler(ProductController.createProduct))
     router.put('/products/:id',
+        validateImage,
         validate(UpdateProductRequest),
         asyncHandler(ProductController.updateProduct))
     router.delete('/products/:id', asyncHandler(ProductController.deleteProduct))
@@ -48,15 +51,23 @@ export function AppRoute(app) {
     // Category Routes
     router.get('/categories', asyncHandler(CategoryController.getAllCategories))
     router.get('/categories/:id', asyncHandler(CategoryController.getCategoryById))
-    router.post('/categories', asyncHandler(CategoryController.createCategory))
-    router.put('/categories/:id', asyncHandler(CategoryController.updateCategory))
+    router.post('/categories',
+        validateImage,
+        asyncHandler(CategoryController.createCategory))
+    router.put('/categories/:id',
+        validateImage,
+        asyncHandler(CategoryController.updateCategory))
     router.delete('/categories/:id', asyncHandler(CategoryController.deleteCategory))
 
     // Brand Routes
     router.get('/brands', asyncHandler(BrandController.getAllBrands))
     router.get('/brands/:id', asyncHandler(BrandController.getBrandById))
-    router.post('/brands', asyncHandler(BrandController.createBrand))
-    router.put('/brands/:id', asyncHandler(BrandController.updateBrand))
+    router.post('/brands',
+        validateImage,
+        asyncHandler(BrandController.createBrand))
+    router.put('/brands/:id',
+        validateImage,
+        asyncHandler(BrandController.updateBrand))
     router.delete('/brands/:id', asyncHandler(BrandController.deleteBrand))
 
     // Order Routes
@@ -79,9 +90,11 @@ export function AppRoute(app) {
     router.get('/news', asyncHandler(NewsController.getAllNewsArticles))
     router.get('/news/:id', asyncHandler(NewsController.getNewsArticleById))
     router.post('/news',
+        validateImage,
         validate(InsertNewsRequest),
         asyncHandler(NewsController.createNewsArticle))
     router.put('/news/:id',
+        validateImage,
         validate(UpdateNewsRequest),
         asyncHandler(NewsController.updateNewsArticle))
     router.delete('/news/:id', asyncHandler(NewsController.deleteNewsArticle))
@@ -101,9 +114,12 @@ export function AppRoute(app) {
     router.get('/banners', asyncHandler(BannerController.getAllBanners))
     router.get('/banners/:id', asyncHandler(BannerController.getBannerById))
     router.post('/banners',
+        validateImage,
         validate(InsertBannerRequest),
         asyncHandler(BannerController.createBanner))
-    router.put('/banners/:id', asyncHandler(BannerController.updateBanner))
+    router.put('/banners/:id',
+        validateImage,
+        asyncHandler(BannerController.updateBanner))
     router.delete('/banners/:id', asyncHandler(BannerController.deleteBanner))
 
     // BannerDetail Routes
@@ -120,7 +136,6 @@ export function AppRoute(app) {
     router.post('/images/upload', uploadImageMiddleware.array('images', 5),
         asyncHandler(ImageController.uploadImages))
     router.get('/images/:filename', asyncHandler(ImageController.viewImage))
-
 
     // Use the router with the base URL "/api"
     app.use('/api/', router)

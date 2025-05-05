@@ -11,7 +11,7 @@ class InsertNewsRequest {
     static validate(data) {
         const schema = Joi.object({
             title: Joi.string().required(),
-            image: Joi.string().uri().allow('', null),
+            image: Joi.string().allow('', null),
             content: Joi.string().required(),
             product_ids: Joi.array().items(Joi.number().integer()).optional()
         })

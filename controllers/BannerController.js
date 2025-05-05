@@ -1,54 +1,31 @@
-import { Op } from "sequelize"
+import { Op, Sequelize } from "sequelize"
 import db from "../models"
 
 // Create a banner
 export async function createBanner(req, res) {
-    const transaction = await db.sequelize.transaction()
+    const { name } = req.body
 
-    try {
-        // Tạo banner
-        const banner = await db.Banner.create(req.body, { transaction })
-
-        let product_ids = req.body.product_ids
-
-        if (product_ids && product_ids.length) {
-            // Lọc ra các product_id hợp lệ
-            const validProducts = await db.Product.findAll({
-                where: { id: product_ids },
-                transaction
-            })
-
-            const validProductIds = validProducts.map(p => p.id)
-
-            // Lọc các ID không tồn tại trong DB
-            product_ids = product_ids.filter(id => validProductIds.includes(id))
-
-            // Tạo các bản ghi liên kết trong BannerDetail
-            const bannerDetailPromises = product_ids.map(product_id => {
-                return db.BannerDetail.create({
-                    product_id: product_id,
-                    banner_id: banner.id
-                }, { transaction })
-            })
-
-            await Promise.all(bannerDetailPromises)
+    const existingBanner = await db.Banner.findOne(
+        {
+            where: {
+                name: name.trim()
+            }
         }
-
-        await transaction.commit()
-
-        res.status(201).json({
-            success: true,
-            message: 'Created banner successfully!',
-            data: banner
-        })
-    } catch (error) {
-        await transaction.rollback()
-        res.status(500).json({
+    )
+    if (existingBanner) {
+        return res.status(409).json({
             success: false,
-            message: 'Failed to create banner!',
-            error: error.message
+            message: 'Tên banner đã tồn tại, vui lòng lựa chọn tên khác!'
         })
     }
+
+    const banner = await db.Banner.create(req.body)
+
+    res.status(201).json({
+        success: true,
+        message: 'Tạo mới banner thành công!',
+        data: banner
+    })
 }
 
 // Get all banners with optional search and pagination
@@ -74,7 +51,7 @@ export async function getAllBanners(req, res) {
 
     res.status(200).json({
         success: true,
-        message: 'Get banner list successfully!',
+        message: 'Lấy danh sách banner thành công!',
         data: banners,
         count: banners.length,
         pagination: {
@@ -92,13 +69,13 @@ export async function getBannerById(req, res) {
 
     if (!banner) {
         return res.status(404).json({
-            message: 'Banner not found!',
+            message: 'Không tìm thấy được banner!',
         })
     }
 
     res.status(200).json({
         success: true,
-        message: 'Get banner by id successfully!',
+        message: 'Lấy banner thành công!',
         data: banner
     })
 }
@@ -106,6 +83,21 @@ export async function getBannerById(req, res) {
 // Update banner
 export async function updateBanner(req, res) {
     const { id } = req.params
+    const { name } = req.body
+
+    const existingBanner = await db.Banner.findOne({
+        where: {
+            name: name,
+            id: { [Sequelize.Op.ne]: id }
+        }
+    })
+
+    if (existingBanner) {
+        return res.status(409).json({
+            success: false,
+            message: 'Tên banner đã tồn tại, vui lòng lựa chọn tên khác!'
+        })
+    }
 
     const [affectedRows] = await db.Banner.update(req.body, {
         where: { id }
@@ -113,16 +105,13 @@ export async function updateBanner(req, res) {
 
     if (affectedRows === 0) {
         return res.status(404).json({
-            message: 'Banner not found!'
+            message: 'Không tìm thấy được banner!',
         })
     }
 
-    const updatedBanner = await db.Banner.findByPk(id)
-
     res.status(200).json({
         success: true,
-        message: 'Updated banner successfully!',
-        data: updatedBanner
+        message: 'Cập nhật banner thành công!',
     })
 }
 
@@ -147,7 +136,7 @@ export async function deleteBanner(req, res) {
         if (!deleted) {
             await transaction.rollback()
             return res.status(404).json({
-                message: 'Banner not found!',
+                message: 'Không tìm thấy được banner!',
             })
         }
 
@@ -155,13 +144,13 @@ export async function deleteBanner(req, res) {
 
         res.status(200).json({
             success: true,
-            message: 'Deleted banner successfully!',
+            message: 'Xoá banner thành công!',
         })
     } catch (error) {
         await transaction.rollback()
         res.status(500).json({
             success: false,
-            message: 'Failed to delete banner!',
+            message: 'Lỗi khi xoá banner!',
             error: error.message
         })
     }

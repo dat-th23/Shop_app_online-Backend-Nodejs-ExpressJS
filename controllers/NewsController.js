@@ -5,6 +5,19 @@ export async function createNewsArticle(req, res) {
     const transaction = await db.sequelize.transaction()
 
     try {
+        const { title } = req.body
+        const existingNews = await db.News.findOne({
+            where: {
+                title: title.trim()
+            }
+        })
+
+        if (existingNews) {
+            return res.status(409).json({
+                success: false,
+                message: 'Tiêu đề bài báo đã tồn tại, vui lòng lựa chọn tiêu đề khác!'
+            })
+        }
         // Create the news article
         const newsArticle = await db.News.create(req.body, { transaction })
 
@@ -37,14 +50,14 @@ export async function createNewsArticle(req, res) {
 
         res.status(201).json({
             success: true,
-            message: 'Created news article successfully!',
+            message: 'Tạo bài báo thành công!',
             data: newsArticle
         })
     } catch (error) {
         await transaction.rollback()
         res.status(500).json({
             success: false,
-            message: 'Failed to create news article!',
+            message: 'Không thể tạo bài báo!',
             error: error.message
         })
     }
@@ -73,7 +86,7 @@ export async function getAllNewsArticles(req, res) {
 
     res.status(200).json({
         success: true,
-        message: 'Get news article list successfully!',
+        message: 'Lấy danh sách bài báo thành công!',
         data: newsArticles,
         count: newsArticles.length,
         pagination: {
@@ -90,33 +103,45 @@ export async function getNewsArticleById(req, res) {
 
     if (!newsArticle) {
         return res.status(404).json({
-            message: 'News Article Not Found!',
+            message: 'Bài báo không tồn tại!',
             data: newsArticle
         })
     }
 
     res.status(200).json({
         success: true,
-        message: 'Get news article by id successfully!',
+        message: 'Lấy bài báo theo ID thành công!',
         data: newsArticle
     })
 }
 
-
 export async function updateNewsArticle(req, res) {
     const { id } = req.params
+    const { title } = req.body
+    const existingNews = await db.News.findOne({
+        where: {
+            title: title.trim()
+        }
+    })
+
+    if (existingNews) {
+        return res.status(409).json({
+            success: false,
+            message: 'Tiêu đề bài báo đã tồn tại, vui lòng lựa chọn tiêu đề khác!'
+        })
+    }
 
     const [affectedRows] = await db.News.update(req.body, { where: { id } })
 
     if (affectedRows === 0) {
         return res.status(404).json({
-            message: 'News Article Not Found!'
+            message: 'Bài báo không tồn tại!'
         })
     }
 
     res.status(200).json({
         success: true,
-        message: 'Updated news article successfully!',
+        message: 'Cập nhật bài báo thành công!',
     })
 }
 
@@ -139,7 +164,7 @@ export async function deleteNewsArticle(req, res) {
         if (!deleted) {
             await transaction.rollback()
             return res.status(404).json({
-                message: 'News Article Not Found!',
+                message: 'Bài báo không tồn tại!',
             })
         }
 
@@ -147,15 +172,14 @@ export async function deleteNewsArticle(req, res) {
 
         res.status(200).json({
             success: true,
-            message: 'Deleted news article successfully!',
+            message: 'Xóa bài báo thành công!',
         })
     } catch (error) {
         await transaction.rollback()
         res.status(500).json({
             success: false,
-            message: 'Failed to delete new article!',
+            message: 'Không thể xóa bài báo!',
             error: error.message
         })
     }
 }
-
