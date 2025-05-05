@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Generation Time: Apr 24, 2025 at 02:28 PM
+-- Generation Time: May 05, 2025 at 10:29 AM
 -- Server version: 9.0.1
 -- PHP Version: 8.2.27
 
@@ -41,8 +41,10 @@ CREATE TABLE `banners` (
 --
 
 INSERT INTO `banners` (`id`, `name`, `image`, `status`, `created_at`, `updated_at`) VALUES
-(4, 'Vourcher', 'https://example.com/images/vourcher.jpg', 1, '2025-04-24 11:11:18', '2025-04-24 11:11:18'),
-(5, 'Giao hàng', 'https://example.com/images/giao_hang.jpg', 1, '2025-04-24 11:11:43', '2025-04-24 11:11:43');
+(4, 'vourcher', '1745578842845-vourcher.png', 1, '2025-04-24 11:11:18', '2025-05-03 11:01:08'),
+(5, 'Giao hàng', 'https://example.com/images/giao_hang.jpg', 1, '2025-04-24 11:11:43', '2025-05-03 10:22:43'),
+(9, 'Cuối tuần giải trí', '1745748949750-cuoi_tuan_giai_tri.jpeg', 1, '2025-05-03 11:19:34', '2025-05-05 09:06:45'),
+(11, 'Săn sale rực rỡ', '1746436398542-san_sale_ruc_ro.png', 1, '2025-05-05 09:14:12', '2025-05-05 09:14:12');
 
 -- --------------------------------------------------------
 
@@ -425,7 +427,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `banners`
 --
 ALTER TABLE `banners`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `banner_details`
@@ -437,7 +439,7 @@ ALTER TABLE `banner_details`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `categories`
