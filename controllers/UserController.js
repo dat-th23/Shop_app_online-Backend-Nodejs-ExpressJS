@@ -11,7 +11,7 @@ export async function createUser(req, res) {
     if (existingUser) {
         return res.status(409).json({
             success: false,
-            message: 'Email already exists. Please use another email!'
+            message: 'Email đã tồn tại. Vui lòng sử dụng email khác!'
         })
     }
 
@@ -20,7 +20,7 @@ export async function createUser(req, res) {
 
     res.status(201).json({
         success: true,
-        message: 'Created user successfully!',
+        message: 'Tạo người dùng thành công!',
         data: new ResponseUser(user),
     })
 }
@@ -33,12 +33,12 @@ export async function updateUser(req, res) {
     if (affectedRows === 0) {
         return res.status(404).json({
             success: false,
-            message: 'User not found!',
+            message: 'Người dùng không tồn tại!',
         })
     }
 
     res.status(200).json({
         success: true,
-        message: 'Updated user successfully!',
+        message: 'Cập nhật người dùng thành công!',
     })
 }

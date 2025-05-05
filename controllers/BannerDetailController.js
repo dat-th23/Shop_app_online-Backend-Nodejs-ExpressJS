@@ -1,7 +1,6 @@
 import { Op } from "sequelize"
 import db from "../models"
 
-// Get all BannerDetail records with optional pagination and search
 export async function getAllBannerDetails(req, res) {
     const { page = 1, limit = 10, search = '' } = req.query
     const offset = (page - 1) * limit
@@ -27,7 +26,7 @@ export async function getAllBannerDetails(req, res) {
 
     res.status(200).json({
         success: true,
-        message: 'Get banner detail list successfully!',
+        message: 'Lấy danh sách chi tiết banner thành công!',
         data: bannerDetails,
         count: bannerDetails.length,
         pagination: {
@@ -38,7 +37,6 @@ export async function getAllBannerDetails(req, res) {
     })
 }
 
-// Get BannerDetail by ID
 export async function getBannerDetailById(req, res) {
     const { id } = req.params;
 
@@ -58,41 +56,37 @@ export async function getBannerDetailById(req, res) {
     if (!bannerDetail) {
         return res.status(404).json({
             success: false,
-            message: 'Banner detail not found!',
+            message: 'Chi tiết banner không tồn tại!',
             data: null
         });
     }
 
     res.status(200).json({
         success: true,
-        message: 'Get banner detail by id successfully!',
+        message: 'Lấy chi tiết banner theo ID thành công!',
         data: bannerDetail
     });
 }
 
-// Create BannerDetail
 export async function createBannerDetail(req, res) {
     const { product_id, banner_id } = req.body
 
-    // Check if product exists
     const product = await db.Product.findByPk(product_id)
     if (!product) {
         return res.status(400).json({
             success: false,
-            message: 'Product does not exist!'
+            message: 'Sản phẩm không tồn tại!'
         });
     }
 
-    // Check if banner exists
     const banner = await db.Banner.findByPk(banner_id)
     if (!banner) {
         return res.status(400).json({
             success: false,
-            message: 'Banner does not exist!'
+            message: 'Banner không tồn tại!'
         });
     }
 
-    // Check for duplicate
     const existing = await db.BannerDetail.findOne({
         where: {
             product_id,
@@ -103,7 +97,7 @@ export async function createBannerDetail(req, res) {
     if (existing) {
         return res.status(409).json({
             success: false,
-            message: 'This product-banner relationship already exists!'
+            message: 'Mối quan hệ giữa sản phẩm và banner đã tồn tại!'
         });
     }
 
@@ -111,12 +105,11 @@ export async function createBannerDetail(req, res) {
 
     res.status(200).json({
         success: true,
-        message: 'Created banner detail successfully!',
+        message: 'Tạo chi tiết banner thành công!',
         data: bannerDetail,
     })
 }
 
-// Update BannerDetail
 export async function updateBannerDetail(req, res) {
     const { id } = req.params
     const { product_id, banner_id } = req.body
@@ -125,7 +118,7 @@ export async function updateBannerDetail(req, res) {
     if (!product) {
         return res.status(400).json({
             success: false,
-            message: 'Product does not exist!'
+            message: 'Sản phẩm không tồn tại!'
         });
     }
 
@@ -133,7 +126,7 @@ export async function updateBannerDetail(req, res) {
     if (!banner) {
         return res.status(400).json({
             success: false,
-            message: 'Banner does not exist!'
+            message: 'Banner không tồn tại!'
         });
     }
 
@@ -148,7 +141,7 @@ export async function updateBannerDetail(req, res) {
     if (existing) {
         return res.status(400).json({
             success: false,
-            message: 'Duplicate product_id and banner_id combination already exists.',
+            message: 'Mối quan hệ giữa sản phẩm và banner đã tồn tại.',
         })
     }
 
@@ -158,17 +151,16 @@ export async function updateBannerDetail(req, res) {
 
     if (affectedRows === 0) {
         return res.status(404).json({
-            message: 'Banner detail not found!'
+            message: 'Chi tiết banner không tồn tại!'
         });
     }
 
     res.status(200).json({
         success: true,
-        message: 'Updated banner detail successfully!',
+        message: 'Cập nhật chi tiết banner thành công!',
     })
 }
 
-// Delete BannerDetail
 export async function deleteBannerDetail(req, res) {
     const { id } = req.params
 
@@ -176,12 +168,12 @@ export async function deleteBannerDetail(req, res) {
 
     if (!deleted) {
         return res.status(404).json({
-            message: 'Banner detail not found!',
+            message: 'Chi tiết banner không tồn tại!',
         });
     }
 
     res.status(200).json({
         success: true,
-        message: 'Deleted banner detail successfully!',
+        message: 'Xóa chi tiết banner thành công!',
     })
 }

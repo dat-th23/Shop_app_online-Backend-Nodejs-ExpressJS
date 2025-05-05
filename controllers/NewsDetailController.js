@@ -1,7 +1,47 @@
 import { Op } from "sequelize"
 import db from "../models"
 
-// Get all NewsDetail records with optional pagination and search
+export async function createNewsDetail(req, res) {
+    const { product_id, news_id } = req.body
+    const product = await db.Product.findByPk(product_id);
+    if (!product) {
+        return res.status(400).json({
+            success: false,
+            message: `Sản phẩm không tồn tại!`
+        });
+    }
+
+    const news = await db.News.findByPk(news_id);
+    if (!news) {
+        return res.status(400).json({
+            success: false,
+            message: `Bài viết tin tức không tồn tại!`
+        });
+    }
+
+    const existingDetail = await db.NewsDetail.findOne({
+        where: {
+            product_id,
+            news_id,
+        },
+    });
+
+    if (existingDetail) {
+        return res.status(409).json({
+            success: false,
+            message: `Mối quan hệ giữa sản phẩm và tin tức đã tồn tại!`
+        });
+    }
+
+    const newsDetail = await db.NewsDetail.create({ product_id, news_id });
+
+    res.status(200).json({
+        success: true,
+        message: 'Tạo chi tiết tin tức thành công!',
+        data: newsDetail,
+    });
+}
+
 export async function getAllNewsDetails(req, res) {
     const { page = 1, limit = 10, search = '' } = req.query
     const offset = (page - 1) * limit
@@ -15,7 +55,7 @@ export async function getAllNewsDetails(req, res) {
             include: [
                 {
                     model: db.Product,
-                    attributes: ['id', 'name', 'image', 'price'], // chọn trường cần lấy
+                    attributes: ['id', 'name', 'image', 'price'],
                 },
                 {
                     model: db.News,
@@ -27,7 +67,7 @@ export async function getAllNewsDetails(req, res) {
 
     res.status(200).json({
         success: true,
-        message: 'Get news detail list successfully!',
+        message: 'Lấy danh sách chi tiết tin tức thành công!',
         data: newsDetails,
         count: newsDetails.length,
         pagination: {
@@ -38,7 +78,6 @@ export async function getAllNewsDetails(req, res) {
     })
 }
 
-// Get a NewsDetail by its ID (composite key not supported by default, this assumes an auto-incremented ID exists)
 export async function getNewsDetailById(req, res) {
     const { id } = req.params;
 
@@ -46,7 +85,7 @@ export async function getNewsDetailById(req, res) {
         include: [
             {
                 model: db.Product,
-                attributes: ['id', 'name', 'image', 'price'], // chọn trường cần lấy
+                attributes: ['id', 'name', 'image', 'price'],
             },
             {
                 model: db.News,
@@ -58,79 +97,15 @@ export async function getNewsDetailById(req, res) {
     if (!newsDetail) {
         return res.status(404).json({
             success: false,
-            message: 'News detail not found!',
+            message: 'Chi tiết tin tức không tồn tại!',
             data: null
         });
     }
 
     res.status(200).json({
         success: true,
-        message: 'Get news detail by id successfully!',
+        message: 'Lấy chi tiết tin tức theo ID thành công!',
         data: newsDetail
-    });
-}
-
-
-// Create a NewsDetail
-export async function createNewsDetail(req, res) {
-    const { product_id, news_id } = req.body
-    // Check if product exists
-    const product = await db.Product.findByPk(product_id);
-    if (!product) {
-        return res.status(400).json({
-            success: false,
-            message: `Product does not exist!`
-        });
-    }
-
-    // Check if news article exists
-    const news = await db.News.findByPk(news_id);
-    if (!news) {
-        return res.status(400).json({
-            success: false,
-            message: `News article does not exist!`
-        });
-    }
-
-    // Check for duplicate entry
-    const existingDetail = await db.NewsDetail.findOne({
-        where: {
-            product_id,
-            news_id,
-        },
-    });
-
-    if (existingDetail) {
-        return res.status(409).json({
-            success: false,
-            message: `The relationship between product and news already exists!`
-        });
-    }
-
-    // Create NewsDetail entry
-    const newsDetail = await db.NewsDetail.create({ product_id, news_id });
-
-    res.status(200).json({
-        success: true,
-        message: 'Created news detail successfully!',
-        data: newsDetail,
-    });
-}
-
-// Delete a NewsDetail (id)
-export async function deleteNewsDetail(req, res) {
-    const { id } = req.params
-    const deleted = await db.NewsDetail.destroy({ where: { id } })
-
-    if (!deleted) {
-        return res.status(404).json({
-            message: 'News detail not found!',
-        });
-    }
-
-    res.status(200).json({
-        success: true,
-        message: 'Deleted news detail successfully!',
     });
 }
 
@@ -138,25 +113,22 @@ export async function updateNewsDetail(req, res) {
     const { id } = req.params
     const { product_id, news_id } = req.body
 
-    // Check if product exists
     const product = await db.Product.findByPk(product_id);
     if (!product) {
         return res.status(400).json({
             success: false,
-            message: `Product does not exist!`
+            message: `Sản phẩm không tồn tại!`
         });
     }
 
-    // Check if news article exists
     const news = await db.News.findByPk(news_id);
     if (!news) {
         return res.status(400).json({
             success: false,
-            message: `News article does not exist!`
+            message: `Bài viết tin tức không tồn tại!`
         });
     }
 
-    // check for existing duplicate that is not the current record  
     const existing = await db.NewsDetail.findOne({
         where: {
             product_id,
@@ -168,7 +140,7 @@ export async function updateNewsDetail(req, res) {
     if (existing) {
         return res.status(400).json({
             success: false,
-            message: 'Duplicate product_id and news_id combination already exists.',
+            message: 'Mối quan hệ giữa sản phẩm và tin tức đã tồn tại.',
         })
     }
 
@@ -177,11 +149,27 @@ export async function updateNewsDetail(req, res) {
     })
 
     if (affectedRows === 0) {
-        return res.status(404).json({ message: 'News detail not found!' });
+        return res.status(404).json({ message: 'Chi tiết tin tức không tồn tại!' });
     }
 
     res.status(200).json({
         success: true,
-        message: 'Updated news detail successfully!',
+        message: 'Cập nhật chi tiết tin tức thành công!',
     })
+}
+
+export async function deleteNewsDetail(req, res) {
+    const { id } = req.params
+    const deleted = await db.NewsDetail.destroy({ where: { id } })
+
+    if (!deleted) {
+        return res.status(404).json({
+            message: 'Chi tiết tin tức không tồn tại!',
+        });
+    }
+
+    res.status(200).json({
+        success: true,
+        message: 'Xóa chi tiết tin tức thành công!',
+    });
 }

@@ -1,19 +1,5 @@
 import db from "../models"
 
-export async function getAllOrders(req, res) {
-    res.status(200).json({
-        success: true,
-        message: 'Get order list successfully!'
-    })
-}
-
-export async function getOrderById(req, res) {
-    res.status(200).json({
-        success: true,
-        message: 'Get order by id successfully!'
-    })
-}
-
 export async function createOrder(req, res) {
     const { user_id } = req.body
     const user = await db.User.findByPk(user_id)
@@ -21,7 +7,7 @@ export async function createOrder(req, res) {
     if (!user) {
         return res.status(404).json({
             success: false,
-            message: 'User does not exist!',
+            message: 'Người dùng không tồn tại!',
             data: user,
         })
     }
@@ -29,25 +15,25 @@ export async function createOrder(req, res) {
     const order = await db.Order.create(req.body)
     res.status(201).json({
         success: true,
-        message: 'Created order successfully!',
+        message: 'Tạo đơn hàng thành công!',
         data: order,
     })
 }
 
-export async function deleteOrder(req, res) {
-    const { id } = req.params
-    const deleted = await db.Order.destroy({ where: { id } })
-    if (!deleted) {
-        return res.status(404).json({
-            success: false,
-            message: 'Order not found!',
-        })
-    }
+export async function getAllOrders(req, res) {
     res.status(200).json({
         success: true,
-        message: 'Deleted order successfully!'
+        message: 'Lấy danh sách đơn hàng thành công!'
     })
 }
+
+export async function getOrderById(req, res) {
+    res.status(200).json({
+        success: true,
+        message: 'Lấy đơn hàng theo ID thành công!'
+    })
+}
+
 export async function updateOrder(req, res) {
     const { id } = req.params;
 
@@ -56,12 +42,27 @@ export async function updateOrder(req, res) {
     if (affectedRows === 0) {
         return res.status(404).json({
             success: false,
-            message: 'Order not found!',
+            message: 'Đơn hàng không tồn tại!',
         });
     }
 
     res.status(200).json({
         success: true,
-        message: 'Updated order successfully!',
+        message: 'Cập nhật đơn hàng thành công!',
     });
+}
+
+export async function deleteOrder(req, res) {
+    const { id } = req.params
+    const deleted = await db.Order.destroy({ where: { id } })
+    if (!deleted) {
+        return res.status(404).json({
+            success: false,
+            message: 'Đơn hàng không tồn tại!',
+        })
+    }
+    res.status(200).json({
+        success: true,
+        message: 'Xóa đơn hàng thành công!'
+    })
 }

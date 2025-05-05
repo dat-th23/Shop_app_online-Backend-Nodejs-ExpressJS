@@ -1,8 +1,20 @@
+import db from "../models"
+
+export async function createOrderDetail(req, res) {
+    const newOrderDetail = await db.OrderDetail.create(req.body)
+
+    res.status(201).json({
+        success: true,
+        message: 'Tạo chi tiết đơn hàng thành công!',
+        data: newOrderDetail,
+    })
+}
+
 export async function getOrderDetails(req, res) {
     const orderDetails = await db.OrderDetail.findAll()
     res.status(200).json({
         success: true,
-        message: 'Get order details list successfully!',
+        message: 'Lấy danh sách chi tiết đơn hàng thành công!',
         data: orderDetails,
     })
 }
@@ -12,37 +24,13 @@ export async function getOrderDetailById(req, res) {
     const orderDetail = await db.OrderDetail.findByPk(id)
 
     if (!orderDetail) {
-        return res.status(404).json({ message: 'Order detail not found!' })
+        return res.status(404).json({ message: 'Chi tiết đơn hàng không tồn tại!' })
     }
 
     res.status(200).json({
         success: true,
-        message: 'Get order detail by id successfully!',
+        message: 'Lấy chi tiết đơn hàng theo ID thành công!',
         data: orderDetail,
-    })
-}
-
-export async function createOrderDetail(req, res) {
-    const newOrderDetail = await db.OrderDetail.create(req.body)
-
-    res.status(201).json({
-        success: true,
-        message: 'Created order detail successfully!',
-        data: newOrderDetail,
-    })
-}
-
-export async function deleteOrderDetail(req, res) {
-    const { id } = req.params
-    const deleted = await db.OrderDetail.destroy({ where: { id } })
-
-    if (!deleted) {
-        return res.status(404).json({ message: 'Order detail not found!' })
-    }
-
-    res.status(200).json({
-        success: true,
-        message: 'Deleted order detail successfully!',
     })
 }
 
@@ -54,11 +42,25 @@ export async function updateOrderDetail(req, res) {
     })
 
     if (affectedRows === 0) {
-        return res.status(404).json({ message: 'Order detail not found!' })
+        return res.status(404).json({ message: 'Chi tiết đơn hàng không tồn tại!' })
     }
 
     res.status(200).json({
         success: true,
-        message: 'Updated order detail successfully!',
+        message: 'Cập nhật chi tiết đơn hàng thành công!',
+    })
+}
+
+export async function deleteOrderDetail(req, res) {
+    const { id } = req.params
+    const deleted = await db.OrderDetail.destroy({ where: { id } })
+
+    if (!deleted) {
+        return res.status(404).json({ message: 'Chi tiết đơn hàng không tồn tại!' })
+    }
+
+    res.status(200).json({
+        success: true,
+        message: 'Xóa chi tiết đơn hàng thành công!',
     })
 }
