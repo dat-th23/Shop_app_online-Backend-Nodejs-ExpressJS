@@ -1151,30 +1151,39 @@
 		},
 		{
 			"name": "/api/images/:filename",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "images",
-							"type": "file",
-							"src": []
-						}
-					]
-				},
 				"url": {
-					"raw": "{{API_01}}/images/1746436398542-san_sale_ruc_ro.png",
+					"raw": "{{API_01}}/images/1745748949750-cuoi_tuan_giai_tri.jpeg",
 					"host": [
 						"{{API_01}}"
 					],
 					"path": [
 						"images",
-						"1746436398542-san_sale_ruc_ro.png"
+						"1745748949750-cuoi_tuan_giai_tri.jpeg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/images/:filename",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{API_01}}/images/1745578842845-vourcher copy.png",
+					"host": [
+						"{{API_01}}"
+					],
+					"path": [
+						"images",
+						"1745578842845-vourcher copy.png"
 					]
 				}
 			},

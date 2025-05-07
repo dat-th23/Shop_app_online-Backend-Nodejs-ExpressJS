@@ -136,6 +136,7 @@ export function AppRoute(app) {
     router.post('/images/upload', uploadImageMiddleware.array('images', 5),
         asyncHandler(ImageController.uploadImages))
     router.get('/images/:filename', asyncHandler(ImageController.viewImage))
+    router.delete('/images/:filename', asyncHandler(ImageController.deleteImage))
 
     // Use the router with the base URL "/api"
     app.use('/api/', router)

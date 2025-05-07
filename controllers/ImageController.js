@@ -6,6 +6,7 @@
 
 import path from 'path'
 import fs from 'fs'
+import db from '../models'
 
 export async function uploadImages(req, res) {
     if (!req.files || req.files.length === 0) ({
@@ -24,19 +25,52 @@ export async function uploadImages(req, res) {
 export async function viewImage(req, res) {
     const { filename } = req.params
 
-    // Gộp đường dẫn tới đúng file ảnh
     const filePath = path.join(__dirname, '../uploads', filename)
 
-    // Kiểm tra file có tồn tại
-    fs.access(filePath, fs.constants.F_OK, (error) => {
-        if (error) {
-            return res.status(404).json({
-                success: false,
-                message: 'Ảnh không tồn tại!'
-            })
-        }
+    if (!fs.existsSync(filePath)) {
+        return res.status(404).json({
+            success: false,
+            message: 'Ảnh không tồn tại!'
+        })
+    }
+    res.sendFile(filePath)
 
-        // Gửi file ảnh
-        res.sendFile(filePath)
+}
+
+async function isImageUsed(filename) {
+    const models = [db.Product, db.Category, db.Brand, db.News, db.Banner]
+
+    for (const model of models) {
+        const exists = await model.findOne({ where: { image: filename } })
+        if (exists) return true
+    }
+
+    return false
+}
+
+export async function deleteImage(req, res) {
+    const { filename } = req.params
+    const filePath = path.join(__dirname, '../uploads', filename)
+
+    const isUsed = await isImageUsed(filename)
+    if (isUsed) {
+        return res.status(400).json({
+            success: false,
+            message: 'Không thể xoá ảnh vì đang được sử dụng trong hệ thống.'
+        })
+    }
+
+    if (!fs.existsSync(filePath)) {
+        return res.status(404).json({
+            success: false,
+            message: 'Ảnh không tồn tại!'
+        })
+    }
+
+    fs.unlinkSync(filePath)
+    return res.status(200).json({
+        success: true,
+        message: 'Xoá ảnh thành công!'
     })
+
 }
