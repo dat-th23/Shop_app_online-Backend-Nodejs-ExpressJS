@@ -76,18 +76,21 @@ export async function getBrandById(req, res) {
 export async function updateBrand(req, res) {
     const { id } = req.params;
     const { name } = req.body
-    const existingBrand = await db.Brand.findOne({
-        where: {
-            name: name,
-            id: { [Sequelize.Op.ne]: id }
-        }
-    })
 
-    if (existingBrand) {
-        return res.status(409).json({
-            success: false,
-            message: 'Tên thương hiệu đã tồn tại, vui lòng lựa chọn tên khác!'
+    if (name && name != undefined) {
+        const existingBrand = await db.Brand.findOne({
+            where: {
+                name: name,
+                id: { [Sequelize.Op.ne]: id }
+            }
         })
+
+        if (existingBrand) {
+            return res.status(409).json({
+                success: false,
+                message: 'Tên thương hiệu đã tồn tại, vui lòng lựa chọn tên khác!'
+            })
+        }
     }
 
     const [affectedRows] = await db.Brand.update(req.body, { where: { id } });

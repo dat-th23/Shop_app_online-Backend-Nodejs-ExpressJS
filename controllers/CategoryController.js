@@ -78,19 +78,23 @@ export async function updateCategory(req, res) {
     const { id } = req.params;
     const { name } = req.body
 
-    const existingCategory = await db.Category.findOne({
-        where: {
-            name: name,
-            id: { [Sequelize.Op.ne]: id }
-        }
-    })
-
-    if (existingCategory) {
-        return res.status(409).json({
-            success: false,
-            message: 'Tên danh mục đã tồn tại, vui lòng lựa chọn tên khác!'
+    if (name && name != undefined) {
+        const existingCategory = await db.Category.findOne({
+            where: {
+                name: name,
+                id: { [Sequelize.Op.ne]: id }
+            }
         })
+
+        if (existingCategory) {
+            return res.status(409).json({
+                success: false,
+                message: 'Tên danh mục đã tồn tại, vui lòng lựa chọn tên khác!'
+            })
+        }
     }
+
+    console.log('req', req.body);
 
     const [affectedRows] = await db.Category.update(req.body, { where: { id } });
 
