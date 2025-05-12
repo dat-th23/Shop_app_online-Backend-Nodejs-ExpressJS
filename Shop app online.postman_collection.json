@@ -311,7 +311,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"MSI\"\n}",
+							"raw": "{\n    \"image\":\"1746875330082-sony.png\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -319,13 +319,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_01}}/brands/16",
+							"raw": "{{API_01}}/brands/3",
 							"host": [
 								"{{API_01}}"
 							],
 							"path": [
 								"brands",
-								"16"
+								"3"
 							]
 						}
 					},
@@ -394,13 +394,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_01}}/categories/5",
+							"raw": "{{API_01}}/categories/1",
 							"host": [
 								"{{API_01}}"
 							],
 							"path": [
 								"categories",
-								"5"
+								"1"
 							]
 						}
 					},
@@ -439,7 +439,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Bàn phím\"\n}",
+							"raw": "{\n    \"name\": \"Máy ảnh\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -447,13 +447,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_01}}/categories/9",
+							"raw": "{{API_01}}/categories/5",
 							"host": [
 								"{{API_01}}"
 							],
 							"path": [
 								"categories",
-								"9"
+								"5"
 							]
 						}
 					},
@@ -935,6 +935,95 @@
 			"name": "Products",
 			"item": [
 				{
+					"name": "Product Image",
+					"item": [
+						{
+							"name": "api/product-images?product_id=",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{API_01}}/product-images?product_id=1",
+									"host": [
+										"{{API_01}}"
+									],
+									"path": [
+										"product-images"
+									],
+									"query": [
+										{
+											"key": "product_id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "api/product-images",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{API_01}}/product-images",
+									"host": [
+										"{{API_01}}"
+									],
+									"path": [
+										"product-images"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "api/product-images",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"product_id\": \"1\",\n    \"image_url\": \"1747038738415-dell-xps-13-9340-thinkpro-Bhh.webp\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_01}}/product-images",
+									"host": [
+										"{{API_01}}"
+									],
+									"path": [
+										"product-images"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "api/product-images",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{API_01}}/product-images/3",
+									"host": [
+										"{{API_01}}"
+									],
+									"path": [
+										"product-images",
+										"3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "api/products",
 					"request": {
 						"method": "GET",
@@ -957,7 +1046,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_01}}/products?search=&page=4&limit=6",
+							"raw": "{{API_01}}/products?search=&page=1&limit=25",
 							"host": [
 								"{{API_01}}"
 							],
@@ -971,11 +1060,11 @@
 								},
 								{
 									"key": "page",
-									"value": "4"
+									"value": "1"
 								},
 								{
 									"key": "limit",
-									"value": "6"
+									"value": "25"
 								}
 							]
 						}
@@ -988,13 +1077,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_01}}/products/18",
+							"raw": "{{API_01}}/products/1",
 							"host": [
 								"{{API_01}}"
 							],
 							"path": [
 								"products",
-								"18"
+								"1"
 							]
 						}
 					},
@@ -1033,7 +1122,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n        \"name\": \"iPhone 14 Pro Max\",\n        \"image\": \"https://example.com/images/iphone14pro.jpg\",\n        \"price\": 1199,\n        \"oldprice\": 1299,\n        \"description\": \"Apple flagship smartphone with A16 Bionic chip.\",\n        \"specification\": \"6.7-inch OLED, 128GB, 6GB RAM, iOS\",\n        \"buyturn\": 400,\n        \"quantity\": 50\n    }",
+							"raw": "{\n    \"image\": \"1747041487384-dell-xps-13-9340-thinkpro-zZy.webp\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1041,13 +1130,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_01}}/products/3",
+							"raw": "{{API_01}}/products/1",
 							"host": [
 								"{{API_01}}"
 							],
 							"path": [
 								"products",
-								"3"
+								"1"
 							]
 						}
 					},
@@ -1132,7 +1221,7 @@
 						{
 							"key": "images",
 							"type": "file",
-							"src": "/Users/ntda/Documents/Workspace/ShopApp/backend/assets/san_sale_ruc_ro.png"
+							"src": "/Users/ntda/Documents/Workspace/ShopApp/backend/assets/dell-xps-13-9340-thinkpro-zZy.webp"
 						}
 					]
 				},
@@ -1155,13 +1244,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{API_01}}/images/1745748949750-cuoi_tuan_giai_tri.jpeg",
+					"raw": "{{API_01}}/images/1746870773887-dien_thoai.jpeg",
 					"host": [
 						"{{API_01}}"
 					],
 					"path": [
 						"images",
-						"1745748949750-cuoi_tuan_giai_tri.jpeg"
+						"1746870773887-dien_thoai.jpeg"
 					]
 				}
 			},
@@ -1177,13 +1266,13 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{API_01}}/images/1745578842845-vourcher copy.png",
+					"raw": "{{API_01}}/images/1747041487384-dell-xps-13-9340-thinkpro-zZy.webp",
 					"host": [
 						"{{API_01}}"
 					],
 					"path": [
 						"images",
-						"1745578842845-vourcher copy.png"
+						"1747041487384-dell-xps-13-9340-thinkpro-zZy.webp"
 					]
 				}
 			},

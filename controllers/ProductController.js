@@ -39,7 +39,14 @@ export async function getAllProducts(req, res) {
         db.Product.count({ where: whereCondition }),
         db.Product.findAll({
             where: whereCondition,
-            include: ['Brand', 'Category'],
+            include: [
+                {
+                    model: db.ProductImage,
+                    as: 'product_images'
+                },
+                { model: db.Brand },
+                { model: db.Category }
+            ],
             offset: parseInt(offset),
             limit: parseInt(limit),
             order: [['id', 'ASC']],
@@ -61,7 +68,16 @@ export async function getAllProducts(req, res) {
 
 export async function getProductById(req, res) {
     const { id } = req.params
-    const product = await db.Product.findByPk(id)
+    const product = await db.Product.findByPk(id, {
+        include: [
+            {
+                model: db.ProductImage,
+                as: 'product_images'
+            },
+            { model: db.Brand },
+            { model: db.Category }
+        ]
+    });
 
     if (!product) {
         return res.status(404).json({
@@ -80,17 +96,19 @@ export async function getProductById(req, res) {
 export async function updateProduct(req, res) {
     const { id } = req.params;
     const { name } = req.body
-    const existingProduct = await db.Product.findOne({
-        where: {
-            name: name,
-            id: { [Sequelize.Op.ne]: id }
-        }
-    })
-    if (existingProduct) {
-        return res.status(409).json({
-            success: false,
-            message: 'Tên sản phẩm đã tồn tại, vui lòng lựa chọn tên khác!'
+    if (name && name != undefined) {
+        const existingProduct = await db.Product.findOne({
+            where: {
+                name: name,
+                id: { [Sequelize.Op.ne]: id }
+            }
         })
+        if (existingProduct) {
+            return res.status(409).json({
+                success: false,
+                message: 'Tên sản phẩm đã tồn tại, vui lòng lựa chọn tên khác!'
+            })
+        }
     }
 
     const [affectedRows] = await db.Product.update(req.body, { where: { id } });

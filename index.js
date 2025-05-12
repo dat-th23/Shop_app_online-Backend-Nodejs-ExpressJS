@@ -34,6 +34,8 @@
 
     npx sequelize-cli model:generate --name Feedback --attributes product_id:integer,user_id:integer,star:integer,content:text
 
+    npx sequelize-cli model:generate --name ProductImage --attributes product_id:integer,image_url:text
+
     yarn add express
     yarn add dotenv nodemon
     yarn add --dev @babel/core @babel/node @babel/preset-env

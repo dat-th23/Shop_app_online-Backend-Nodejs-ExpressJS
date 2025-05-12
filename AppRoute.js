@@ -10,6 +10,7 @@ import * as NewsDetailController from './controllers/NewsDetailController.js'
 import * as BannerController from './controllers/BannerController.js'
 import * as BannerDetailController from './controllers/BannerDetailController.js'
 import * as ImageController from './controllers/ImageController.js'
+import * as ProductImageController from './controllers/ProductImageController.js'
 
 import asyncHandler from './middlewares/asyncHandler.js'
 import validate from './middlewares/validate.js'
@@ -137,6 +138,17 @@ export function AppRoute(app) {
         asyncHandler(ImageController.uploadImages))
     router.get('/images/:filename', asyncHandler(ImageController.viewImage))
     router.delete('/images/:filename', asyncHandler(ImageController.deleteImage))
+
+    // Product Image Route 
+    router.get('/product-images', asyncHandler(ProductImageController.getAllProductImages))
+    router.get('/product-images/:id', asyncHandler(ProductImageController.getProductImageById))
+    router.post('/product-images',
+        validateImage,
+        asyncHandler(ProductImageController.createProductImage))
+    // router.put('/product-images/:id',
+    //     validateImage,
+    //     asyncHandler(ProductImageController.updateProductImage))
+    router.delete('/product-images/:id', asyncHandler(ProductImageController.deleteProductImage))
 
     // Use the router with the base URL "/api"
     app.use('/api/', router)

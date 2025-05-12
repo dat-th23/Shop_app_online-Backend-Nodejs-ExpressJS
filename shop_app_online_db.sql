@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Generation Time: May 05, 2025 at 10:29 AM
+-- Generation Time: May 12, 2025 at 10:12 AM
 -- Server version: 9.0.1
 -- PHP Version: 8.2.27
 
@@ -90,9 +90,9 @@ CREATE TABLE `brands` (
 --
 
 INSERT INTO `brands` (`id`, `name`, `image`, `created_at`, `updated_at`) VALUES
-(1, 'Apple', NULL, '2025-03-31 10:01:18', '2025-03-31 10:01:18'),
-(2, 'Samsung', NULL, '2025-03-31 10:01:31', '2025-03-31 10:01:31'),
-(3, 'Sony', NULL, '2025-03-31 10:01:51', '2025-03-31 10:01:51'),
+(1, 'Apple', '1746875330082-apple.png', '2025-03-31 10:01:18', '2025-05-10 11:09:40'),
+(2, 'Samsung', '1746875330082-samsung.png', '2025-03-31 10:01:31', '2025-05-10 11:10:04'),
+(3, 'Sony', '1746875330082-sony.png', '2025-03-31 10:01:51', '2025-05-10 11:11:54'),
 (4, 'Canon', NULL, '2025-03-31 10:02:42', '2025-03-31 10:02:42'),
 (5, 'Dell', NULL, '2025-04-06 09:16:00', '2025-04-06 09:16:00'),
 (6, 'Xiaomi', NULL, '2025-04-06 09:16:11', '2025-04-06 09:16:11'),
@@ -125,15 +125,15 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `image`, `created_at`, `updated_at`) VALUES
-(1, 'Đồ gia dụng', NULL, '2025-03-31 10:12:11', '2025-03-31 10:12:11'),
-(2, 'Điện thoại', NULL, '2025-03-31 10:12:23', '2025-03-31 10:12:23'),
-(3, 'Máy tính bảng', NULL, '2025-03-31 10:13:18', '2025-03-31 10:13:18'),
-(5, 'Máy Ảnh', NULL, '2025-04-06 08:53:48', '2025-04-06 08:53:48'),
-(6, 'Laptop', NULL, '2025-04-08 08:14:38', '2025-04-08 08:14:38'),
-(7, 'Tai nghe', NULL, '2025-04-08 08:15:20', '2025-04-08 08:15:20'),
-(8, 'Đồng hồ', NULL, '2025-04-08 08:16:00', '2025-04-08 08:16:00'),
-(9, 'Chuột', NULL, '2025-04-08 08:17:26', '2025-04-08 08:17:26'),
-(10, 'Bàn phím', NULL, '2025-04-14 09:07:44', '2025-04-14 09:08:34');
+(1, 'Đồ gia dụng', '1746871412381-do_gia_dung.jpeg', '2025-03-31 10:12:11', '2025-05-10 10:04:56'),
+(2, 'Điện thoại', '1746872286193-dien_thoai.jpeg', '2025-03-31 10:12:23', '2025-05-10 10:18:43'),
+(3, 'Máy tính bảng', '1746872286194-may_tinh_bang.jpeg', '2025-03-31 10:13:18', '2025-05-10 10:20:28'),
+(5, 'Máy ảnh', '1746872286194-may_anh.jpeg', '2025-04-06 08:53:48', '2025-05-10 10:38:22'),
+(6, 'Laptop', '1746872286194-laptop.jpeg', '2025-04-08 08:14:38', '2025-05-10 10:35:39'),
+(7, 'Tai nghe', '1746872286194-tai_nghe.jpeg', '2025-04-08 08:15:20', '2025-05-10 10:36:07'),
+(8, 'Đồng hồ', '1746873401307-dong_ho.jpeg', '2025-04-08 08:16:00', '2025-05-10 10:36:59'),
+(9, 'Chuột', '1746873401307-chuot.jpeg', '2025-04-08 08:17:26', '2025-05-10 10:37:24'),
+(10, 'Bàn phím', '1746873401306-ban_phim.jpeg', '2025-04-14 09:07:44', '2025-05-10 10:37:47');
 
 -- --------------------------------------------------------
 
@@ -256,7 +256,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `image`, `price`, `oldprice`, `description`, `specification`, `buyturn`, `quantity`, `brand_id`, `category_id`, `created_at`, `updated_at`) VALUES
-(1, 'Laptop Dell XPS 13', 'https://example.com/images/dell-xps-13.jpg', 25000000, 27000000, 'Laptop Dell XPS 13 với màn hình 13.4 inch Full HD.', 'CPU Intel Core i7, RAM 16GB, SSD 512GB', 10, 50, 1, 2, '2025-04-01 07:57:35', '2025-04-01 07:57:35'),
+(1, 'Laptop Dell XPS 13', '1747041487384-dell-xps-13-9340-thinkpro-zZy.webp', 25000000, 27000000, 'Laptop Dell XPS 13 với màn hình 13.4 inch Full HD.', 'CPU Intel Core i7, RAM 16GB, SSD 512GB', 10, 50, 1, 2, '2025-04-01 07:57:35', '2025-05-12 09:19:44'),
 (5, 'Bàn phím cơ RGB', 'https://example.com/images/mechanical-keyboard.jpg', 1200000, 0, 'Bàn phím cơ RGB có switch brown.', 'Switch brown, kết nối USB-C', 0, 0, 3, 2, '2025-04-01 08:03:17', '2025-04-01 08:03:17'),
 (8, 'Chuột Logitech G502', 'https://example.com/images/logitech-g502.jpg', 1200000, 1500000, 'Chuột gaming Logitech G502 với cảm biến HERO 25K.', 'DPI tối đa 25,600, 11 nút có thể lập trình', 30, 100, 4, 2, '2025-04-02 03:59:33', '2025-04-02 03:59:33'),
 (10, 'Chuột Logitech G503', 'https://example.com/images/logitech-g502.jpg', 1200000, 1500000, 'Chuột gaming Logitech G502 với cảm biến HERO 25K.', 'DPI tối đa 25,600, 11 nút có thể lập trình', 30, 100, 4, 2, '2025-04-02 04:33:38', '2025-04-02 04:33:38'),
@@ -274,6 +274,28 @@ INSERT INTO `products` (`id`, `name`, `image`, `price`, `oldprice`, `description
 (25, 'Canon EOS R10', 'https://example.com/images/canonr10.jpg', 979, 1049, 'Compact mirrorless camera for creators.', '24MP APS-C, 4K60 Video, Dual Pixel AF', 60, 15, 4, 5, '2025-04-08 08:22:12', '2025-04-08 08:22:12'),
 (26, 'Nikon Z50', 'https://example.com/images/nikonz50.jpg', 999, 1099, 'Entry-level mirrorless camera.', '20.9MP, 4K UHD, Flip-down touchscreen', 55, 10, 11, 5, '2025-04-08 08:22:22', '2025-04-08 08:22:22'),
 (27, 'DJI Mini 3 Pro', 'https://example.com/images/djimini3.jpg', 759, 849, 'Lightweight drone with 4K camera.', '4K HDR, 34min Flight, Obstacle Avoidance', 120, 20, 12, 5, '2025-04-08 08:22:31', '2025-04-08 08:22:31');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_images`
+--
+
+CREATE TABLE `product_images` (
+  `id` int NOT NULL,
+  `product_id` int DEFAULT NULL,
+  `image_url` text,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `product_images`
+--
+
+INSERT INTO `product_images` (`id`, `product_id`, `image_url`, `created_at`, `updated_at`) VALUES
+(1, 1, '1746959102235-dell-xps-13-9340-thinkpro.webp', '2025-05-11 10:25:23', '2025-05-11 10:25:23'),
+(2, 1, '1746959380203-dell-xps-13-9340-thinkpro-NKS.webp', '2025-05-11 10:30:03', '2025-05-11 10:30:03');
 
 -- --------------------------------------------------------
 
@@ -300,7 +322,8 @@ INSERT INTO `SequelizeMeta` (`name`) VALUES
 ('20250327121831-create-order-detail.js'),
 ('20250327151306-create-banner-detail.js'),
 ('20250327155614-create-news-detail.js'),
-('20250327171020-create-feedback.js');
+('20250327171020-create-feedback.js'),
+('20250511083850-create-product-image.js');
 
 -- --------------------------------------------------------
 
@@ -406,6 +429,13 @@ ALTER TABLE `products`
   ADD KEY `category_id` (`category_id`);
 
 --
+-- Indexes for table `product_images`
+--
+ALTER TABLE `product_images`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
 -- Indexes for table `SequelizeMeta`
 --
 ALTER TABLE `SequelizeMeta`
@@ -484,6 +514,12 @@ ALTER TABLE `products`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `product_images`
+--
+ALTER TABLE `product_images`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
@@ -533,6 +569,12 @@ ALTER TABLE `order_details`
 ALTER TABLE `products`
   ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`brand_id`) REFERENCES `brands` (`id`),
   ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);
+
+--
+-- Constraints for table `product_images`
+--
+ALTER TABLE `product_images`
+  ADD CONSTRAINT `product_images_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

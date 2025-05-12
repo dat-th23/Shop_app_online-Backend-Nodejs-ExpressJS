@@ -38,11 +38,27 @@ export async function viewImage(req, res) {
 }
 
 async function isImageUsed(filename) {
-    const models = [db.Product, db.Category, db.Brand, db.News, db.Banner]
+    // const models = [db.Product, db.Category, db.Brand, db.News, db.Banner]
+    const models = [
+        { model: db.User, field: 'avatar', name: 'User' },
+        { model: db.Product, field: 'image', name: 'Product' },
+        { model: db.Category, field: 'image', name: 'Category' },
+        { model: db.Brand, field: 'image', name: 'Brand' },
+        { model: db.News, field: 'image', name: 'News' },
+        { model: db.Banner, field: 'image', name: 'Banner' },
+    ]
 
-    for (const model of models) {
-        const exists = await model.findOne({ where: { image: filename } })
-        if (exists) return true
+    for (const item of models) {
+        const exists = await item.model.findOne({ where: { [item.field]: filename } })
+        if (exists) {
+            console.log(
+                `Found in model: ${item.name},
+                Field: ${item.field},
+                Image Url: ${filename}`
+            );
+
+            return true
+        }
     }
 
     return false
