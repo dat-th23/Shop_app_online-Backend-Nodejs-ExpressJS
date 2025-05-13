@@ -15,6 +15,7 @@ services:
   
   phpmyadmin: 
     image: phpmyadmin/phpmyadmin
+    platform: linux/amd64  
     container_name: phpmyadmin-container
     restart: always
     depends_on: 
@@ -24,7 +25,7 @@ services:
     environment: 
       PMA_HOST: mysql #phpMyAdmin in Host, PMA = PHP My Admin
       PMA_PORT: 3306
-      UPLOAD_LIMIT: 500M
+      UPLOAD_LIMIT: 500M 
     networks: 
       - shop_app_online
 

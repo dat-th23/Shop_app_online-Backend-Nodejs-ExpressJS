@@ -36,6 +36,14 @@
 
     npx sequelize-cli model:generate --name ProductImage --attributes product_id:integer,image_url:text
 
+    npx sequelize-cli migration:generate --name add-session_id-to-orders
+
+    ALTER TABLE `order` DROP FOREIGN KEY constraint_name;
+
+    npx sequelize-cli model:generate --name Cart --attributes user_id:integer,session_id:string
+
+    npx sequelize-cli model:generate --name CartItem --attributes cart_id:integer,product_id:integer,quantity:integer
+
     yarn add express
     yarn add dotenv nodemon
     yarn add --dev @babel/core @babel/node @babel/preset-env

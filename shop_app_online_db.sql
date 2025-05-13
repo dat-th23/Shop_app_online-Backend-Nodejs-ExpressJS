@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Generation Time: May 12, 2025 at 10:12 AM
+-- Generation Time: May 13, 2025 at 10:11 AM
 -- Server version: 9.0.1
 -- PHP Version: 8.2.27
 
@@ -109,6 +109,35 @@ INSERT INTO `brands` (`id`, `name`, `image`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `carts`
+--
+
+CREATE TABLE `carts` (
+  `id` int NOT NULL,
+  `user_id` int DEFAULT NULL,
+  `session_id` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart_items`
+--
+
+CREATE TABLE `cart_items` (
+  `id` int NOT NULL,
+  `cart_id` int NOT NULL,
+  `product_id` int DEFAULT NULL,
+  `quantity` int DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `categories`
 --
 
@@ -202,16 +231,17 @@ CREATE TABLE `orders` (
   `note` text,
   `total` int DEFAULT NULL,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL
+  `updated_at` datetime NOT NULL,
+  `session_id` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `status`, `note`, `total`, `created_at`, `updated_at`) VALUES
-(1, 10, 1, 'Please deliver between 9 AM - 12 PM', 1499000, '2025-04-17 10:25:14', '2025-04-17 10:25:14'),
-(2, 10, 1, 'Please deliver between 9 AM - 12 PM', 1499000, '2025-04-17 10:25:40', '2025-04-17 10:25:40');
+INSERT INTO `orders` (`id`, `user_id`, `status`, `note`, `total`, `created_at`, `updated_at`, `session_id`) VALUES
+(1, 10, 1, 'Please deliver between 9 AM - 12 PM', 1499000, '2025-04-17 10:25:14', '2025-04-17 10:25:14', NULL),
+(2, 10, 1, 'Please deliver between 9 AM - 12 PM', 1499000, '2025-04-17 10:25:40', '2025-04-17 10:25:40', NULL);
 
 -- --------------------------------------------------------
 
@@ -249,7 +279,7 @@ CREATE TABLE `products` (
   `category_id` int NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `products`
@@ -304,7 +334,7 @@ INSERT INTO `product_images` (`id`, `product_id`, `image_url`, `created_at`, `up
 --
 
 CREATE TABLE `SequelizeMeta` (
-  `name` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
@@ -323,7 +353,10 @@ INSERT INTO `SequelizeMeta` (`name`) VALUES
 ('20250327151306-create-banner-detail.js'),
 ('20250327155614-create-news-detail.js'),
 ('20250327171020-create-feedback.js'),
-('20250511083850-create-product-image.js');
+('20250511083850-create-product-image.js'),
+('20250513080103-add-session_id-to-orders.js'),
+('20250513085158-create-cart.js'),
+('20250513085424-create-cart-item.js');
 
 -- --------------------------------------------------------
 
@@ -374,6 +407,20 @@ ALTER TABLE `banner_details`
 ALTER TABLE `brands`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `carts`
+--
+ALTER TABLE `carts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cart_items`
+--
+ALTER TABLE `cart_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cart_id` (`cart_id`),
+  ADD KEY `product_id` (`product_id`);
 
 --
 -- Indexes for table `categories`
@@ -472,6 +519,18 @@ ALTER TABLE `brands`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
+-- AUTO_INCREMENT for table `carts`
+--
+ALTER TABLE `carts`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `cart_items`
+--
+ALTER TABLE `cart_items`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
@@ -511,7 +570,7 @@ ALTER TABLE `order_details`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `product_images`
@@ -537,6 +596,13 @@ ALTER TABLE `banner_details`
   ADD CONSTRAINT `banner_details_ibfk_2` FOREIGN KEY (`banner_id`) REFERENCES `banners` (`id`);
 
 --
+-- Constraints for table `cart_items`
+--
+ALTER TABLE `cart_items`
+  ADD CONSTRAINT `cart_items_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `carts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cart_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+
+--
 -- Constraints for table `feedbacks`
 --
 ALTER TABLE `feedbacks`
@@ -549,12 +615,6 @@ ALTER TABLE `feedbacks`
 ALTER TABLE `news_details`
   ADD CONSTRAINT `news_details_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
   ADD CONSTRAINT `news_details_ibfk_2` FOREIGN KEY (`news_id`) REFERENCES `news` (`id`);
-
---
--- Constraints for table `orders`
---
-ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `order_details`

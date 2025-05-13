@@ -485,6 +485,247 @@
 			]
 		},
 		{
+			"name": "Carts",
+			"item": [
+				{
+					"name": "api/carts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_01}}/carts",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"carts"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "máy",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit ",
+									"value": "5",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/carts/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_01}}/carts/1",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"carts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/carts/get-or-create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"\",\n    \"session_id\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_01}}/carts/get-or-create",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"carts",
+								"get-or-create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/carts/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"\",\n    \"session_id\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_01}}/carts/5",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"carts",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/carts/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_01}}/carts/1",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"carts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cart Items",
+			"item": [
+				{
+					"name": "api/cart-items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_01}}/cart-items/1",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"cart-items",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/cart-items/:cart_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_01}}/cart-items/1",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"cart-items",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/cart-items",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cart_id\": \"\",\n    \"product_id\": \"\",\n    \"quantity\": -1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_01}}/cart-items",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"cart-items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/cart-items/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Máy ảnh\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_01}}/cart-items/5",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"cart-items",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/cart-items/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_01}}/cart-items/1",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"cart-items",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Orders",
 			"item": [
 				{
