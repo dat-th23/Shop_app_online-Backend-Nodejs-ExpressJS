@@ -10,7 +10,7 @@ class InsertCartRequest {
         const schema = Joi.object({
             user_id: Joi.number().integer().allow(null),
             session_id: Joi.string().allow(null, ''),
-        }).or('user_id', 'session_id')
+        })
 
         return schema.validate(data);
     }

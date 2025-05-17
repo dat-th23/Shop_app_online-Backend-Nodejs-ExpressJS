@@ -156,20 +156,19 @@ export function AppRoute(app) {
 
     // cart route
     router.get('/carts', asyncHandler(CartController.getAllCarts));
-    router.post('/carts/get-or-create',
+    router.post('/carts',
         validate(InsertCartRequest),
-        asyncHandler(CartController.getOrCreateCart));
+        asyncHandler(CartController.createCart));
     router.get('/carts/:id', asyncHandler(CartController.getCartById));
-    router.put('/carts/:id',
-        validate(InsertCartRequest),
-        asyncHandler(CartController.updateCart));
+    router.get('/carts/user/session', asyncHandler(CartController.getCartBySessionIdOrUserId));
+    // router.put('/carts/:id', validate(InsertCartRequest), asyncHandler(CartController.updateCart));
     router.delete('/carts/:id', asyncHandler(CartController.deleteCart));
 
     // cart item route 
     router.post('/cart-items',
         validate(InsertCartItemRequest),
-        asyncHandler(CartItemController.addOrUpdateCartItem));
-    router.get('/cart-items/:cart_id', asyncHandler(CartItemController.getCartItems));
+        asyncHandler(CartItemController.createCartItem));
+    router.get('/cart-items/carts/:cart_id', asyncHandler(CartItemController.getCartItems));
     router.put('/cart-items/:id',
         validate(InsertCartItemRequest),
         asyncHandler(CartItemController.updateCartItem));

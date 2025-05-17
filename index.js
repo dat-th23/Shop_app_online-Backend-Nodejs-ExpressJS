@@ -44,6 +44,9 @@
 
     npx sequelize-cli model:generate --name CartItem --attributes cart_id:integer,product_id:integer,quantity:integer
 
+    ALTER TABLE carts MODIFY COLUMN session_id VARCHAR(225) NULL, ADD UNIQUE (session_id)
+    ALTER TABLE carts MODIFY COLUMN user_id VARCHAR(225) NULL, ADD UNIQUE (user_id)
+
     yarn add express
     yarn add dotenv nodemon
     yarn add --dev @babel/core @babel/node @babel/preset-env
