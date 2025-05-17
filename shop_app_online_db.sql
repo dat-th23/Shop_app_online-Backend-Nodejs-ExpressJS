@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Generation Time: May 13, 2025 at 10:11 AM
+-- Generation Time: May 17, 2025 at 10:11 AM
 -- Server version: 9.0.1
 -- PHP Version: 8.2.27
 
@@ -114,11 +114,19 @@ INSERT INTO `brands` (`id`, `name`, `image`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `carts` (
   `id` int NOT NULL,
-  `user_id` int DEFAULT NULL,
-  `session_id` varchar(255) DEFAULT NULL,
+  `user_id` varchar(225) DEFAULT NULL,
+  `session_id` varchar(225) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `carts`
+--
+
+INSERT INTO `carts` (`id`, `user_id`, `session_id`, `created_at`, `updated_at`) VALUES
+(7, '123', '', '2025-05-17 10:08:32', '2025-05-17 10:08:32'),
+(8, NULL, 'a1b2c3d4e5f6g8w5', '2025-05-17 10:09:11', '2025-05-17 10:09:11');
 
 -- --------------------------------------------------------
 
@@ -129,7 +137,7 @@ CREATE TABLE `carts` (
 CREATE TABLE `cart_items` (
   `id` int NOT NULL,
   `cart_id` int NOT NULL,
-  `product_id` int DEFAULT NULL,
+  `product_id` int NOT NULL,
   `quantity` int DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
@@ -412,7 +420,9 @@ ALTER TABLE `brands`
 -- Indexes for table `carts`
 --
 ALTER TABLE `carts`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `session_id` (`session_id`),
+  ADD UNIQUE KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `cart_items`
@@ -522,13 +532,13 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `categories`
