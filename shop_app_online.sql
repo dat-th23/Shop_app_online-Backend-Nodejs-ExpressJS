@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Generation Time: May 18, 2025 at 11:29 AM
+-- Generation Time: May 18, 2025 at 12:57 PM
 -- Server version: 9.0.1
 -- PHP Version: 8.2.27
 
@@ -114,7 +114,7 @@ INSERT INTO `brands` (`id`, `name`, `image`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `carts` (
   `id` int NOT NULL,
-  `user_id` varchar(225) DEFAULT NULL,
+  `user_id` int DEFAULT NULL,
   `session_id` varchar(225) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
@@ -125,10 +125,8 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`id`, `user_id`, `session_id`, `created_at`, `updated_at`) VALUES
-(7, '123', NULL, '2025-05-17 10:08:32', '2025-05-17 10:08:32'),
 (8, NULL, 'a1b2c3d4e5f6g8w5', '2025-05-17 10:09:11', '2025-05-17 10:09:11'),
-(9, NULL, 'a1b2c3d4e5f6hjki', '2025-05-18 11:28:06', '2025-05-18 11:28:06'),
-(10, '23', NULL, '2025-05-18 11:28:54', '2025-05-18 11:28:54');
+(9, NULL, 'a1b2c3d4e5f6hjki', '2025-05-18 11:28:06', '2025-05-18 11:28:06');
 
 -- --------------------------------------------------------
 
@@ -144,16 +142,6 @@ CREATE TABLE `cart_items` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `cart_items`
---
-
-INSERT INTO `cart_items` (`id`, `cart_id`, `product_id`, `quantity`, `created_at`, `updated_at`) VALUES
-(1, 7, 19, 2, '2025-05-17 10:20:38', '2025-05-17 10:20:38'),
-(2, 7, 22, 2, '2025-05-17 10:20:55', '2025-05-17 10:20:55'),
-(3, 8, 13, 2, '2025-05-17 10:21:49', '2025-05-17 10:21:49'),
-(4, 8, 17, 2, '2025-05-17 10:21:54', '2025-05-17 10:21:54');
 
 -- --------------------------------------------------------
 
@@ -260,8 +248,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `status`, `note`, `total`, `created_at`, `updated_at`, `session_id`) VALUES
-(1, 10, 1, 'Please deliver between 9 AM - 12 PM', 1499000, '2025-04-17 10:25:14', '2025-04-17 10:25:14', NULL),
-(2, 10, 1, 'Please deliver between 9 AM - 12 PM', 1499000, '2025-04-17 10:25:40', '2025-04-17 10:25:40', NULL);
+(7, 123, NULL, '', 1396, '2025-05-18 12:41:22', '2025-05-18 12:41:22', NULL),
+(8, 23, NULL, 'Giao hàng giờ hành chính', 4554, '2025-05-18 12:45:06', '2025-05-18 12:45:06', NULL);
 
 -- --------------------------------------------------------
 
@@ -278,6 +266,17 @@ CREATE TABLE `order_details` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `order_details`
+--
+
+INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `price`, `quantity`, `created_at`, `updated_at`) VALUES
+(5, 7, 19, 399, 2, '2025-05-18 12:41:24', '2025-05-18 12:41:24'),
+(6, 7, 22, 299, 2, '2025-05-18 12:41:24', '2025-05-18 12:41:24'),
+(7, 8, 14, 699, 3, '2025-05-18 12:45:06', '2025-05-18 12:45:06'),
+(8, 8, 21, 499, 1, '2025-05-18 12:45:06', '2025-05-18 12:45:06'),
+(9, 8, 25, 979, 2, '2025-05-18 12:45:06', '2025-05-18 12:45:06');
 
 -- --------------------------------------------------------
 
@@ -550,7 +549,7 @@ ALTER TABLE `carts`
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -580,13 +579,13 @@ ALTER TABLE `news_details`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `products`

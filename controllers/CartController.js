@@ -118,35 +118,6 @@ export async function getCartBySessionIdOrUserId(req, res) {
     })
 }
 
-// export async function updateCart(req, res) {
-//     const { id } = req.params
-//     const { user_id, session_id } = req.body
-
-//     if ((user_id && session_id) || (!user_id && !session_id)) {
-//         return res.status(400).json({
-//             success: false,
-//             message: 'Không được phép truyền user_id và session_id cùng một lúc!'
-//         })
-//     }
-
-//     const [affectedRows] = await db.Cart.update(
-//         { user_id, session_id },
-//         { where: { id } }
-//     )
-
-//     if (affectedRows === 0) {
-//         return res.status(404).json({
-//             success: false,
-//             message: "Giỏ hàng không tồn tại",
-//         })
-//     }
-
-//     res.status(200).json({
-//         success: true,
-//         message: "Cập nhật giỏ hàng thành công",
-//     })
-// }
-
 export async function checkoutCart(req, res) {
     const { cart_id, total, note } = req.body
 
@@ -156,11 +127,9 @@ export async function checkoutCart(req, res) {
             message: 'Thiếu cart_id!'
         })
     }
-
     const t = await db.sequelize.transaction()
 
     try {
-        // Kiểm tra giỏ hàng và sản phẩm trong giỏ.
         const cart = await db.Cart.findByPk(cart_id, {
             include: [{ model: db.CartItem, include: [db.Product] }],
             transaction: t
@@ -181,33 +150,46 @@ export async function checkoutCart(req, res) {
                 message: 'Giỏ hàng trống!'
             })
         }
+        let finalTotal = total
+        if (!finalTotal) {
+            finalTotal = cart.CartItems.reduce((sum, item) => {
+                return sum + item.quantity * item.Product.price
+            }, 0)
+        }
 
-        // Tạo đơn hàng.
-        // const order = await db.Order.create({
-        //     session_id: cart.session_id ? cart.session_id : '',
-        //     user_id: cart.user_id ? cart.user_id : null,
-        //     status: 'pending',
-        //     note: note,
-        //     total: total
-        // })
+        const order = await db.Order.create({
+            user_id: cart.user_id,
+            session_id: cart.session_id,
+            total: finalTotal,
+            note
+        }, { transaction: t })
 
-        // Chuyển cart items → order details.
+        const orderDetailsData = cart.CartItems.map(item => ({
+            order_id: order.id,
+            product_id: item.product_id,
+            quantity: item.quantity,
+            price: item.Product.price
+        }))
 
-        // Tính tổng tiền nếu chưa có.
+        await db.OrderDetail.bulkCreate(orderDetailsData, { transaction: t })
 
-        // Xoá giỏ hàng cũ.
-        // await db.CartItem.destroy({ where: { id } })
-        // await db.Cart.destroy({ where: { cart_id } })
+        await db.CartItem.destroy({ where: { cart_id }, transaction: t })
+        await db.Cart.destroy({ where: { id: cart_id }, transaction: t })
 
         await t.commit()
 
         return res.status(200).json({
             success: true,
             message: "Đặt hàng thành công",
-            data: cart
+            data: { order_id: order.id }
         })
     } catch (error) {
+        console.error(error)
         await t.rollback()
+        return res.status(500).json({
+            success: false,
+            message: "Có lỗi xảy ra khi thanh toán"
+        })
     }
 }
 

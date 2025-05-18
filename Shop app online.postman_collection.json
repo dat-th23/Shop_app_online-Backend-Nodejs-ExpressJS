@@ -575,7 +575,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"user_id\": null,\n    \"session_id\": \"a1b2c3d4e5f6g8w5\"\n    //a1b2c3d4e5f6g8w5\n}\n",
+							"raw": "{\n    \"user_id\": 23,\n    \"session_id\": null\n    //a1b2c3d4e5f6g8w5\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -601,7 +601,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"cart_id\": 122,\n    \"total\": null,\n    \"note\": \"\"\n}\n",
+							"raw": "{\n    \"cart_id\": 10,\n    \"total\": null,\n    \"note\": \"Giao hàng giờ hành chính\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -609,14 +609,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_01}}/carts/checkout/s",
+							"raw": "{{API_01}}/carts/checkout",
 							"host": [
 								"{{API_01}}"
 							],
 							"path": [
 								"carts",
-								"checkout",
-								"s"
+								"checkout"
 							]
 						}
 					},
@@ -678,14 +677,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_01}}/cart-items/carts/1",
+							"raw": "{{API_01}}/cart-items/carts/7",
 							"host": [
 								"{{API_01}}"
 							],
 							"path": [
 								"cart-items",
 								"carts",
-								"1"
+								"7"
 							]
 						}
 					},
@@ -698,7 +697,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"cart_id\": 1,\n    \"product_id\": 2,\n    \"quantity\": 5\n}",
+							"raw": "{\n    \"cart_id\": 10,\n    \"product_id\": 25,\n    \"quantity\": 2\n}",
 							"options": {
 								"raw": {
 									"language": "json"
