@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Generation Time: May 17, 2025 at 10:11 AM
+-- Generation Time: May 18, 2025 at 11:29 AM
 -- Server version: 9.0.1
 -- PHP Version: 8.2.27
 
@@ -125,8 +125,10 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`id`, `user_id`, `session_id`, `created_at`, `updated_at`) VALUES
-(7, '123', '', '2025-05-17 10:08:32', '2025-05-17 10:08:32'),
-(8, NULL, 'a1b2c3d4e5f6g8w5', '2025-05-17 10:09:11', '2025-05-17 10:09:11');
+(7, '123', NULL, '2025-05-17 10:08:32', '2025-05-17 10:08:32'),
+(8, NULL, 'a1b2c3d4e5f6g8w5', '2025-05-17 10:09:11', '2025-05-17 10:09:11'),
+(9, NULL, 'a1b2c3d4e5f6hjki', '2025-05-18 11:28:06', '2025-05-18 11:28:06'),
+(10, '23', NULL, '2025-05-18 11:28:54', '2025-05-18 11:28:54');
 
 -- --------------------------------------------------------
 
@@ -142,6 +144,16 @@ CREATE TABLE `cart_items` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `cart_items`
+--
+
+INSERT INTO `cart_items` (`id`, `cart_id`, `product_id`, `quantity`, `created_at`, `updated_at`) VALUES
+(1, 7, 19, 2, '2025-05-17 10:20:38', '2025-05-17 10:20:38'),
+(2, 7, 22, 2, '2025-05-17 10:20:55', '2025-05-17 10:20:55'),
+(3, 8, 13, 2, '2025-05-17 10:21:49', '2025-05-17 10:21:49'),
+(4, 8, 17, 2, '2025-05-17 10:21:54', '2025-05-17 10:21:54');
 
 -- --------------------------------------------------------
 
@@ -532,13 +544,13 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `categories`

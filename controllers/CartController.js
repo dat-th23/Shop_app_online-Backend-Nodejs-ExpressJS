@@ -3,7 +3,6 @@ import db from "../models"
 
 export async function createCart(req, res) {
     const { user_id, session_id } = req.body
-    console.log('user_id', user_id, 'session_id', session_id);
 
     if ((user_id && session_id) || (!user_id && !session_id)) {
         return res.status(400).json({
@@ -11,17 +10,16 @@ export async function createCart(req, res) {
             message: 'Không được phép truyền user_id và session_id cùng một lúc!'
         })
     }
+    const whereCondition = user_id ? { user_id } : { session_id }
 
     const existingCart = await db.Cart.findOne({
-        where: {
-            [Op.or]: [{ user_id }, { session_id }]
-        }
+        where: whereCondition
     })
 
     if (existingCart) {
         return res.status(409).json({
             success: false,
-            message: 'Một giỏ hàng cùng với session_id đã tồn tại!'
+            message: 'Giỏ hàng đã tồn tại!'
         })
     }
 
@@ -148,6 +146,70 @@ export async function getCartBySessionIdOrUserId(req, res) {
 //         message: "Cập nhật giỏ hàng thành công",
 //     })
 // }
+
+export async function checkoutCart(req, res) {
+    const { cart_id, total, note } = req.body
+
+    if (!cart_id) {
+        return res.status(400).json({
+            success: false,
+            message: 'Thiếu cart_id!'
+        })
+    }
+
+    const t = await db.sequelize.transaction()
+
+    try {
+        // Kiểm tra giỏ hàng và sản phẩm trong giỏ.
+        const cart = await db.Cart.findByPk(cart_id, {
+            include: [{ model: db.CartItem, include: [db.Product] }],
+            transaction: t
+        })
+
+        if (!cart) {
+            await t.rollback()
+            return res.status(404).json({
+                success: false,
+                message: 'Giỏ hàng không tồn tại!'
+            })
+        }
+
+        if (!cart.CartItems || cart.CartItems.length === 0) {
+            await t.rollback()
+            return res.status(400).json({
+                success: false,
+                message: 'Giỏ hàng trống!'
+            })
+        }
+
+        // Tạo đơn hàng.
+        // const order = await db.Order.create({
+        //     session_id: cart.session_id ? cart.session_id : '',
+        //     user_id: cart.user_id ? cart.user_id : null,
+        //     status: 'pending',
+        //     note: note,
+        //     total: total
+        // })
+
+        // Chuyển cart items → order details.
+
+        // Tính tổng tiền nếu chưa có.
+
+        // Xoá giỏ hàng cũ.
+        // await db.CartItem.destroy({ where: { id } })
+        // await db.Cart.destroy({ where: { cart_id } })
+
+        await t.commit()
+
+        return res.status(200).json({
+            success: true,
+            message: "Đặt hàng thành công",
+            data: cart
+        })
+    } catch (error) {
+        await t.rollback()
+    }
+}
 
 export async function deleteCart(req, res) {
     const { id } = req.params

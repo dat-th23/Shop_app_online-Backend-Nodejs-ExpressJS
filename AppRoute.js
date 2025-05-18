@@ -159,6 +159,7 @@ export function AppRoute(app) {
     router.post('/carts',
         validate(InsertCartRequest),
         asyncHandler(CartController.createCart));
+    router.post('/carts/checkout', asyncHandler(CartController.checkoutCart));
     router.get('/carts/:id', asyncHandler(CartController.getCartById));
     router.get('/carts/user/session', asyncHandler(CartController.getCartBySessionIdOrUserId));
     // router.put('/carts/:id', validate(InsertCartRequest), asyncHandler(CartController.updateCart));
