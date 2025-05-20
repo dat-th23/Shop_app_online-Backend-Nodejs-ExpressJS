@@ -1,37 +1,24 @@
-import Joi from "joi";
+import Joi from "joi"
+import { OrderStatus } from "../../../constants/orderStatus"
 
 class UpdateOrderRequest {
-    // có thể để nullable
     constructor(data) {
-        this.name = data.name;
-        this.price = data.price;
-        this.oldprice = data.oldprice;
-        this.image = data.image;
-        this.description = data.description;
-        this.specification = data.specification;
-        this.buyturn = data.buyturn;
-        this.quantity = data.quantity;
-        this.brand_id = data.brand_id;
-        this.category_id = data.category_id;
+        this.status = data.status
+        this.note = data.note
+        this.total = data.total
     }
 
     static validate(data) {
+        const validateStatusValues = Object.values(OrderStatus)
+
         const schema = Joi.object({
-            name: Joi.string().optional().allow(null),
-            price: Joi.number().positive().optional().allow(null),
-            oldprice: Joi.number().positive().optional().allow(null),
-            image: Joi.string().uri().optional().allow(null, ""),
-            description: Joi.string().optional().allow(null),
-            specification: Joi.string().optional().allow(null),
-            buyturn: Joi.number().integer().min(0).optional().allow(null),
-            quantity: Joi.number().integer().min(0).optional().allow(null),
-            brand_id: Joi.number().integer().optional().allow(null),
-            category_id: Joi.number().integer().optional().allow(null),
-        });
+            status: Joi.number().integer().valid(...validateStatusValues).required(),
+            note: Joi.string().optional().allow("", null),
+            total: Joi.number().min(0).required(),
+        })
 
-
-        return schema.validate(data);
+        return schema.validate(data)
     }
 }
 
-export default UpdateOrderRequest;
+export default UpdateOrderRequest

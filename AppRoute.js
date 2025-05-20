@@ -30,6 +30,7 @@ import InsertBannerRequest from './dtos/requests/banner/InsertBannerRequest.js'
 import InsertBannerDetailRequest from './dtos/requests/banner-detail/InsertBannerDetailRequest.js'
 import InsertCartRequest from './dtos/requests/cart/InsertCartRequest.js'
 import InsertCartItemRequest from './dtos/requests/cart-item/InsertCartItemRequest.js'
+import UpdateOrderRequest from './dtos/requests/order/updateOrderRequest.js'
 
 const router = express.Router()
 
@@ -78,10 +79,12 @@ export function AppRoute(app) {
     // Order Routes
     router.get('/orders', asyncHandler(OrderController.getAllOrders))
     router.get('/orders/:id', asyncHandler(OrderController.getOrderById))
-    router.post('/orders',
-        validate(InsertOrderRequest),
-        asyncHandler(OrderController.createOrder))
-    router.put('/orders/:id', asyncHandler(OrderController.updateOrder))
+    // router.post('/orders',
+    //     validate(InsertOrderRequest),
+    //     asyncHandler(OrderController.createOrder))
+    router.put('/orders/:id',
+        validate(UpdateOrderRequest),
+        asyncHandler(OrderController.updateOrder))
     router.delete('/orders/:id', asyncHandler(OrderController.deleteOrder))
 
     // Order Detail Routes

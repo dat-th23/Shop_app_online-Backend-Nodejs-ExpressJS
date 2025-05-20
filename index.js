@@ -47,6 +47,10 @@
     ALTER TABLE carts MODIFY COLUMN session_id VARCHAR(225) NULL, ADD UNIQUE (session_id)
     ALTER TABLE carts MODIFY COLUMN user_id VARCHAR(225) NULL, ADD UNIQUE (user_id)
 
+    ALTER TABLE order 
+    MODIFY COLUMN status INT COMMENT 1: pending, 2: processing, 3: cancel, 4: ship, 
+    5: delivered, 6: refund, 7: fail
+
     yarn add express
     yarn add dotenv nodemon
     yarn add --dev @babel/core @babel/node @babel/preset-env

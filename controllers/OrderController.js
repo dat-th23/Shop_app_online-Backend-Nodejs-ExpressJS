@@ -1,3 +1,4 @@
+import { Op } from "sequelize"
 import db from "../models"
 
 export async function createOrder(req, res) {
@@ -21,9 +22,30 @@ export async function createOrder(req, res) {
 }
 
 export async function getAllOrders(req, res) {
+    const { page = 1, limit = 10, search = '' } = req.query
+    const offset = (page - 1) * limit
+
+    const whereCondition = { note: { [Op.like]: `%${search}%` } }
+
+    const [total, orders] = await Promise.all([
+        db.Order.count({ where: whereCondition }),
+        db.Order.findAll({
+            where: whereCondition,
+            offset: parseInt(offset),
+            limit: parseInt(limit),
+            order: [['created_at', 'DESC']]
+        })
+    ])
     res.status(200).json({
         success: true,
-        message: 'Lấy danh sách đơn hàng thành công!'
+        message: 'Lấy danh sách đơn hàng thành công!',
+        data: orders,
+        count: orders.length,
+        pagination: {
+            total: total,
+            page: parseInt(page),
+            limit: parseInt(limit),
+        }
     })
 }
 
