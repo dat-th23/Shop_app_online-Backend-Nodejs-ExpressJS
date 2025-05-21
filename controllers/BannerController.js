@@ -1,5 +1,6 @@
 import { Op, Sequelize } from "sequelize"
 import db from "../models"
+import { BannerStatus } from "../constants"
 
 // Create a banner
 export async function createBanner(req, res) {
@@ -19,7 +20,12 @@ export async function createBanner(req, res) {
         })
     }
 
-    const banner = await db.Banner.create(req.body)
+    const bannerData = {
+        ...req.body,
+        status: BannerStatus.ACTIVE
+    }
+
+    const banner = await db.Banner.create(bannerData)
 
     res.status(201).json({
         success: true,

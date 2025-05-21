@@ -54,6 +54,9 @@
     ALTER TABLE orders ADD phone varchar(50)
     ALTER TABLE orders ADD address varchar(255)
 
+    ALTER TABLE banners 
+    MODIFY COLUMN status INT COMMENT 1: pending, 2: processing, 3: cancel,
+
     yarn add express
     yarn add dotenv nodemon
     yarn add --dev @babel/core @babel/node @babel/preset-env
