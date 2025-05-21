@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Generation Time: May 18, 2025 at 12:57 PM
+-- Generation Time: May 21, 2025 at 09:48 AM
 -- Server version: 9.0.1
 -- PHP Version: 8.2.27
 
@@ -120,14 +120,6 @@ CREATE TABLE `carts` (
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `carts`
---
-
-INSERT INTO `carts` (`id`, `user_id`, `session_id`, `created_at`, `updated_at`) VALUES
-(8, NULL, 'a1b2c3d4e5f6g8w5', '2025-05-17 10:09:11', '2025-05-17 10:09:11'),
-(9, NULL, 'a1b2c3d4e5f6hjki', '2025-05-18 11:28:06', '2025-05-18 11:28:06');
-
 -- --------------------------------------------------------
 
 --
@@ -234,22 +226,26 @@ CREATE TABLE `news_details` (
 
 CREATE TABLE `orders` (
   `id` int NOT NULL,
-  `user_id` int NOT NULL,
-  `status` int DEFAULT NULL,
+  `user_id` int DEFAULT NULL,
+  `status` int DEFAULT NULL COMMENT '1: pending, 2: processing, 3: cancel, 4: ship, 5: delivered, 6: refund, 7: fail',
   `note` text,
   `total` int DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `session_id` varchar(255) DEFAULT NULL
+  `session_id` varchar(255) DEFAULT NULL,
+  `phone` varchar(50) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `status`, `note`, `total`, `created_at`, `updated_at`, `session_id`) VALUES
-(7, 123, NULL, '', 1396, '2025-05-18 12:41:22', '2025-05-18 12:41:22', NULL),
-(8, 23, NULL, 'Giao hàng giờ hành chính', 4554, '2025-05-18 12:45:06', '2025-05-18 12:45:06', NULL);
+INSERT INTO `orders` (`id`, `user_id`, `status`, `note`, `total`, `created_at`, `updated_at`, `session_id`, `phone`, `address`) VALUES
+(7, 123, NULL, '', 1396, '2025-05-18 12:41:22', '2025-05-18 12:41:22', NULL, NULL, NULL),
+(8, 23, 7, 'Giao hàng giờ hành chính', 4554, '2025-05-18 12:45:06', '2025-05-21 09:32:48', NULL, NULL, NULL),
+(9, NULL, 1, 'Giao hàng giờ vào chủ nhật', 2406594, '2025-05-21 03:43:41', '2025-05-21 03:43:41', 'a1b2c3d4e5f6g8w5', NULL, NULL),
+(10, NULL, 2, 'Gọi điện cho tôi với sđt: 111111111', 54800000, '2025-05-21 09:37:12', '2025-05-21 09:46:40', 'a1b2c3d4e5f6hjki', '1111111111', 'Ngọc Tảo, Phúc Thọ, Hà Nội');
 
 -- --------------------------------------------------------
 
@@ -276,7 +272,12 @@ INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `price`, `quantity`
 (6, 7, 22, 299, 2, '2025-05-18 12:41:24', '2025-05-18 12:41:24'),
 (7, 8, 14, 699, 3, '2025-05-18 12:45:06', '2025-05-18 12:45:06'),
 (8, 8, 21, 499, 1, '2025-05-18 12:45:06', '2025-05-18 12:45:06'),
-(9, 8, 25, 979, 2, '2025-05-18 12:45:06', '2025-05-18 12:45:06');
+(9, 8, 25, 979, 2, '2025-05-18 12:45:06', '2025-05-18 12:45:06'),
+(10, 9, 10, 1200000, 2, '2025-05-21 03:43:42', '2025-05-21 03:43:42'),
+(11, 9, 18, 1099, 6, '2025-05-21 03:43:42', '2025-05-21 03:43:42'),
+(12, 10, 1, 25000000, 2, '2025-05-21 09:37:12', '2025-05-21 09:37:12'),
+(13, 10, 5, 1200000, 2, '2025-05-21 09:37:12', '2025-05-21 09:37:12'),
+(14, 10, 8, 1200000, 2, '2025-05-21 09:37:12', '2025-05-21 09:37:12');
 
 -- --------------------------------------------------------
 
@@ -549,7 +550,7 @@ ALTER TABLE `carts`
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -579,13 +580,13 @@ ALTER TABLE `news_details`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `products`

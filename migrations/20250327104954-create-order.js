@@ -11,7 +11,6 @@ module.exports = {
       },
       user_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
         references: {
           model: 'users',
           key: 'id'
@@ -28,6 +27,12 @@ module.exports = {
       },
       total: {
         type: Sequelize.INTEGER
+      },
+      phone: {
+        type: Sequelize.STRING
+      },
+      address: {
+        type: Sequelize.STRING
       },
       created_at: {
         allowNull: false,

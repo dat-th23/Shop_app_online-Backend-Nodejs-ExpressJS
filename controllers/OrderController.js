@@ -1,5 +1,6 @@
 import { Op } from "sequelize"
 import db from "../models"
+import { OrderStatus } from "../constants/orderStatus"
 
 export async function createOrder(req, res) {
     const { user_id } = req.body
@@ -76,8 +77,9 @@ export async function updateOrder(req, res) {
 
 export async function deleteOrder(req, res) {
     const { id } = req.params
-    const deleted = await db.Order.destroy({ where: { id } })
-    if (!deleted) {
+    const updated = await db.Order.update({ status: OrderStatus.FAIL }, { where: { id } })
+
+    if (!updated) {
         return res.status(404).json({
             success: false,
             message: 'Đơn hàng không tồn tại!',
@@ -85,6 +87,6 @@ export async function deleteOrder(req, res) {
     }
     res.status(200).json({
         success: true,
-        message: 'Xóa đơn hàng thành công!'
+        message: 'Đơn hàng đã được đánh dấu là Failed!'
     })
 }

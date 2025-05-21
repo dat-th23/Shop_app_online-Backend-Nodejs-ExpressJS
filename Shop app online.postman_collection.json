@@ -601,7 +601,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"cart_id\": 10,\n    \"total\": null,\n    \"note\": \"Giao hàng giờ hành chính\"\n}\n",
+							"raw": "{\n    \"cart_id\": 9,\n    \"note\": \"Gọi điện cho tôi với sđt: 111111111\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -697,7 +697,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"cart_id\": 10,\n    \"product_id\": 25,\n    \"quantity\": 2\n}",
+							"raw": "{\n    \"cart_id\": 9,\n    \"product_id\": 8,\n    \"quantity\": 2\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -756,118 +756,6 @@
 							"path": [
 								"cart-items",
 								"2"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Orders",
-			"item": [
-				{
-					"name": "api/orders",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/orders",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"orders"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/orders/:id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/orders/:id",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"orders",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/orders",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"user_id\": 12,\n  \"status\": 1,\n  \"note\": \"Please deliver between 9 AM - 12 PM\",\n  \"total\": 1499000\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_01}}/orders",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"orders"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/orders/:id",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/orders/:id",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"orders",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "api/orders/:id",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{API_01}}/orders/1",
-							"host": [
-								"{{API_01}}"
-							],
-							"path": [
-								"orders",
-								"1"
 							]
 						}
 					},
@@ -1095,6 +983,131 @@
 							"path": [
 								"news-details",
 								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "api/orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_01}}/orders?search=&limit=10&page=1",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"orders"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": ""
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/orders/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_01}}/orders/10",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"orders",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/orders",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_id\": 12,\n  \"status\": 1,\n  \"note\": \"Please deliver between 9 AM - 12 PM\",\n  \"total\": 1499000\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_01}}/orders",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/orders/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": 2,\n    \"phone\": \"1111111111\",\n    \"address\": \"Ngọc Tảo, Phúc Thọ, Hà Nội\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_01}}/orders/10",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"orders",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/orders/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_01}}/orders/8",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"orders",
+								"8"
 							]
 						}
 					},

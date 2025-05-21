@@ -1,5 +1,6 @@
 import { Op } from "sequelize"
 import db from "../models"
+import { OrderStatus } from "../constants"
 
 export async function createCart(req, res) {
     const { user_id, session_id } = req.body
@@ -160,6 +161,7 @@ export async function checkoutCart(req, res) {
         const order = await db.Order.create({
             user_id: cart.user_id,
             session_id: cart.session_id,
+            status: OrderStatus.PENDING,
             total: finalTotal,
             note
         }, { transaction: t })

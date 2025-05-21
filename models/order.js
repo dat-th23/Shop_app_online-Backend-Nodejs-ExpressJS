@@ -20,7 +20,9 @@ module.exports = (sequelize, DataTypes) => {
     session_id: DataTypes.TEXT,
     status: DataTypes.INTEGER,
     note: DataTypes.TEXT,
-    total: DataTypes.INTEGER
+    total: DataTypes.INTEGER,
+    phone: DataTypes.STRING,
+    address: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Order',
