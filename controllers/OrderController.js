@@ -37,6 +37,7 @@ export async function getAllOrders(req, res) {
             order: [['created_at', 'DESC']]
         })
     ])
+
     res.status(200).json({
         success: true,
         message: 'Lấy danh sách đơn hàng thành công!',
@@ -51,9 +52,23 @@ export async function getAllOrders(req, res) {
 }
 
 export async function getOrderById(req, res) {
+    const { id } = req.params
+
+    const order = await db.Order.findByPk(id, {
+        include: [{ model: db.OrderDetail, include: db.Product }]
+    })
+
+    if (!order) {
+        return res.status(404).json({
+            success: false,
+            message: 'Đơn hàng không tồn tại!'
+        })
+    }
+
     res.status(200).json({
         success: true,
-        message: 'Lấy đơn hàng theo ID thành công!'
+        message: 'Lấy đơn hàng theo ID thành công!',
+        data: order
     })
 }
 
