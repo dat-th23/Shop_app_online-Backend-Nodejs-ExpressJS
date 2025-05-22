@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Generation Time: May 21, 2025 at 09:48 AM
+-- Generation Time: May 21, 2025 at 10:32 AM
 -- Server version: 9.0.1
 -- PHP Version: 8.2.27
 
@@ -31,7 +31,7 @@ CREATE TABLE `banners` (
   `id` int NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `image` text,
-  `status` int DEFAULT NULL,
+  `status` int DEFAULT NULL COMMENT '0:inactive, 1:active, 2:scheduled, 3:expired',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

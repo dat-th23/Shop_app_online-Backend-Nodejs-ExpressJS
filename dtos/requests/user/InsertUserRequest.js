@@ -1,31 +1,24 @@
 import Joi from 'joi'
+import { UserRole } from '../../../constants'
 
 class InsertUserRequest {
     constructor(data) {
         this.email = data.email
         this.password = data.password // cần mã hóa trước khi gán
-        // this.password = this.encryptPassword(data.password) // cần mã hóa trước khi gán
         this.name = data.name
         this.role = data.role
         this.avatar = data.avatar
         this.phone = data.phone
     }
 
-    encryptPassword(password) {
-        //     // Encrypt the password before storing it 
-        //     const salt = bcryt.genSaltSync(10)
-        //     return bcrybt.hashSync(password, salt)
-        return "faked hashed password"
-    }
-
     static validate(data) {
         const schema = Joi.object({
-            email: Joi.string().email().required(),
-            password: Joi.string().min(6).required(),
+            email: Joi.string().email().optional(),
+            password: Joi.string().min(6).optional(),
             name: Joi.string().required(),
-            role: Joi.number().integer().min(1).required(),
-            avatar: Joi.string().uri().allow('', null),
-            phone: Joi.string().pattern(/^[0-9+()\-\s]*$/).allow('', null),
+            role: Joi.number().integer().min(UserRole.USER),
+            avatar: Joi.string().uri().allow('', null).optional(),
+            phone: Joi.string().pattern(/^[0-9+()\-\s]*$/).allow('', null).optional(),
         })
 
         return schema.validate(data)

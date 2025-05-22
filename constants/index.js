@@ -1,6 +1,8 @@
 import { OrderStatus } from "./orderStatus"
-import { BannerStatus } from "./bannerStatus"
+import { BannerStatus } from "./BannerStatus"
+import { UserRole } from "./userRole"
 export {
     OrderStatus,
-    BannerStatus
+    BannerStatus,
+    UserRole
 }

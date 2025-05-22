@@ -31,14 +31,19 @@ import InsertBannerDetailRequest from './dtos/requests/banner-detail/InsertBanne
 import InsertCartRequest from './dtos/requests/cart/InsertCartRequest.js'
 import InsertCartItemRequest from './dtos/requests/cart-item/InsertCartItemRequest.js'
 import UpdateOrderRequest from './dtos/requests/order/updateOrderRequest.js'
+import LoginUserRequest from './dtos/requests/user/LoginUserRequest.js'
 
 const router = express.Router()
 
 export function AppRoute(app) {
     // User Routes
-    router.post('/users',
+    router.post('/users/register',
         validate(InsertUserRequest),
-        asyncHandler(UserController.createUser)
+        asyncHandler(UserController.registerUser)
+    )
+    router.post('/users/login',
+        validate(LoginUserRequest),
+        asyncHandler(UserController.login)
     )
 
     // Product Routes
