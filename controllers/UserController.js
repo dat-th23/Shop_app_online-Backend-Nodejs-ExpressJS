@@ -1,17 +1,16 @@
 import db from "../models"
+import * as argon2 from "argon2"
+import { UserRole } from "../constants"
+import { Op } from "sequelize"
 import ResponseUser from "../dtos/responses/user/ResponseUser"
 
-import * as argon2 from "argon2";
-import { UserRole } from "../constants";
-import { Op } from "sequelize";
-
 export async function registerUser(req, res) {
-    const { email, phone } = req.body
+    const { email, phone, password } = req.body
 
     if (!phone && !email) {
         return res.status(400).json({
             success: false,
-            message: 'Cần truyền vào email hoặc password!'
+            message: 'Cần truyền vào email hoặc số điện thoại!'
         })
     }
 
@@ -30,7 +29,7 @@ export async function registerUser(req, res) {
         })
     }
 
-    const HashedPassword = await argon2.hash("password")
+    const HashedPassword = await argon2.hash(password)
     const user = await db.User.create({
         ...req.body,
         email,
@@ -47,9 +46,46 @@ export async function registerUser(req, res) {
 }
 
 export async function login(req, res) {
+    const { email, phone, password } = req.body
+
+    if (!phone && !email) {
+        return res.status(400).json({
+            success: false,
+            message: 'Cần truyền vào email hoặc số điện thoại!'
+        })
+    }
+
+    if (!password) {
+        return res.status(400).json({
+            success: false,
+            message: 'Vui lòng nhập mật khẩu!'
+        })
+    }
+
+    const whereCondition = {}
+    if (email) whereCondition.email = email
+    if (phone) whereCondition.phone = phone
+
+    const user = await db.User.findOne({ where: whereCondition })
+    if (!user) {
+        return res.status(401).json({
+            success: false,
+            message: 'Email hoặc mật khẩu không chính xác!'
+        })
+    }
+
+    const validPassword = await argon2.verify(user.password, password)
+    if (!validPassword) {
+        return res.status(401).json({
+            success: false,
+            message: 'Email hoặc mật khẩu không chính xác!'
+        })
+    }
+
     res.status(200).json({
         success: true,
-        message: 'Đăng nhập thành công!'
+        message: 'Đăng nhập thành công!',
+        data: new ResponseUser(user)
     })
 }
 

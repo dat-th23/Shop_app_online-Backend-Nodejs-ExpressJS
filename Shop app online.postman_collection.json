@@ -1458,13 +1458,13 @@
 			"name": "Users",
 			"item": [
 				{
-					"name": "api/users",
+					"name": "api/users/register",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"john.doe@example.com\",\n    \"password\": \"12345678\",\n    \"name\": \"John Doe\",\n    \"role\": 1,\n    \"avatar\": \"https://randomuser.me/api/portraits/men/1.jpg\",\n    \"phone\": \"0123456789\"\n  }",
+							"raw": "{\n    \"email\": \"th.dat1230@gmail.com\",\n    \"password\": \"AbCdEf12\",\n    \"name\": \"Thanh Dat\",\n    \"phone\": \"0972334652\"\n  }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1472,12 +1472,40 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_01}}/users",
+							"raw": "{{API_01}}/users/register",
 							"host": [
 								"{{API_01}}"
 							],
 							"path": [
-								"users"
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/users/login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    // \"email\": \"th.dat1230@gmail.com\",\n    \"password\": \"password\"\n    // \"phone\": \"0123456789\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_01}}/users/login",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"users",
+								"login"
 							]
 						}
 					},

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Generation Time: May 21, 2025 at 10:32 AM
+-- Generation Time: May 24, 2025 at 01:40 AM
 -- Server version: 9.0.1
 -- PHP Version: 8.2.27
 
@@ -401,7 +401,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `name`, `role`, `avatar`, `phone`, `created_at`, `updated_at`) VALUES
-(10, 'john.doe@example.com', '$argon2id$v=19$m=65536,t=3,p=4$DgGm+uNlgoXY7WwZeaN87g$a3ki5db5fVbJ7MlMQyLbDt2Crp5yGcC0/sdkMZ23nd0', 'John Doe', 1, 'https://randomuser.me/api/portraits/men/1.jpg', 123456789, '2025-04-17 09:58:22', '2025-04-17 09:58:22');
+(10, 'john.doe@example.com', '$argon2id$v=19$m=65536,t=3,p=4$DgGm+uNlgoXY7WwZeaN87g$a3ki5db5fVbJ7MlMQyLbDt2Crp5yGcC0/sdkMZ23nd0', 'John Doe', 2, 'https://randomuser.me/api/portraits/men/1.jpg', 123456789, '2025-04-17 09:58:22', '2025-04-17 09:58:22'),
+(11, 'admin@admin.com', '$argon2id$v=19$m=65536,t=3,p=4$blhMwpI/w3fQfqlGsF86+g$/V+P4ZCWiDYAYEnjb7hmuDC6FKThSJvDKfTyLzbcl8k', 'admin', 2, NULL, 123456788, '2025-05-22 17:38:54', '2025-05-22 17:38:54'),
+(14, 'jack@example.com', '$argon2id$v=19$m=65536,t=3,p=4$//Y//nlDVhzyKWgEhnsZ/Q$WkYKDhU/T3ZXMX2EPX9gcVshpC5J5iPq10+UxL0IEaU', 'John Doe', 2, NULL, 123456787, '2025-05-22 17:42:16', '2025-05-22 17:42:16'),
+(15, 'john@example.com', '$argon2id$v=19$m=65536,t=3,p=4$pjy0xrWuMa4BIlnGaCd1fw$nyTkZHa5Eyldjj9KcXcHtbDOYQxDCrarF9KLFaFAhhw', 'John Doe', 2, NULL, 123456786, '2025-05-22 17:59:10', '2025-05-22 17:59:10'),
+(16, 'th.dat1230@gmail.com', '$argon2id$v=19$m=65536,t=3,p=4$Da2Yl/oSDO2jXQmk7HUplQ$Ksjm3gHOe+5GBRak4nn8SELQlBa/UtZrRY2YxgaR1BQ', 'Thanh Dat', 2, NULL, 972334652, '2025-05-24 01:10:22', '2025-05-24 01:10:22');
 
 --
 -- Indexes for dumped tables
@@ -604,7 +608,7 @@ ALTER TABLE `product_images`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables
