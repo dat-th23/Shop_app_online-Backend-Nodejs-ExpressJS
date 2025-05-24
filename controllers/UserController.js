@@ -3,6 +3,7 @@ import * as argon2 from "argon2"
 import { UserRole } from "../constants"
 import { Op } from "sequelize"
 import ResponseUser from "../dtos/responses/user/ResponseUser"
+import { generateToken } from "../helper/jwtHelper"
 
 export async function registerUser(req, res) {
     const { email, phone, password } = req.body
@@ -82,10 +83,15 @@ export async function login(req, res) {
         })
     }
 
+    const token = generateToken(user.id)
+
     res.status(200).json({
         success: true,
         message: 'Đăng nhập thành công!',
-        data: new ResponseUser(user)
+        data: {
+            user: new ResponseUser(user),
+            token: token
+        }
     })
 }
 

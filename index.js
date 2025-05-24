@@ -62,6 +62,7 @@
     yarn add --dev @babel/core @babel/node @babel/preset-env
 
     yarn add multer
+    yarn add jsonwebtoken
 */
 import express from 'express'
 import dotenv from 'dotenv'
