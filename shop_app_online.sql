@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Generation Time: May 24, 2025 at 05:19 PM
+-- Generation Time: May 25, 2025 at 04:28 AM
 -- Server version: 9.0.1
 -- PHP Version: 8.2.27
 
@@ -163,7 +163,8 @@ INSERT INTO `categories` (`id`, `name`, `image`, `created_at`, `updated_at`) VAL
 (8, 'Đồng hồ', '1746873401307-dong_ho.jpeg', '2025-04-08 08:16:00', '2025-05-10 10:36:59'),
 (9, 'Chuột', '1746873401307-chuot.jpeg', '2025-04-08 08:17:26', '2025-05-10 10:37:24'),
 (10, 'Bàn phím', '1746873401306-ban_phim.jpeg', '2025-04-14 09:07:44', '2025-05-10 10:37:47'),
-(11, 'Tủ lạnh', NULL, '2025-05-24 16:58:14', '2025-05-24 16:58:14');
+(11, 'Tủ lạnh', NULL, '2025-05-24 16:58:14', '2025-05-24 16:58:14'),
+(12, 'Máy giặt', NULL, '2025-05-25 04:01:40', '2025-05-25 04:01:40');
 
 -- --------------------------------------------------------
 
@@ -394,19 +395,20 @@ CREATE TABLE `users` (
   `avatar` varchar(255) DEFAULT NULL,
   `phone` int DEFAULT NULL,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL
+  `updated_at` datetime NOT NULL,
+  `is_locked` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `password`, `name`, `role`, `avatar`, `phone`, `created_at`, `updated_at`) VALUES
-(10, 'john.doe@example.com', '$argon2id$v=19$m=65536,t=3,p=4$DgGm+uNlgoXY7WwZeaN87g$a3ki5db5fVbJ7MlMQyLbDt2Crp5yGcC0/sdkMZ23nd0', 'John Doe', 2, 'https://randomuser.me/api/portraits/men/1.jpg', 123456789, '2025-04-17 09:58:22', '2025-04-17 09:58:22'),
-(11, 'admin@admin.com', '$argon2id$v=19$m=65536,t=3,p=4$blhMwpI/w3fQfqlGsF86+g$/V+P4ZCWiDYAYEnjb7hmuDC6FKThSJvDKfTyLzbcl8k', 'admin', 1, NULL, 123456788, '2025-05-22 17:38:54', '2025-05-22 17:38:54'),
-(14, 'jack@example.com', '$argon2id$v=19$m=65536,t=3,p=4$//Y//nlDVhzyKWgEhnsZ/Q$WkYKDhU/T3ZXMX2EPX9gcVshpC5J5iPq10+UxL0IEaU', 'John Doe', 2, NULL, 123456787, '2025-05-22 17:42:16', '2025-05-22 17:42:16'),
-(15, 'john@example.com', '$argon2id$v=19$m=65536,t=3,p=4$pjy0xrWuMa4BIlnGaCd1fw$nyTkZHa5Eyldjj9KcXcHtbDOYQxDCrarF9KLFaFAhhw', 'John Doe', 2, NULL, 123456786, '2025-05-22 17:59:10', '2025-05-22 17:59:10'),
-(16, 'th.dat1230@gmail.com', '$argon2id$v=19$m=65536,t=3,p=4$Da2Yl/oSDO2jXQmk7HUplQ$Ksjm3gHOe+5GBRak4nn8SELQlBa/UtZrRY2YxgaR1BQ', 'Thanh Dat', 2, NULL, 972334652, '2025-05-24 01:10:22', '2025-05-24 01:10:22');
+INSERT INTO `users` (`id`, `email`, `password`, `name`, `role`, `avatar`, `phone`, `created_at`, `updated_at`, `is_locked`) VALUES
+(10, 'john.doe@example.com', '$argon2id$v=19$m=65536,t=3,p=4$DgGm+uNlgoXY7WwZeaN87g$a3ki5db5fVbJ7MlMQyLbDt2Crp5yGcC0/sdkMZ23nd0', 'John Doe', 2, 'https://randomuser.me/api/portraits/men/1.jpg', 123456789, '2025-04-17 09:58:22', '2025-04-17 09:58:22', 0),
+(11, 'admin@admin.com', '$argon2id$v=19$m=65536,t=3,p=4$blhMwpI/w3fQfqlGsF86+g$/V+P4ZCWiDYAYEnjb7hmuDC6FKThSJvDKfTyLzbcl8k', 'admin', 1, NULL, 123456788, '2025-05-22 17:38:54', '2025-05-22 17:38:54', 0),
+(14, 'jack@example.com', '$argon2id$v=19$m=65536,t=3,p=4$//Y//nlDVhzyKWgEhnsZ/Q$WkYKDhU/T3ZXMX2EPX9gcVshpC5J5iPq10+UxL0IEaU', 'John Doe', 2, NULL, 123456787, '2025-05-22 17:42:16', '2025-05-22 17:42:16', 0),
+(15, 'john@example.com', '$argon2id$v=19$m=65536,t=3,p=4$pjy0xrWuMa4BIlnGaCd1fw$nyTkZHa5Eyldjj9KcXcHtbDOYQxDCrarF9KLFaFAhhw', 'John Doe', 2, NULL, 123456786, '2025-05-22 17:59:10', '2025-05-22 17:59:10', 0),
+(16, 'th.dat1230@gmail.com', '$argon2id$v=19$m=65536,t=3,p=4$Da2Yl/oSDO2jXQmk7HUplQ$Ksjm3gHOe+5GBRak4nn8SELQlBa/UtZrRY2YxgaR1BQ', 'Thanh Dat', 2, NULL, 972334652, '2025-05-24 01:10:22', '2025-05-24 01:10:22', 0);
 
 --
 -- Indexes for dumped tables
@@ -561,7 +563,7 @@ ALTER TABLE `cart_items`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `feedbacks`

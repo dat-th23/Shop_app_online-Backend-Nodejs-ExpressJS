@@ -314,6 +314,11 @@
 									"key": "limit",
 									"value": "",
 									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
 								}
 							]
 						}
@@ -450,7 +455,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_01}}/categories",
+							"raw": "{{API_01}}/categories?page=2",
 							"host": [
 								"{{API_01}}"
 							],
@@ -465,8 +470,7 @@
 								},
 								{
 									"key": "page",
-									"value": "1",
-									"disabled": true
+									"value": "2"
 								},
 								{
 									"key": "limit ",
@@ -513,7 +517,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Tủ lạnh\"\n}",
+							"raw": "{\n    \"name\": \"Máy in\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -585,18 +589,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_01}}/categories/:id",
+							"raw": "{{API_01}}/categories/12",
 							"host": [
 								"{{API_01}}"
 							],
 							"path": [
 								"categories",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id"
-								}
+								"12"
 							]
 						}
 					},
@@ -1870,6 +1869,33 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "api/users/login Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@admin.com\",\n    // \"phone\": \"0123456789\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_01}}/users/login",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1911,7 +1937,7 @@
 						{
 							"key": "images",
 							"type": "file",
-							"src": "/Users/ntda/Documents/Workspace/ShopApp/backend/assets/dell-xps-13-9340-thinkpro-zZy.webp"
+							"src": "/Users/ntda/Documents/Workspace/ShopApp/backend/assets/chuot.jpeg"
 						}
 					]
 				},

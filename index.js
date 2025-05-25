@@ -57,6 +57,8 @@
     ALTER TABLE banners 
     MODIFY COLUMN status INT COMMENT 1: pending, 2: processing, 3: cancel,
 
+    ALTER TABLE users ADD COLUMN is_locked TINYINT(1) DEFAULT 0
+
     yarn add express
     yarn add dotenv nodemon
     yarn add --dev @babel/core @babel/node @babel/preset-env

@@ -28,7 +28,7 @@ export async function authenticateToken(req, res, next) {
         })
     }
 
-    if (user.isBlocked) {
+    if (user.is_locked) {
         return res.status(403).json({
             success: false,
             message: 'Tài khoản đã bị khoá'
