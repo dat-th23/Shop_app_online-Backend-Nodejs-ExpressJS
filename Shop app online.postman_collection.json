@@ -1823,7 +1823,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"th.dat1230@gmail.com\",\n    \"password\": \"AbCdEf12\",\n    \"name\": \"Thanh Dat\",\n    \"phone\": \"0972334652\"\n  }",
+							"raw": "{\n    \"email\": \"th.dat3012@gmail.com\",\n    \"password\": \"password\",\n    \"name\": \"Thanh Dat\",\n    \"phone\": \"0972334655\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1850,7 +1850,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"admin@admin.com\",\n    // \"phone\": \"0123456789\",\n    \"password\": \"password\"\n}",
+							"raw": "{\n    \"email\": \"th.dat1230@gmail.com\",\n    // \"phone\": \"0123456789\",\n    \"password\": \"password\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1896,6 +1896,79 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "api/users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Nguyễn Thành Đạt\",\n    \"avatar\": \"1748174688524-admin.jpg\",\n    \"old_password\": \"12345678\",\n    \"new_password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_01}}/users/19",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"users",
+								"19"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/users/profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Nguyễn Thành Đạt\",\n    \"avatar\": \"1748174688524-admin.jpg\",\n    \"old_password\": \"password\",\n    \"new_password\": \"12345678\"\n}"
+						},
+						"url": {
+							"raw": "{{API_01}}/users/profile/19",
+							"host": [
+								"{{API_01}}"
+							],
+							"path": [
+								"users",
+								"profile",
+								"19"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1937,7 +2010,7 @@
 						{
 							"key": "images",
 							"type": "file",
-							"src": "/Users/ntda/Documents/Workspace/ShopApp/backend/assets/chuot.jpeg"
+							"src": "/Users/ntda/Documents/Workspace/ShopApp/backend/assets/user.jpg"
 						}
 					]
 				},
@@ -1960,13 +2033,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{API_01}}/images/1746870773887-dien_thoai.jpeg",
+					"raw": "{{API_01}}/images/1748174688524-admin.jpg",
 					"host": [
 						"{{API_01}}"
 					],
 					"path": [
 						"images",
-						"1746870773887-dien_thoai.jpeg"
+						"1748174688524-admin.jpg"
 					]
 				}
 			},

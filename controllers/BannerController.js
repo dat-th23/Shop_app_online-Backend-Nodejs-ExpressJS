@@ -1,6 +1,7 @@
 import { Op, Sequelize } from "sequelize"
 import db from "../models"
 import { BannerStatus } from "../constants"
+import { getImageUrl } from "../../../helper/imageHelper"
 
 // Create a banner
 export async function createBanner(req, res) {

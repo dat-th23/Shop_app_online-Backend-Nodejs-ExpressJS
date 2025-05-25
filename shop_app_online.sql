@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Generation Time: May 25, 2025 at 04:28 AM
+-- Generation Time: May 25, 2025 at 01:17 PM
 -- Server version: 9.0.1
 -- PHP Version: 8.2.27
 
@@ -396,19 +396,21 @@ CREATE TABLE `users` (
   `phone` int DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `is_locked` tinyint(1) DEFAULT '0'
+  `is_locked` tinyint(1) DEFAULT '0',
+  `password_changed_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `password`, `name`, `role`, `avatar`, `phone`, `created_at`, `updated_at`, `is_locked`) VALUES
-(10, 'john.doe@example.com', '$argon2id$v=19$m=65536,t=3,p=4$DgGm+uNlgoXY7WwZeaN87g$a3ki5db5fVbJ7MlMQyLbDt2Crp5yGcC0/sdkMZ23nd0', 'John Doe', 2, 'https://randomuser.me/api/portraits/men/1.jpg', 123456789, '2025-04-17 09:58:22', '2025-04-17 09:58:22', 0),
-(11, 'admin@admin.com', '$argon2id$v=19$m=65536,t=3,p=4$blhMwpI/w3fQfqlGsF86+g$/V+P4ZCWiDYAYEnjb7hmuDC6FKThSJvDKfTyLzbcl8k', 'admin', 1, NULL, 123456788, '2025-05-22 17:38:54', '2025-05-22 17:38:54', 0),
-(14, 'jack@example.com', '$argon2id$v=19$m=65536,t=3,p=4$//Y//nlDVhzyKWgEhnsZ/Q$WkYKDhU/T3ZXMX2EPX9gcVshpC5J5iPq10+UxL0IEaU', 'John Doe', 2, NULL, 123456787, '2025-05-22 17:42:16', '2025-05-22 17:42:16', 0),
-(15, 'john@example.com', '$argon2id$v=19$m=65536,t=3,p=4$pjy0xrWuMa4BIlnGaCd1fw$nyTkZHa5Eyldjj9KcXcHtbDOYQxDCrarF9KLFaFAhhw', 'John Doe', 2, NULL, 123456786, '2025-05-22 17:59:10', '2025-05-22 17:59:10', 0),
-(16, 'th.dat1230@gmail.com', '$argon2id$v=19$m=65536,t=3,p=4$Da2Yl/oSDO2jXQmk7HUplQ$Ksjm3gHOe+5GBRak4nn8SELQlBa/UtZrRY2YxgaR1BQ', 'Thanh Dat', 2, NULL, 972334652, '2025-05-24 01:10:22', '2025-05-24 01:10:22', 0);
+INSERT INTO `users` (`id`, `email`, `password`, `name`, `role`, `avatar`, `phone`, `created_at`, `updated_at`, `is_locked`, `password_changed_at`) VALUES
+(10, 'john.doe@example.com', '$argon2id$v=19$m=65536,t=3,p=4$DgGm+uNlgoXY7WwZeaN87g$a3ki5db5fVbJ7MlMQyLbDt2Crp5yGcC0/sdkMZ23nd0', 'John Doe', 2, 'https://randomuser.me/api/portraits/men/1.jpg', 123456789, '2025-04-17 09:58:22', '2025-04-17 09:58:22', 0, NULL),
+(11, 'admin@admin.com', '$argon2id$v=19$m=65536,t=3,p=4$blhMwpI/w3fQfqlGsF86+g$/V+P4ZCWiDYAYEnjb7hmuDC6FKThSJvDKfTyLzbcl8k', 'admin', 1, NULL, 123456788, '2025-05-22 17:38:54', '2025-05-22 17:38:54', 0, NULL),
+(14, 'jack@example.com', '$argon2id$v=19$m=65536,t=3,p=4$//Y//nlDVhzyKWgEhnsZ/Q$WkYKDhU/T3ZXMX2EPX9gcVshpC5J5iPq10+UxL0IEaU', 'John Doe', 2, NULL, 123456787, '2025-05-22 17:42:16', '2025-05-22 17:42:16', 0, NULL),
+(15, 'john@example.com', '$argon2id$v=19$m=65536,t=3,p=4$pjy0xrWuMa4BIlnGaCd1fw$nyTkZHa5Eyldjj9KcXcHtbDOYQxDCrarF9KLFaFAhhw', 'John Doe', 2, NULL, 123456786, '2025-05-22 17:59:10', '2025-05-22 17:59:10', 0, NULL),
+(19, 'th.dat1230@gmail.com', '$argon2id$v=19$m=65536,t=3,p=4$WHT76DE23tCNc2QTSlUDTg$IF/A7IjElPdhR+SavEzfUtQIgjANDw2+84Vmq10Xpog', 'Nguyễn Thành Đạt', 2, '1748174688524-admin.jpg', 972334652, '2025-05-25 10:26:54', '2025-05-25 12:43:46', 0, '2025-05-25 12:43:46'),
+(20, 'th.dat3012@gmail.com', '$argon2id$v=19$m=65536,t=3,p=4$/ZH7nD8VawfpzHpwm/R7/w$XErNlEUVWhD3fJhO8PTE0PfPgsi7PGE9iNt15hPg+BU', 'Thanh Dat', 2, NULL, 972334655, '2025-05-25 12:09:46', '2025-05-25 12:09:46', 0, NULL);
 
 --
 -- Indexes for dumped tables
@@ -611,7 +613,7 @@ ALTER TABLE `product_images`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables

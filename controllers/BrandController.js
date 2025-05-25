@@ -1,5 +1,6 @@
 import { Op, Sequelize } from "sequelize"
 import db from "../models"
+import { getImageUrl } from "../../../helper/imageHelper"
 
 export async function createBrand(req, res) {
     const { name } = req.body

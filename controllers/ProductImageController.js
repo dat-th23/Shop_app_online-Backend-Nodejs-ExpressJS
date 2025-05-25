@@ -1,4 +1,5 @@
 import db from "../models"
+import { getImageUrl } from "../../../helper/imageHelper"
 
 export async function createProductImage(req, res) {
     const { product_id, image_url } = req.body
