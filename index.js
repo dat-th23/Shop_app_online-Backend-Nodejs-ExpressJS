@@ -57,7 +57,9 @@
     ALTER TABLE banners 
     MODIFY COLUMN status INT COMMENT 1: pending, 2: processing, 3: cancel,
 
-    ALTER TABLE users ADD COLUMN is_locked TINYINT(1) DEFAULT 0
+    ALTER TABLE users ADD COLUMN is_locked TINYINT(1) DEFAUlT 0
+
+    ALTER TABLE users ADD COLUMN password_changed_at DATETIME NULL;
 
     yarn add express
     yarn add dotenv nodemon

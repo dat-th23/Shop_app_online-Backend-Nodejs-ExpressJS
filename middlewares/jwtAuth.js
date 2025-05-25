@@ -34,6 +34,20 @@ export async function authenticateToken(req, res, next) {
             message: 'Tài khoản đã bị khoá'
         })
     }
+
+    if (user.password_changed_at) {
+        const passwordChangedTimestamp = Math.floor(
+            new Date(user.password_changed_at).getTime() / 1000
+        )
+
+        if (decoded.iat < passwordChangedTimestamp) {
+            return res.status(401).json({
+                success: false,
+                message: 'Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại!'
+            })
+        }
+    }
+
     req.user = user
     next()
 }

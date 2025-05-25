@@ -95,20 +95,75 @@ export async function login(req, res) {
     })
 }
 
-export async function updateUser(req, res) {
+export async function profile(req, res) {
     const { id } = req.params
 
-    const [affectedRows] = await db.User.update(req.body, { where: { id } })
-
-    if (affectedRows === 0) {
-        return res.status(404).json({
+    if (req.user.id != id) {
+        return res.status(400).json({
             success: false,
-            message: 'Người dùng không tồn tại!',
+            message: 'Bạn không có quyền cập nhật thông tin người dùng khác!'
         })
+    }
+
+    const user = await db.User.findByPk(id)
+    if (!user) {
+        return null
     }
 
     res.status(200).json({
         success: true,
+        message: 'Lấy thông tin người dùng thành công!',
+        data: new ResponseUser(user)
+    })
+
+}
+
+export async function updateUser(req, res) {
+    const { id } = req.params
+    const { name, avatar, old_password, new_password } = req.body
+
+    if (req.user.id != id) {
+        return res.status(400).json({
+            success: false,
+            message: 'Bạn không có quyền cập nhật thông tin người dùng khác!'
+        })
+    }
+
+    const user = await db.User.findByPk(id)
+    if (!user) {
+        return res.status(404).json({
+            success: false,
+            message: 'Người dùng không tìm thấy!'
+        })
+    }
+
+    if (old_password && new_password) {
+        const validOldPassword = await argon2.verify(user.password, old_password)
+        if (!validOldPassword) {
+            return res.status(400).json({
+                success: false,
+                message: 'Mật khẩu cũ không chính xác!'
+            })
+        }
+
+        user.password = await argon2.hash(new_password)
+        user.password_changed_at = new Date()
+    }
+    else if (old_password || new_password) {
+        return res.status(400).json({
+            success: false,
+            message: 'Cần cả mật khẩu cũ và mật khẩu mới để cập nhật mật khẩu!'
+        })
+    }
+
+    user.name = name || user.name
+    user.avatar = avatar || user.avatar
+
+    await user.save()
+
+    res.status(200).json({
+        success: true,
         message: 'Cập nhật người dùng thành công!',
+        data: new ResponseUser(user)
     })
 }
