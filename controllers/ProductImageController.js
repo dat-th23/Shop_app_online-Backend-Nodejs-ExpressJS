@@ -1,5 +1,5 @@
+import { getImageUrl } from "../helper/imageHelper"
 import db from "../models"
-// import { getImageUrl } from "../../../helper/imageHelper"
 
 export async function createProductImage(req, res) {
     const { product_id, image_url } = req.body
@@ -22,12 +22,14 @@ export async function createProductImage(req, res) {
     res.status(200).json({
         success: true,
         message: 'Thêm ảnh sản phẩm thành công!',
-        data: productImage
+        data: {
+            ...productImage.get({ plain: true }),
+            image_url: getImageUrl(productImage.image_url)
+        }
     })
 }
 
 export async function getAllProductImages(req, res) {
-    // thêm trường hợp không truyền product_id 
     const { page = 1, limit = 10, product_id } = req.query
     const offset = (page - 1) * limit
 
@@ -51,7 +53,10 @@ export async function getAllProductImages(req, res) {
     res.status(200).json({
         success: true,
         message: 'Lấy danh sách ảnh sản phẩm thành công!',
-        data: images,
+        data: images?.map((image) => ({
+            ...image.get({ plain: true }),
+            image_url: getImageUrl(image.image_url)
+        })),
         count: images.length,
         pagination: {
             total,
@@ -63,9 +68,9 @@ export async function getAllProductImages(req, res) {
 
 export async function getProductImageById(req, res) {
     const { id } = req.params
-    const ProductImage = await db.ProductImage.findByPk(id)
+    const productImage = await db.ProductImage.findByPk(id)
 
-    if (!ProductImage) {
+    if (!productImage) {
         return res.status(404).json({
             message: 'Ảnh sản phẩm không tồn tại!',
             data: null
@@ -75,26 +80,12 @@ export async function getProductImageById(req, res) {
     res.status(200).json({
         success: true,
         message: 'Lấy thông tin ảnh sản phẩm thành công!',
-        data: ProductImage
+        data: {
+            ...productImage.get({ plain: true }),
+            image_url: getImageUrl(productImage.image_url)
+        }
     })
 }
-
-// export async function updateProductImage(req, res) {
-//     const { id } = req.params
-//     const [affectedRows] = await db.ProductImage.update(req.body, { where: { id } })
-
-//     if (affectedRows === 0) {
-//         return res.status(404).json({
-//             success: false,
-//             message: 'Ảnh không tồn tại!'
-//         })
-//     }
-
-//     res.status(200).json({
-//         success: true,
-//         message: 'Cập nhật ảnh sản phẩm thành công!'
-//     })
-// }
 
 export async function deleteProductImage(req, res) {
     const { id } = req.params

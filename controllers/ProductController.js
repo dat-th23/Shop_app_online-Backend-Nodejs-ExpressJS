@@ -1,7 +1,6 @@
 import { Op, Sequelize } from "sequelize"
 import db from "../models"
-// import { getImageUrl } from "../../../helper/imageHelper"
-
+import { getImageUrl } from "../helper/imageHelper"
 
 export async function createProduct(req, res) {
     const { name } = req.body
@@ -21,7 +20,10 @@ export async function createProduct(req, res) {
     res.status(201).json({
         success: true,
         message: 'Tạo sản phẩm thành công!',
-        data: product,
+        data: {
+            ...product.get({ plain: true }),
+            image: getImageUrl(product.image)
+        },
     })
 }
 
@@ -58,7 +60,10 @@ export async function getAllProducts(req, res) {
     res.status(200).json({
         success: true,
         message: 'Lấy danh sách sản phẩm thành công!',
-        data: products,
+        data: products.map((product) => ({
+            ...product.get({ plain: true }),
+            image: getImageUrl(product.image)
+        })),
         count: products.length,
         pagination: {
             total: total,
@@ -91,7 +96,10 @@ export async function getProductById(req, res) {
     res.status(200).json({
         success: true,
         message: 'Lấy sản phẩm theo ID thành công!',
-        data: product,
+        data: {
+            ...product.get({ plain: true }),
+            image: getImageUrl(product.image)
+        },
     })
 }
 
