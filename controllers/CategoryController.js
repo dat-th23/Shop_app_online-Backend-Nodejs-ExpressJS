@@ -1,6 +1,6 @@
 import { Op, Sequelize } from "sequelize"
 import db from "../models"
-// import { getImageUrl } from "../../../helper/imageHelper"
+import { getImageUrl } from "../helper/imageHelper"
 
 export async function createCategory(req, res) {
     const { name } = req.body
@@ -21,7 +21,10 @@ export async function createCategory(req, res) {
     res.status(200).json({
         success: true,
         message: 'Tạo danh mục thành công!',
-        data: category,
+        data: {
+            ...category.get({ plain: true }),
+            image: getImageUrl(category.image)
+        },
     })
 }
 
@@ -48,7 +51,10 @@ export async function getAllCategories(req, res) {
     res.status(200).json({
         success: true,
         message: 'Lấy danh sách danh mục thành công!',
-        data: categories,
+        data: categories?.map((category) => ({
+            ...category.get({ plain: true }),
+            image: getImageUrl(category.image)
+        })),
         count: categories.length,
         pagination: {
             total: total,
@@ -70,10 +76,12 @@ export async function getCategoryById(req, res) {
     res.status(200).json({
         success: true,
         message: 'Lấy danh mục theo ID thành công!',
-        data: category
+        data: {
+            ...category.get({ plain: true }),
+            image: getImageUrl(category.image)
+        },
     })
 }
-
 
 export async function updateCategory(req, res) {
     const { id } = req.params;

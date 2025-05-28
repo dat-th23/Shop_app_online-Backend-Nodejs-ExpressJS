@@ -1,6 +1,6 @@
 import { Op, Sequelize } from "sequelize"
 import db from "../models"
-// import { getImageUrl } from "../../../helper/imageHelper"
+import { getImageUrl } from "../helper/imageHelper"
 
 export async function createBrand(req, res) {
     const { name } = req.body
@@ -21,7 +21,10 @@ export async function createBrand(req, res) {
     res.status(200).json({
         success: true,
         message: 'Tạo thương hiệu thành công!',
-        data: brand,
+        data: {
+            ...brand.get({ plain: true }),
+            image: getImageUrl(brand.image)
+        },
     })
 }
 
@@ -48,7 +51,10 @@ export async function getAllBrands(req, res) {
     res.status(200).json({
         success: true,
         message: 'Lấy danh sách thương hiệu thành công!',
-        data: brands,
+        data: brands?.map((brand) => ({
+            ...brand.get({ plain: true }),
+            image: getImageUrl(brand.image)
+        })),
         count: brands.length,
         pagination: {
             total: total,
@@ -70,7 +76,10 @@ export async function getBrandById(req, res) {
     res.status(200).json({
         success: true,
         message: 'Lấy thương hiệu theo ID thành công!',
-        data: brand
+        data: {
+            ...brand.get({ plain: true }),
+            image: getImageUrl(brand.image)
+        },
     })
 }
 

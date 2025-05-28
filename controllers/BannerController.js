@@ -1,9 +1,8 @@
 import { Op, Sequelize } from "sequelize"
 import db from "../models"
 import { BannerStatus } from "../constants"
-// import { getImageUrl } from "../../../helper/imageHelper"
+import { getImageUrl } from "../helper/imageHelper"
 
-// Create a banner
 export async function createBanner(req, res) {
     const { name } = req.body
 
@@ -31,11 +30,13 @@ export async function createBanner(req, res) {
     res.status(201).json({
         success: true,
         message: 'Tạo mới banner thành công!',
-        data: banner
+        data: {
+            ...banner.get({ plain: true }),
+            image: getImageUrl(banner.image)
+        }
     })
 }
 
-// Get all banners with optional search and pagination
 export async function getAllBanners(req, res) {
     const { page = 1, limit = 10, search = '' } = req.query
     const offset = (page - 1) * limit
@@ -59,7 +60,10 @@ export async function getAllBanners(req, res) {
     res.status(200).json({
         success: true,
         message: 'Lấy danh sách banner thành công!',
-        data: banners,
+        data: banners?.map((banner) => ({
+            ...banner.get({ plain: true }),
+            image: getImageUrl(banner.image)
+        })),
         count: banners.length,
         pagination: {
             total: total,
@@ -69,7 +73,6 @@ export async function getAllBanners(req, res) {
     })
 }
 
-// Get banner by id
 export async function getBannerById(req, res) {
     const { id } = req.params
     const banner = await db.Banner.findByPk(id)
@@ -83,11 +86,13 @@ export async function getBannerById(req, res) {
     res.status(200).json({
         success: true,
         message: 'Lấy banner thành công!',
-        data: banner
+        data: {
+            ...banner.get({ plain: true }),
+            image: getImageUrl(banner.image)
+        }
     })
 }
 
-// Update banner
 export async function updateBanner(req, res) {
     const { id } = req.params
     const { name } = req.body
@@ -122,7 +127,6 @@ export async function updateBanner(req, res) {
     })
 }
 
-// Delete banner
 export async function deleteBanner(req, res) {
     const { id } = req.params
     const transaction = await db.sequelize.transaction()

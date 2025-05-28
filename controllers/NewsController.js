@@ -1,6 +1,6 @@
 import { Op } from "sequelize"
 import db from "../models"
-// import { getImageUrl } from "../../../helper/imageHelper"
+import { getImageUrl } from "../helper/imageHelper"
 
 export async function createNewsArticle(req, res) {
     const transaction = await db.sequelize.transaction()
@@ -52,7 +52,10 @@ export async function createNewsArticle(req, res) {
         res.status(201).json({
             success: true,
             message: 'Tạo bài báo thành công!',
-            data: newsArticle
+            data: {
+                ...newsArticle.get({ plain: true }),
+                image: getImageUrl(newsArticle.image)
+            }
         })
     } catch (error) {
         await transaction.rollback()
@@ -88,7 +91,10 @@ export async function getAllNewsArticles(req, res) {
     res.status(200).json({
         success: true,
         message: 'Lấy danh sách bài báo thành công!',
-        data: newsArticles,
+        data: newsArticles?.map((newsArticle) => ({
+            ...newsArticle.get({ plain: true }),
+            image: getImageUrl(newsArticle.image)
+        })),
         count: newsArticles.length,
         pagination: {
             total: total,
@@ -112,7 +118,10 @@ export async function getNewsArticleById(req, res) {
     res.status(200).json({
         success: true,
         message: 'Lấy bài báo theo ID thành công!',
-        data: newsArticle
+        data: {
+            ...newsArticle.get({ plain: true }),
+            image: getImageUrl(newsArticle.image)
+        }
     })
 }
 
