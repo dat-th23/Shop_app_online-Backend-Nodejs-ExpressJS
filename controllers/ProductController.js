@@ -1,6 +1,6 @@
 import { Op, Sequelize } from "sequelize"
 import db from "../models"
-import { getImageUrl } from "../../../helper/imageHelper"
+// import { getImageUrl } from "../../../helper/imageHelper"
 
 
 export async function createProduct(req, res) {

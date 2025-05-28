@@ -4,6 +4,7 @@ import { UserRole } from "../constants"
 import { Op } from "sequelize"
 import ResponseUser from "../dtos/responses/user/ResponseUser"
 import { generateToken } from "../helper/jwtHelper"
+import { getImageUrl } from "../helper/imageHelper"
 
 export async function registerUser(req, res) {
     const { email, phone, password } = req.body
@@ -95,13 +96,13 @@ export async function login(req, res) {
     })
 }
 
-export async function profile(req, res) {
+export async function getUserById(req, res) {
     const { id } = req.params
 
     if (req.user.id != id) {
         return res.status(400).json({
             success: false,
-            message: 'Bạn không có quyền cập nhật thông tin người dùng khác!'
+            message: 'Chỉ có người dùng và quản trị viên mới có quyền xem thông tin này!'
         })
     }
 
@@ -113,7 +114,10 @@ export async function profile(req, res) {
     res.status(200).json({
         success: true,
         message: 'Lấy thông tin người dùng thành công!',
-        data: new ResponseUser(user)
+        data: {
+            ...user.get({ plain: true }),
+            avatar: getImageUrl(user.avatar)
+        }
     })
 
 }
@@ -164,6 +168,9 @@ export async function updateUser(req, res) {
     res.status(200).json({
         success: true,
         message: 'Cập nhật người dùng thành công!',
-        data: new ResponseUser(user)
+        data: {
+            ...user.get({ plain: true }),
+            avatar: getImageUrl(user.avatar)
+        }
     })
 }

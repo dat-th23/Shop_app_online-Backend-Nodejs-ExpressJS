@@ -1,6 +1,6 @@
 import { Op } from "sequelize"
 import db from "../models"
-import { getImageUrl } from "../../../helper/imageHelper"
+// import { getImageUrl } from "../../../helper/imageHelper"
 
 export async function createNewsDetail(req, res) {
     const { product_id, news_id } = req.body

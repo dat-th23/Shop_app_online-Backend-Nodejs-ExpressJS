@@ -1,6 +1,6 @@
 import { Op } from "sequelize"
 import db from "../models"
-import { getImageUrl } from "../../../helper/imageHelper"
+// import { getImageUrl } from "../../../helper/imageHelper"
 
 export async function getAllBannerDetails(req, res) {
     const { page = 1, limit = 10, search = '' } = req.query

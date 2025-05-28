@@ -39,10 +39,10 @@ const router = express.Router()
 
 export function AppRoute(app) {
     // User Routes
-    router.get('/users/profile/:id',
+    router.get('/users/me/:id',
         authenticateToken,
-        requireRole([UserRole.USER]),
-        asyncHandler(UserController.profile))
+        requireRole([UserRole.USER, UserRole.ADMIN]),
+        asyncHandler(UserController.getUserById))
     router.post('/users/register', validate(InsertUserRequest), asyncHandler(UserController.registerUser))
     router.post('/users/login', validate(LoginUserRequest), asyncHandler(UserController.login))
     router.put('/users/:id',

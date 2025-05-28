@@ -1,6 +1,6 @@
 import { Op } from "sequelize"
 import db from "../models"
-import { getImageUrl } from "../../../helper/imageHelper"
+// import { getImageUrl } from "../../../helper/imageHelper"
 
 export async function createNewsArticle(req, res) {
     const transaction = await db.sequelize.transaction()
