@@ -1,6 +1,7 @@
 import { Op } from "sequelize"
 import db from "../models"
 import { OrderStatus } from "../constants"
+import { formatPaginatedResponse } from "../helper/responseHelper"
 
 export async function createCart(req, res) {
     const { user_id, session_id } = req.body
@@ -34,7 +35,9 @@ export async function createCart(req, res) {
 }
 
 export async function getAllCarts(req, res) {
-    const { page = 1, limit = 10, search = '' } = req.query
+    const { search = '' } = req.query
+    const page = parseInt(req.query.page ?? '1', 10)
+    const limit = parseInt(req.query.limit ?? '10', 10)
     const offset = (page - 1) * limit
 
     const whereCondition = {
@@ -44,28 +47,15 @@ export async function getAllCarts(req, res) {
         ],
     }
 
-    const [total, carts] = await Promise.all([
-        db.Cart.count({ where: whereCondition }),
-        db.Cart.findAll({
-            where: whereCondition,
-            offset: parseInt(offset),
-            limit: parseInt(limit),
-            order: [['id', 'ASC']],
-            include: [{ model: db.CartItem }],
-        }),
-    ])
-
-    res.status(200).json({
-        success: true,
-        message: "Lấy danh sách giỏ hàng thành công!",
-        data: carts,
-        count: carts.length,
-        pagination: {
-            total: total,
-            page: parseInt(page),
-            limit: parseInt(limit),
-        },
+    const { count, rows } = await db.Cart.findAndCountAll({
+        where: whereCondition,
+        limit: limit,
+        offset: offset,
+        include: [{ model: db.CartItem }],
+        order: [['created_at', 'desc']]
     })
+
+    res.status(200).json(formatPaginatedResponse(page, limit, count, rows));
 }
 
 export async function getCartById(req, res) {

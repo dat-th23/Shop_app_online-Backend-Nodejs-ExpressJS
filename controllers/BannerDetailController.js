@@ -1,6 +1,47 @@
 import { Op } from "sequelize"
 import db from "../models"
-// import { getImageUrl } from "../../../helper/imageHelper"
+
+export async function createBannerDetail(req, res) {
+    const { product_id, banner_id } = req.body
+
+    const product = await db.Product.findByPk(product_id)
+    if (!product) {
+        return res.status(400).json({
+            success: false,
+            message: 'Sản phẩm không tồn tại!'
+        });
+    }
+
+    const banner = await db.Banner.findByPk(banner_id)
+    if (!banner) {
+        return res.status(400).json({
+            success: false,
+            message: 'Banner không tồn tại!'
+        });
+    }
+
+    const existing = await db.BannerDetail.findOne({
+        where: {
+            product_id,
+            banner_id,
+        },
+    })
+
+    if (existing) {
+        return res.status(409).json({
+            success: false,
+            message: 'Mối quan hệ giữa sản phẩm và banner đã tồn tại!'
+        });
+    }
+
+    const bannerDetail = await db.BannerDetail.create({ product_id, banner_id })
+
+    res.status(200).json({
+        success: true,
+        message: 'Tạo chi tiết banner thành công!',
+        data: bannerDetail,
+    })
+}
 
 export async function getAllBannerDetails(req, res) {
     const { page = 1, limit = 10, search = '' } = req.query
@@ -67,48 +108,6 @@ export async function getBannerDetailById(req, res) {
         message: 'Lấy chi tiết banner theo ID thành công!',
         data: bannerDetail
     });
-}
-
-export async function createBannerDetail(req, res) {
-    const { product_id, banner_id } = req.body
-
-    const product = await db.Product.findByPk(product_id)
-    if (!product) {
-        return res.status(400).json({
-            success: false,
-            message: 'Sản phẩm không tồn tại!'
-        });
-    }
-
-    const banner = await db.Banner.findByPk(banner_id)
-    if (!banner) {
-        return res.status(400).json({
-            success: false,
-            message: 'Banner không tồn tại!'
-        });
-    }
-
-    const existing = await db.BannerDetail.findOne({
-        where: {
-            product_id,
-            banner_id,
-        },
-    })
-
-    if (existing) {
-        return res.status(409).json({
-            success: false,
-            message: 'Mối quan hệ giữa sản phẩm và banner đã tồn tại!'
-        });
-    }
-
-    const bannerDetail = await db.BannerDetail.create({ product_id, banner_id })
-
-    res.status(200).json({
-        success: true,
-        message: 'Tạo chi tiết banner thành công!',
-        data: bannerDetail,
-    })
 }
 
 export async function updateBannerDetail(req, res) {

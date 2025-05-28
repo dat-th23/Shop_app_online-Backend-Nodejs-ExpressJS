@@ -1,4 +1,5 @@
 import { getImageUrl } from "../helper/imageHelper"
+import { formatPaginatedResponse } from "../helper/responseHelper"
 import db from "../models"
 
 export async function createProductImage(req, res) {
@@ -30,7 +31,9 @@ export async function createProductImage(req, res) {
 }
 
 export async function getAllProductImages(req, res) {
-    const { page = 1, limit = 10, product_id } = req.query
+    const { product_id } = req.query
+    const page = parseInt(req.query.page ?? '1', 10)
+    const limit = parseInt(req.query.limit ?? '10', 10)
     const offset = (page - 1) * limit
 
     const whereCondition = {}
@@ -39,31 +42,14 @@ export async function getAllProductImages(req, res) {
         whereCondition.product_id = product_id
     }
 
-    const [total, images] = await Promise.all([
-        db.ProductImage.count({ where: whereCondition }),
-        db.ProductImage.findAll({
-            where: whereCondition,
-            // include: ['Product'],
-            offset: parseInt(offset),
-            limit: parseInt(limit),
-            order: [['id', 'ASC']]
-        })
-    ])
-
-    res.status(200).json({
-        success: true,
-        message: 'Lấy danh sách ảnh sản phẩm thành công!',
-        data: images?.map((image) => ({
-            ...image.get({ plain: true }),
-            image_url: getImageUrl(image.image_url)
-        })),
-        count: images.length,
-        pagination: {
-            total,
-            page: parseInt(page),
-            limit: parseInt(limit)
-        }
+    const { count, rows } = await db.ProductImage.findAndCountAll({
+        where: whereCondition,
+        limit: limit,
+        offset: offset,
+        order: [['created_at', 'desc']]
     })
+
+    res.status(200).json(formatPaginatedResponse(page, limit, count, rows))
 }
 
 export async function getProductImageById(req, res) {

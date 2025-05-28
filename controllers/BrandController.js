@@ -1,6 +1,7 @@
 import { Op, Sequelize } from "sequelize"
 import db from "../models"
 import { getImageUrl } from "../helper/imageHelper"
+import { formatPaginatedResponse } from "../helper/responseHelper"
 
 export async function createBrand(req, res) {
     const { name } = req.body
@@ -29,7 +30,9 @@ export async function createBrand(req, res) {
 }
 
 export async function getAllBrands(req, res) {
-    const { page = 1, limit = 10, search = '' } = req.query
+    const { search = '' } = req.query
+    const page = parseInt(req.query.page ?? '1', 10)
+    const limit = parseInt(req.query.limit ?? '10', 10)
     const offset = (page - 1) * limit
 
     const whereCondition = {
@@ -38,30 +41,14 @@ export async function getAllBrands(req, res) {
         ]
     }
 
-    const [total, brands] = await Promise.all([
-        db.Brand.count({ where: whereCondition }),
-        db.Brand.findAll({
-            where: whereCondition,
-            offset: parseInt(offset),
-            limit: parseInt(limit),
-            order: [['id', 'ASC']],
-        })
-    ])
-
-    res.status(200).json({
-        success: true,
-        message: 'Lấy danh sách thương hiệu thành công!',
-        data: brands?.map((brand) => ({
-            ...brand.get({ plain: true }),
-            image: getImageUrl(brand.image)
-        })),
-        count: brands.length,
-        pagination: {
-            total: total,
-            page: parseInt(page),
-            limit: parseInt(limit),
-        }
+    const { count, rows } = await db.Brand.findAndCountAll({
+        where: whereCondition,
+        limit: limit,
+        offset: offset,
+        order: [['created_at', 'desc']]
     })
+
+    res.status(200).json(formatPaginatedResponse(page, limit, count, rows));
 }
 
 export async function getBrandById(req, res) {

@@ -56,8 +56,6 @@ export async function createCartItem(req, res) {
 export async function getCartItems(req, res) {
     const { cart_id } = req.params
 
-    console.log('cart_id', cart_id)
-
     const cartItems = await db.CartItem.findAll({
         where: { cart_id },
         include: [{ model: db.Product }],

@@ -1,6 +1,7 @@
 import { Op } from "sequelize"
 import db from "../models"
 import { getImageUrl } from "../helper/imageHelper"
+import { formatPaginatedResponse } from "../helper/responseHelper"
 
 export async function createNewsArticle(req, res) {
     const transaction = await db.sequelize.transaction()
@@ -68,7 +69,9 @@ export async function createNewsArticle(req, res) {
 }
 
 export async function getAllNewsArticles(req, res) {
-    const { page = 1, limit = 10, search = '' } = req.query
+    const { search = '' } = req.query
+    const page = parseInt(req.query.page ?? '1', 10)
+    const limit = parseInt(req.query.limit ?? '10', 10)
     const offset = (page - 1) * limit
 
     const whereCondition = {
@@ -78,30 +81,14 @@ export async function getAllNewsArticles(req, res) {
         ]
     }
 
-    const [total, newsArticles] = await Promise.all([
-        db.News.count({ where: whereCondition }),
-        db.News.findAll({
-            where: whereCondition,
-            offset: parseInt(offset),
-            limit: parseInt(limit),
-            order: [['id', 'ASC']],
-        })
-    ])
-
-    res.status(200).json({
-        success: true,
-        message: 'Lấy danh sách bài báo thành công!',
-        data: newsArticles?.map((newsArticle) => ({
-            ...newsArticle.get({ plain: true }),
-            image: getImageUrl(newsArticle.image)
-        })),
-        count: newsArticles.length,
-        pagination: {
-            total: total,
-            page: parseInt(page),
-            limit: parseInt(limit),
-        }
+    const { count, rows } = await db.News.findAndCountAll({
+        where: whereCondition,
+        limit: limit,
+        offset: offset,
+        order: [['created_at', 'desc']]
     })
+
+    res.status(200).json(formatPaginatedResponse(page, limit, count, rows))
 }
 
 export async function getNewsArticleById(req, res) {

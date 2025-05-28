@@ -1,6 +1,7 @@
 import { Op, Sequelize } from "sequelize"
 import db from "../models"
 import { getImageUrl } from "../helper/imageHelper"
+import { formatPaginatedResponse } from "../helper/responseHelper"
 
 export async function createProduct(req, res) {
     const { name } = req.body
@@ -28,7 +29,9 @@ export async function createProduct(req, res) {
 }
 
 export async function getAllProducts(req, res) {
-    const { page = 1, limit = 10, search = '' } = req.query
+    const { search = '' } = req.query
+    const page = parseInt(req.query.page ?? '1', 10)
+    const limit = parseInt(req.query.limit ?? '10', 10)
     const offset = (page - 1) * limit
 
     const whereCondition = {
@@ -39,38 +42,22 @@ export async function getAllProducts(req, res) {
         ]
     }
 
-    const [total, products] = await Promise.all([
-        db.Product.count({ where: whereCondition }),
-        db.Product.findAll({
-            where: whereCondition,
-            include: [
-                {
-                    model: db.ProductImage,
-                    as: 'product_images'
-                },
-                { model: db.Brand },
-                { model: db.Category }
-            ],
-            offset: parseInt(offset),
-            limit: parseInt(limit),
-            order: [['id', 'ASC']],
-        })
-    ])
-
-    res.status(200).json({
-        success: true,
-        message: 'Lấy danh sách sản phẩm thành công!',
-        data: products.map((product) => ({
-            ...product.get({ plain: true }),
-            image: getImageUrl(product.image)
-        })),
-        count: products.length,
-        pagination: {
-            total: total,
-            page: parseInt(page),
-            limit: parseInt(limit),
-        }
+    const { count, rows } = await db.Product.findAndCountAll({
+        where: whereCondition,
+        limit: limit,
+        offset: offset,
+        include: [
+            {
+                model: db.ProductImage,
+                as: 'product_images'
+            },
+            { model: db.Brand },
+            { model: db.Category }
+        ],
+        order: [['created_at', 'desc']]
     })
+
+    res.status(200).json(formatPaginatedResponse(page, limit, count, rows))
 }
 
 export async function getProductById(req, res) {

@@ -2,6 +2,7 @@ import { Op, Sequelize } from "sequelize"
 import db from "../models"
 import { BannerStatus } from "../constants"
 import { getImageUrl } from "../helper/imageHelper"
+import { formatPaginatedResponse } from "../helper/responseHelper"
 
 export async function createBanner(req, res) {
     const { name } = req.body
@@ -38,7 +39,9 @@ export async function createBanner(req, res) {
 }
 
 export async function getAllBanners(req, res) {
-    const { page = 1, limit = 10, search = '' } = req.query
+    const { search = '' } = req.query
+    const page = parseInt(req.query.page ?? '1', 10)
+    const limit = parseInt(req.query.limit ?? '10', 10)
     const offset = (page - 1) * limit
 
     const whereCondition = {
@@ -47,30 +50,14 @@ export async function getAllBanners(req, res) {
         ]
     }
 
-    const [total, banners] = await Promise.all([
-        db.Banner.count({ where: whereCondition }),
-        db.Banner.findAll({
-            where: whereCondition,
-            offset: parseInt(offset),
-            limit: parseInt(limit),
-            order: [['id', 'ASC']],
-        })
-    ])
-
-    res.status(200).json({
-        success: true,
-        message: 'Lấy danh sách banner thành công!',
-        data: banners?.map((banner) => ({
-            ...banner.get({ plain: true }),
-            image: getImageUrl(banner.image)
-        })),
-        count: banners.length,
-        pagination: {
-            total: total,
-            page: parseInt(page),
-            limit: parseInt(limit),
-        }
+    const { count, rows } = await db.Banner.findAndCountAll({
+        where: whereCondition,
+        limit: limit,
+        offset: offset,
+        order: [['created_at', 'desc']]
     })
+
+    res.status(200).json(formatPaginatedResponse(page, limit, count, rows));
 }
 
 export async function getBannerById(req, res) {

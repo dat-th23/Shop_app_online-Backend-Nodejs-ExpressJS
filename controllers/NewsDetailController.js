@@ -1,6 +1,6 @@
 import { Op } from "sequelize"
 import db from "../models"
-// import { getImageUrl } from "../../../helper/imageHelper"
+import { formatPaginatedResponse } from "../helper/responseHelper";
 
 export async function createNewsDetail(req, res) {
     const { product_id, news_id } = req.body
@@ -44,39 +44,28 @@ export async function createNewsDetail(req, res) {
 }
 
 export async function getAllNewsDetails(req, res) {
-    const { page = 1, limit = 10, search = '' } = req.query
+    const { search = '' } = req.query
+    const page = parseInt(req.query.page ?? '1', 10)
+    const limit = parseInt(req.query.limit ?? '10', 10)
     const offset = (page - 1) * limit
 
-    const [total, newsDetails] = await Promise.all([
-        db.NewsDetail.count(),
-        db.NewsDetail.findAll({
-            offset: parseInt(offset),
-            limit: parseInt(limit),
-            order: [['news_id', 'ASC']],
-            include: [
-                {
-                    model: db.Product,
-                    attributes: ['id', 'name', 'image', 'price'],
-                },
-                {
-                    model: db.News,
-                    attributes: ['id', 'title', 'content'],
-                }
-            ]
-        })
-    ])
-
-    res.status(200).json({
-        success: true,
-        message: 'Lấy danh sách chi tiết tin tức thành công!',
-        data: newsDetails,
-        count: newsDetails.length,
-        pagination: {
-            total: total,
-            page: parseInt(page),
-            limit: parseInt(limit),
-        }
+    const { count, rows } = await db.NewsDetail.findAndCountAll({
+        limit: limit,
+        offset: offset,
+        include: [
+            {
+                model: db.Product,
+                attributes: ['id', 'name', 'image', 'price'],
+            },
+            {
+                model: db.News,
+                attributes: ['id', 'title', 'content'],
+            }
+        ],
+        order: [['created_at', 'desc']]
     })
+
+    res.status(200).json(formatPaginatedResponse(page, limit, count, rows))
 }
 
 export async function getNewsDetailById(req, res) {

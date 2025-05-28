@@ -1,6 +1,7 @@
 import { Op, Sequelize } from "sequelize"
 import db from "../models"
 import { getImageUrl } from "../helper/imageHelper"
+import { formatPaginatedResponse } from "../helper/responseHelper"
 
 export async function createCategory(req, res) {
     const { name } = req.body
@@ -29,7 +30,9 @@ export async function createCategory(req, res) {
 }
 
 export async function getAllCategories(req, res) {
-    const { page = 1, limit = 10, search = '' } = req.query
+    const { search = '' } = req.query
+    const page = parseInt(req.query.page ?? '1', 10)
+    const limit = parseInt(req.query.limit ?? '10', 10)
     const offset = (page - 1) * limit
 
     const whereCondition = {
@@ -38,30 +41,14 @@ export async function getAllCategories(req, res) {
         ]
     }
 
-    const [total, categories] = await Promise.all([
-        db.Category.count({ where: whereCondition }),
-        db.Category.findAll({
-            where: whereCondition,
-            offset: parseInt(offset),
-            limit: parseInt(limit),
-            order: [['id', 'ASC']],
-        })
-    ])
-
-    res.status(200).json({
-        success: true,
-        message: 'Lấy danh sách danh mục thành công!',
-        data: categories?.map((category) => ({
-            ...category.get({ plain: true }),
-            image: getImageUrl(category.image)
-        })),
-        count: categories.length,
-        pagination: {
-            total: total,
-            page: parseInt(page),
-            limit: parseInt(limit),
-        }
+    const { count, rows } = await db.Category.findAndCountAll({
+        where: whereCondition,
+        limit: limit,
+        offset: offset,
+        order: [['created_at', 'desc']]
     })
+
+    res.status(200).json(formatPaginatedResponse(page, limit, count, rows))
 }
 
 export async function getCategoryById(req, res) {
@@ -84,7 +71,7 @@ export async function getCategoryById(req, res) {
 }
 
 export async function updateCategory(req, res) {
-    const { id } = req.params;
+    const { id } = req.params
     const { name } = req.body
 
     if (name && name != undefined) {
@@ -103,32 +90,32 @@ export async function updateCategory(req, res) {
         }
     }
 
-    console.log('req', req.body);
+    console.log('req', req.body)
 
-    const [affectedRows] = await db.Category.update(req.body, { where: { id } });
+    const [affectedRows] = await db.Category.update(req.body, { where: { id } })
 
     if (affectedRows === 0) {
-        return res.status(404).json({ message: 'Danh mục không tồn tại!' });
+        return res.status(404).json({ message: 'Danh mục không tồn tại!' })
     }
 
     res.status(200).json({
         success: true,
         message: 'Cập nhật danh mục thành công!',
-    });
+    })
 }
 
 export async function deleteCategory(req, res) {
-    const { id } = req.params;
-    const deleted = await db.Category.destroy({ where: { id } });
+    const { id } = req.params
+    const deleted = await db.Category.destroy({ where: { id } })
 
     if (!deleted) {
         return res.status(404).json({
             message: 'Danh mục không tồn tại!',
-        });
+        })
     }
 
     res.status(200).json({
         success: true,
         message: 'Xóa danh mục thành công!',
-    });
+    })
 }
