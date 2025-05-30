@@ -61,6 +61,9 @@
 
     ALTER TABLE users ADD COLUMN password_changed_at DATETIME NULL;
 
+    npx sequelize-cli model:generate --name Attribute --attributes name:string
+    npx sequelize-cli model:generate --name ProductAttributeValue --attributes product_id:integer,attribute_id:integer,value:text
+
     yarn add express
     yarn add dotenv nodemon
     yarn add --dev @babel/core @babel/node @babel/preset-env
