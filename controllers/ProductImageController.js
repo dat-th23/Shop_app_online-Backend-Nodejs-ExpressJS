@@ -49,7 +49,15 @@ export async function getAllProductImages(req, res) {
         order: [['created_at', 'desc']]
     })
 
-    res.status(200).json(formatPaginatedResponse(page, limit, count, rows))
+    res.status(200).json(formatPaginatedResponse(
+        page,
+        limit,
+        count,
+        rows?.map(item => ({
+            ...item.get({ plain: true }),
+            image_url: getImageUrl(item.image_url)
+        }))
+    ))
 }
 
 export async function getProductImageById(req, res) {

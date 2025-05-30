@@ -57,7 +57,15 @@ export async function getAllBanners(req, res) {
         order: [['created_at', 'desc']]
     })
 
-    res.status(200).json(formatPaginatedResponse(page, limit, count, rows));
+    res.status(200).json(formatPaginatedResponse(
+        page,
+        limit,
+        count,
+        rows?.map(item => ({
+            ...item.get({ plain: true }),
+            image: getImageUrl(item.image)
+        }))
+    ))
 }
 
 export async function getBannerById(req, res) {
